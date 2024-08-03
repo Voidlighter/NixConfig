@@ -64,7 +64,6 @@
 
     # Coding
     alacritty
-    neovim
     vscodium
     zed
     # nix

@@ -11,6 +11,7 @@
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
+#     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -67,6 +68,7 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
+      home-manager
       neovim
       # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
       wget

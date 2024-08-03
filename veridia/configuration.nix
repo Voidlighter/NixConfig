@@ -19,6 +19,15 @@
     ./hardware-configuration.nix
   ];
 
+    environment.systemPackages = with pkgs; [
+    home-manager
+    neovim
+    # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+    wget
+    git
+    firefox
+  ];
+
   networking.hostName = "veridia"; # Define your hostname.
 
   users.users.cade = {
