@@ -12,7 +12,7 @@ with pkgs;
   lib.optionals lightweight [
     hello
 
-    unstable.hyprland
+    hyprland
     unstable.waybar
     unstable.mako
     unstable.libnotify
