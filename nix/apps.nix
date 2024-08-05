@@ -11,6 +11,7 @@
 with pkgs;
   lib.optionals lightweight [
     hello
+    jetbrains-mono
 
     hyprland
     unstable.waybar
