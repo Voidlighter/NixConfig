@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
@@ -15,6 +16,7 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    nixos-hardware,
     home-manager,
     ...
   } @ inputs: let
@@ -96,7 +98,9 @@
           host = "elysia";
         };
         modules = [
-          # > Our main nixos configuration file <
+          # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+          nixos-hardware.nixosModules.microsoft-surface-common
+          nixos-hardware.nixosModules.microsoft-surface-pro-intel
           ./nix/hosts/elysia/configuration.nix
         ];
       };
