@@ -58,6 +58,7 @@
   };
 
   networking.hostName = "${host}"; # Define your hostname.
+  hardware.bluetooth.enable = true;
 
   users.users.${username} = {
     isNormalUser = true;
