@@ -1,81 +1,12 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
-  inputs,
   lib,
+  inputs,
   config,
   pkgs,
-  pkgs-unstable,
   ...
-}: let
-  unstable-packages = with pkgs-unstable; [
-    floorp
-
-    hyprland
-    waybar
-    mako
-    libnotify
-    swww
-    rofi-wayland
-  ];
-
-  stable-packages = with pkgs; [
-    # Desktop apps
-    ## Browsers
-    ungoogled-chromium
-    ## other
-    libreoffice
-    kdePackages.kate
-    protonvpn-gui
-    libsForQt5.kdeconnect-kde
-    signal-desktop
-    kde-gtk-config
-    spotify
-
-    # CLI Utilities
-    bat
-    curl
-    eza
-    fd
-    ripgrep
-    zellij
-    bottom
-    zoxide
-    fzf
-    starship
-
-    # Coding
-    alacritty
-    vscodium
-    zed-editor
-    ## nix
-    alejandra
-    deadnix
-    statix
-    nil
-    ## Java
-    jetbrains.idea-ultimate
-    maven
-    temurin-bin-21
-    mysql
-    mysql-shell
-    ## python
-    python3
-    ## other
-    biome
-
-    # For Android Manipulation
-    android-udev-rules
-    android-tools
-    fwupd
-
-    # Keyboard
-    vial
-
-    # Gaming
-    # steam
-  ];
-in {
+}: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -83,6 +14,7 @@ in {
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    ./../apps.nix
   ];
 
   nixpkgs = {
@@ -107,10 +39,22 @@ in {
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "cade";
     homeDirectory = "/home/cade";
+
+    packages = import ./../apps.nix {
+      inherit lib pkgs;
+      gaming = false;
+      javaCoding = true;
+      coding = true;
+      android = false;
+    };
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
+    file = {
+    };
   };
 
   programs = {
@@ -148,7 +92,19 @@ in {
       hostname.ssh_only = false;
       hostname.style = "bold green";
     };
-
+    alacritty = {
+      enable = true;
+      # custom settings
+      settings = {
+        env.TERM = "xterm-256color";
+        font = {
+          size = 12;
+          draw_bold_text_with_bright_colors = true;
+        };
+        scrolling.multiplier = 5;
+        selection.save_to_clipboard = true;
+      };
+    };
     eza = {
       enable = true;
     };
@@ -180,6 +136,11 @@ in {
             rev = "v0.5.0";
             sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
           };
+        }
+        {
+          name = "vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
       ];
 
@@ -287,25 +248,10 @@ in {
 
         # fixes duplication of commands when using tab-completion
         export LANG=C.UTF-8
+
+        eval "$(zoxide init zsh)"
       '';
     };
-  };
-
-  home.packages =
-    stable-packages
-    ++ unstable-packages
-    ++
-    # FIXME: you can add anything else that doesn't fit into the above two lists in here
-    [
-      # pkgs.some-package
-      # pkgs-unstable.some-other-package
-    ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
-  home.file = {
   };
 
   # Nicely reload system units when changing configs

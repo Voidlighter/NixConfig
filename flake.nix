@@ -99,13 +99,7 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-
-          config = {
-            allowUnfree = true;
-          };
-        };
+        inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
         modules = [
@@ -114,13 +108,7 @@
         ];
       };
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-
-          config = {
-            allowUnfree = true;
-          };
-        };
+        inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
         modules = [

@@ -2,46 +2,61 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
   pkgs,
+  lib,
+  inputs,
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
+    # If you want to use modules from other flakes (such as nixos-hardware):
+    # inputs.hardware.nixosModules.common-cpu-amd
+    # inputs.hardware.nixosModules.common-ssd
+
+    # You can also split up your configuration and import pieces of it here:
+    # ./users.nix
+    ./../apps.nix
+
+    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  environment = {
+    sessionVariables = {
+      # If your cursor becomes invisible
+      WLR_NO_HARDWARE_CURSORS = "1";
+      # Hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
+    };
+    systemPackages = with pkgs; [
+      home-manager
+      neovim
+      # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+      zsh
+      wget
+      git
+      firefox
 
-  networking.hostName = "elysia"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+      hyprland
+      waybar
+      mako
+      libnotify
+      swww
+      rofi-wayland
+      (
+        pkgs.waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+        })
+      )
+    ];
+  };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "veridia"; # Define your hostname.
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Denver";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  users.users.cade = {
+    isNormalUser = true;
+    description = "Cade";
+    extraGroups = ["networkmanager" "wheel"];
+    # packages = with pkgs; [];
   };
 
   # Enable the X11 windowing system.
@@ -49,6 +64,7 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
@@ -58,131 +74,127 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # # XDG Portal
+  # xdg.portal.enable = true;
+  # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = true;
+  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = false;
+    enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
     jack.enable = true;
+  };
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
+  programs = {
+    # hyprland = {
+    #   enable = true;
+    #   # nvidiaPatches = true;
+    #   xwayland.enable = true;
+    # };
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      # vimdiffAlias = true;
+    };
+
+    nix-index.enable = true;
+    nix-index.enableZshIntegration = true;
+    command-not-found.enable = false;
+    # nix-index-database.comma.enable = true;
+
+    starship.enable = true;
+    starship.settings = {
+      aws.disabled = true;
+      gcloud.disabled = true;
+      kubernetes.disabled = false;
+      git_branch.style = "242";
+      directory.style = "blue";
+      directory.truncate_to_repo = false;
+      directory.truncation_length = 8;
+      python.disabled = true;
+      ruby.disabled = true;
+      hostname.ssh_only = false;
+      hostname.style = "bold green";
+    };
+    # This is where .zshrc stuff goes
+    zsh = {
+      enable = true;
+      # autocd = true;
+      autosuggestions.enable = true;
+      enableCompletion = true;
+      # defaultKeymap = "viins";
+      # history.size = 10000;
+      # history.save = 10000;
+      # history.expireDuplicatesFirst = true;
+      # history.ignoreDups = true;
+      # history.ignoreSpace = true;
+      # historySubstringSearch.enable = true;
+
+      # plugins = [
+      #   {
+      #     name = "fast-syntax-highlighting";
+      #     src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+      #   }
+      #   {
+      #     name = "zsh-nix-shell";
+      #     file = "nix-shell.plugin.zsh";
+      #     src = pkgs.fetchFromGitHub {
+      #       owner = "chisui";
+      #       repo = "zsh-nix-shell";
+      #       rev = "v0.5.0";
+      #       sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
+      #     };
+      #   }
+      # ];
+
+      shellAliases = {
+        "..." = "./..";
+        "...." = "././..";
+        ls = "eza";
+        gc = "nix-collect-garbage --delete-old";
+        show_path = "echo $PATH | tr ':' '\n'";
+
+        gapa = "git add --patch";
+        grpa = "git reset --patch";
+        gst = "git status";
+        gdh = "git diff HEAD";
+        gp = "git push";
+        gph = "git push -u origin HEAD";
+        gco = "git checkout";
+        gcob = "git checkout -b";
+        gcm = "git checkout master";
+        gcd = "git checkout develop";
+      };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.cade = {
-    isNormalUser = true;
-    description = "Cade";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      # desktop apps
-      kdePackages.kate
-      floorp
-      ungoogled-chromium
-      protonvpn-gui
-      libsForQt5.kdeconnect-kde
-      spotify
-      signal-desktop
-      kde-gtk-config
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
-      # coding
-      vscodium
-      neovim
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
-      # For Android Manipulation
-      android-udev-rules
-      android-tools
-      fwupd
-      brave
+  hardware = {
+    # Opengl
+    opengl.enable = true;
 
-      # Keyboard
-      vial
-
-      # key tools
-      gh # for bootstrapping
-      just
-
-      # core languages
-      rustup
-      go
-      lua
-      nodejs
-      python3
-      typescript
-      biome
-
-      # rust stuff
-      cargo-cache
-      cargo-expand
-
-      # local dev stuf
-      mkcert
-      httpie
-
-      # treesitter
-      tree-sitter
-
-      jetbrains-mono
-
-      # java stuff
-      jetbrains.idea-community
-      # jetbrains.idea-ultimate
-      maven
-      temurin-bin-21
-      mysql
-      mysql-shell
-
-      # language servers
-      ccls # c / c++
-      clang
-      gopls
-      nodePackages.typescript-language-server
-      pkgs.nodePackages.vscode-langservers-extracted # html, css, json, eslint
-      nodePackages.yaml-language-server
-      sumneko-lua-language-server
-      nil # nix
-      #       nodePackages.pyright
-
-      # formatters and linters
-      alejandra # nix
-      black # python
-      ruff # python
-      deadnix # nix
-      golangci-lint
-      lua52Packages.luacheck
-      nodePackages.prettier
-      shellcheck
-      shfmt
-      statix # nix
-      sqlfluff
-      tflint
-    ];
+    # Most wayland compositors need this
+    nvidia.modesetting.enable = true;
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-  ];
+  # use the example session manager (no others are packaged yet so this is enabled by default,
+  # no need to redefine it in your config for now)
+  #media-session.enable = true;
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -192,7 +204,14 @@
     enableSSHSupport = true;
   };
 
-  # List services that you want to enable:
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -213,11 +232,31 @@
     ];
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # Set your time zone.
+  time.timeZone = "America/Denver";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05"; # Did you read the comment?
 }

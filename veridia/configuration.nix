@@ -103,8 +103,9 @@
       # vimdiffAlias = true;
     };
 
-    # nix-index.enable = true;
-    # nix-index.enableZshIntegration = true;
+    nix-index.enable = true;
+    nix-index.enableZshIntegration = true;
+    command-not-found.enable = false;
     # nix-index-database.comma.enable = true;
 
     starship.enable = true;
@@ -127,48 +128,10 @@
       # autocd = true;
       autosuggestions.enable = true;
       enableCompletion = true;
-      # defaultKeymap = "viins";
-      # history.size = 10000;
-      # history.save = 10000;
-      # history.expireDuplicatesFirst = true;
-      # history.ignoreDups = true;
-      # history.ignoreSpace = true;
-      # historySubstringSearch.enable = true;
-
-      # plugins = [
-      #   {
-      #     name = "fast-syntax-highlighting";
-      #     src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-      #   }
-      #   {
-      #     name = "zsh-nix-shell";
-      #     file = "nix-shell.plugin.zsh";
-      #     src = pkgs.fetchFromGitHub {
-      #       owner = "chisui";
-      #       repo = "zsh-nix-shell";
-      #       rev = "v0.5.0";
-      #       sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-      #     };
-      #   }
-      # ];
+      histSize = 10000;
 
       shellAliases = {
-        "..." = "./..";
-        "...." = "././..";
         ls = "eza";
-        gc = "nix-collect-garbage --delete-old";
-        show_path = "echo $PATH | tr ':' '\n'";
-
-        gapa = "git add --patch";
-        grpa = "git reset --patch";
-        gst = "git status";
-        gdh = "git diff HEAD";
-        gp = "git push";
-        gph = "git push -u origin HEAD";
-        gco = "git checkout";
-        gcob = "git checkout -b";
-        gcm = "git checkout master";
-        gcd = "git checkout develop";
       };
     };
   };
