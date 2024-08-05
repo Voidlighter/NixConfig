@@ -11,7 +11,7 @@
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
-#     home-manager.url = "github:nix-community/home-manager";
+    # home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -31,8 +31,8 @@
         allowUnfree = true;
       };
     };
-    # pkgs = nixpkgs.legacyPackages.system;
     pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+    # pkgs = nixpkgs.legacyPackages.system;
     # Supported systems for your flake packages, shell, etc.
     # systems = [
     #   # "aarch64-linux"
@@ -99,16 +99,30 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        pkgs = import nixpkgs {
+          inherit system;
+
+          config = {
+            allowUnfree = true;
+          };
+        };
+        # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
         modules = [
           # > Our main home-manager configuration file <
           ./veridia/home.nix
         ];
       };
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        pkgs = import nixpkgs {
+          inherit system;
+
+          config = {
+            allowUnfree = true;
+          };
+        };
+        # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
         modules = [
           # > Our main home-manager configuration file <
           ./elysia/home.nix

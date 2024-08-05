@@ -19,14 +19,35 @@
     ./hardware-configuration.nix
   ];
 
-    environment.systemPackages = with pkgs; [
-    home-manager
-    neovim
-    # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
-    wget
-    git
-    firefox
-  ];
+  environment = {
+    sessionVariables = {
+      # If your cursor becomes invisible
+      WLR_NO_HARDWARE_CURSORS = "1";
+      # Hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
+    };
+    systemPackages = with pkgs; [
+      home-manager
+      neovim
+      # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+      zsh
+      wget
+      git
+      firefox
+
+      hyprland
+      waybar
+      mako
+      libnotify
+      swww
+      rofi-wayland
+      (
+        pkgs.waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+        })
+      )
+    ];
+  };
 
   networking.hostName = "veridia"; # Define your hostname.
 
@@ -42,6 +63,7 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
@@ -49,6 +71,106 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+  };
+
+  # # XDG Portal
+  # xdg.portal.enable = true;
+  # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  users.defaultUserShell = pkgs.zsh;
+
+  programs = {
+    # hyprland = {
+    #   enable = true;
+    #   # nvidiaPatches = true;
+    #   xwayland.enable = true;
+    # };
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      # vimdiffAlias = true;
+    };
+
+    # nix-index.enable = true;
+    # nix-index.enableZshIntegration = true;
+    # nix-index-database.comma.enable = true;
+
+    starship.enable = true;
+    starship.settings = {
+      aws.disabled = true;
+      gcloud.disabled = true;
+      kubernetes.disabled = false;
+      git_branch.style = "242";
+      directory.style = "blue";
+      directory.truncate_to_repo = false;
+      directory.truncation_length = 8;
+      python.disabled = true;
+      ruby.disabled = true;
+      hostname.ssh_only = false;
+      hostname.style = "bold green";
+    };
+    # This is where .zshrc stuff goes
+    zsh = {
+      enable = true;
+      # autocd = true;
+      autosuggestions.enable = true;
+      enableCompletion = true;
+      # defaultKeymap = "viins";
+      # history.size = 10000;
+      # history.save = 10000;
+      # history.expireDuplicatesFirst = true;
+      # history.ignoreDups = true;
+      # history.ignoreSpace = true;
+      # historySubstringSearch.enable = true;
+
+      # plugins = [
+      #   {
+      #     name = "fast-syntax-highlighting";
+      #     src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+      #   }
+      #   {
+      #     name = "zsh-nix-shell";
+      #     file = "nix-shell.plugin.zsh";
+      #     src = pkgs.fetchFromGitHub {
+      #       owner = "chisui";
+      #       repo = "zsh-nix-shell";
+      #       rev = "v0.5.0";
+      #       sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
+      #     };
+      #   }
+      # ];
+
+      shellAliases = {
+        "..." = "./..";
+        "...." = "././..";
+        ls = "eza";
+        gc = "nix-collect-garbage --delete-old";
+        show_path = "echo $PATH | tr ':' '\n'";
+
+        gapa = "git add --patch";
+        grpa = "git reset --patch";
+        gst = "git status";
+        gdh = "git diff HEAD";
+        gp = "git push";
+        gph = "git push -u origin HEAD";
+        gco = "git checkout";
+        gcob = "git checkout -b";
+        gcm = "git checkout master";
+        gcd = "git checkout develop";
+      };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -59,22 +181,18 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
+  hardware = {
+    # Opengl
+    opengl.enable = true;
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    # Most wayland compositors need this
+    nvidia.modesetting.enable = true;
   };
+
+  # use the example session manager (no others are packaged yet so this is enabled by default,
+  # no need to redefine it in your config for now)
+  #media-session.enable = true;
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
