@@ -6,7 +6,7 @@
   outputs,
   config,
   pkgs,
-  username,
+  user,
   host,
   nix-index-database,
   ...
@@ -49,8 +49,8 @@
   };
 
   home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
+    username = "${user.name}";
+    homeDirectory = "/home/${user.name}";
 
     sessionVariables = {
       EDITOR = "nvim";

@@ -6,7 +6,7 @@
   pkgs-unstable,
   lib,
   inputs,
-  username,
+  user,
   host,
   ...
 }: {
@@ -60,9 +60,9 @@
   networking.hostName = "${host}"; # Define your hostname.
   hardware.bluetooth.enable = true;
 
-  users.users.${username} = {
+  users.users.${user.name} = {
     isNormalUser = true;
-    description = "${username}";
+    description = "${user.Name}";
     extraGroups = ["networkmanager" "wheel"];
     # packages = with pkgs; [];
   };

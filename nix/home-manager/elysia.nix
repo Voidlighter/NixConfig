@@ -5,7 +5,7 @@
   inputs,
   config,
   pkgs,
-  username,
+  user,
   ...
 }: {
   # You can import other home-manager modules here

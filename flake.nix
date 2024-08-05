@@ -83,7 +83,8 @@
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          username = "cade";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "veridia";
         };
         modules = [
@@ -94,7 +95,8 @@
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          username = "cade";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "elysia";
         };
         modules = [
@@ -116,7 +118,8 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {
           inherit inputs outputs;
-          username = "cade";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "veridia";
         };
         modules = [
@@ -131,7 +134,8 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {
           inherit inputs outputs;
-          username = "cade";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "elysia";
         };
         modules = [
