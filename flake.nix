@@ -31,8 +31,8 @@
         allowUnfree = true;
       };
     };
-    pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
     # pkgs = nixpkgs.legacyPackages.system;
+    # pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
     # Supported systems for your flake packages, shell, etc.
     # systems = [
     #   # "aarch64-linux"
@@ -55,7 +55,7 @@
     # formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
-    # overlays = import ./overlays {inherit inputs;};
+    overlays = import ./overlays {inherit inputs;};
 
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
@@ -70,7 +70,6 @@
     environment.systemPackages = with pkgs; [
       home-manager
       neovim
-      # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
       wget
       git
       firefox
@@ -101,7 +100,7 @@
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
+        extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main home-manager configuration file <
           ./veridia/home.nix
@@ -110,7 +109,7 @@
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs pkgs-unstable;};
+        extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main home-manager configuration file <
           ./elysia/home.nix
