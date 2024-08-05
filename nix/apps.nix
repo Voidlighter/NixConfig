@@ -10,6 +10,8 @@
 }:
 with pkgs;
   lib.optionals lightweight [
+    hello
+
     unstable.hyprland
     unstable.waybar
     unstable.mako

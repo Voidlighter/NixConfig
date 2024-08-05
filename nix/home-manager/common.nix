@@ -3,6 +3,7 @@
 {
   lib,
   inputs,
+  outputs,
   config,
   pkgs,
   username,
@@ -16,13 +17,16 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    # ./../apps.nix
   ];
 
   nixpkgs = {
     # You can add overlays here
-    # overlays = import ./../overlays {inherit inputs;};
     overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
