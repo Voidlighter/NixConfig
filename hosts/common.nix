@@ -3,8 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
+  pkgs-unstable,
   lib,
   inputs,
+  username,
+  host,
   ...
 }: {
   imports = [
@@ -16,7 +19,12 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      unstable = pkgs-unstable;
+    })
   ];
 
   environment = {
@@ -49,11 +57,11 @@
     ];
   };
 
-  networking.hostName = "veridia"; # Define your hostname.
+  networking.hostName = "${host}"; # Define your hostname.
 
-  users.users.cade = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Cade";
+    description = "${username}";
     extraGroups = ["networkmanager" "wheel"];
     # packages = with pkgs; [];
   };

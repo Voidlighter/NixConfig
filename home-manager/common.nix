@@ -5,6 +5,8 @@
   inputs,
   config,
   pkgs,
+  username,
+  host,
   ...
 }: {
   # You can import other home-manager modules here
@@ -19,6 +21,7 @@
 
   nixpkgs = {
     # You can add overlays here
+    # overlays = import ./../overlays {inherit inputs;};
     overlays = [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -40,16 +43,9 @@
   };
 
   home = {
-    username = "cade";
-    homeDirectory = "/home/cade";
+    username = "${username}";
+    homeDirectory = "/home/${username}";
 
-    packages = import ./../apps.nix {
-      inherit lib pkgs;
-      gaming = false;
-      javaCoding = true;
-      coding = true;
-      android = false;
-    };
     sessionVariables = {
       EDITOR = "nvim";
     };

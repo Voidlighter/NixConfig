@@ -2,34 +2,37 @@
   description = "Cade's Root Flake";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
-    # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
     # home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     ...
   } @ inputs: let
     # the @ inputs syntax lets us not include "inputs." at the beginning of nixpkgs, while
     # still being able to access the rest of the inputs we didn't want to name here
     inherit (self) outputs;
+    pkgs-unstable = nixpkgs-unstable;
     pkgs = import nixpkgs {
       inherit system;
-
       config = {
         allowUnfree = true;
       };
+      # overlays = import ./overlays {inherit inputs;};
+      overlays = [
+        (final: prev: {
+          unstable = nixpkgs-unstable;
+        })
+      ];
     };
     # pkgs = nixpkgs.legacyPackages.system;
     # pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
@@ -55,7 +58,7 @@
     # formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
+    # overlays =
 
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
@@ -79,17 +82,25 @@
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       veridia = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          inherit inputs outputs;
+          username = "cade";
+          host = "veridia";
+        };
         modules = [
           # > Our main nixos configuration file <
-          ./veridia/configuration.nix
+          ./hosts/veridia/configuration.nix
         ];
       };
       elysia = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          inherit inputs outputs;
+          username = "cade";
+          host = "elysia";
+        };
         modules = [
           # > Our main nixos configuration file <
-          ./elysia/configuration.nix
+          ./hosts/elysia/configuration.nix
         ];
       };
     };
@@ -98,25 +109,36 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        # Home-manager requires 'pkgs' instance
+        inherit pkgs pkgs-unstable;
+        # pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          username = "cade";
+          host = "veridia";
+        };
         modules = [
           # > Our main home-manager configuration file <
-          ./veridia/home.nix
+          ./home-manager/veridia.nix
         ];
       };
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        # pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        # Home-manager requires 'pkgs' instance
+        inherit pkgs pkgs-unstable;
+        # pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          username = "cade";
+          host = "elysia";
+        };
         modules = [
           # > Our main home-manager configuration file <
-          ./elysia/home.nix
+          ./home-manager/elysia.nix
         ];
       };
     };
   };
 }
 # Based on https://github.com/Misterio77/nix-starter-configs
+# and https://github.com/ttrei/dotfiles/
 
