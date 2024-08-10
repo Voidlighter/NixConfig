@@ -24,6 +24,7 @@ with pkgs;
     ungoogled-chromium
     ## other
     libreoffice
+    qownnotes
     kdePackages.kate
     protonvpn-gui
     libsForQt5.kdeconnect-kde
