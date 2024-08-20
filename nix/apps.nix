@@ -3,7 +3,7 @@
   pkgs,
   gaming ? false,
   lightweight ? true,
-  school ? true,
+  school ? true, # TODO: Make school false by default, just add it to my machines
   coding ? true,
   javaCoding ? true,
   android ? false,
