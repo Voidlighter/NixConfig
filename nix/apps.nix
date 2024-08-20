@@ -3,6 +3,7 @@
   pkgs,
   gaming ? false,
   lightweight ? true,
+  school ? true,
   coding ? true,
   javaCoding ? true,
   android ? false,
@@ -65,6 +66,9 @@ with pkgs;
     temurin-bin-21
     mysql
     mysql-shell
+  ]
+  ++ lib.optionals school [
+    zoom-us
   ]
   ++ lib.optionals gaming [
     steam
