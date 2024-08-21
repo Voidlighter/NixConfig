@@ -64,6 +64,7 @@ with pkgs;
   ]
   ++ lib.optionals javaCoding [
     jetbrains.idea-ultimate
+    jetbrains.jcef
     maven
     temurin-bin-21
     mysql
