@@ -3,9 +3,11 @@
   pkgs,
   gaming ? false,
   lightweight ? true,
-  school ? true, # TODO: Make school false by default, just add it to my machines
+  school ? false,
   coding ? true,
-  javaCoding ? true,
+  javaCoding ? false,
+  videoEditing ? false,
+  streaming ? false,
   android ? false,
   ...
 }:
@@ -66,6 +68,12 @@ with pkgs;
     temurin-bin-21
     mysql
     mysql-shell
+  ]
+  ++ lib.optionals videoEditing [
+    davinci-resolve
+  ]
+  ++ lib.optionals streaming [
+    obs-studio
   ]
   ++ lib.optionals school [
     zoom-us

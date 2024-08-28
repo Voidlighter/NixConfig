@@ -23,5 +23,8 @@
     javaCoding = true;
     coding = true;
     android = false;
+    school = true;
+    videoEditing = true;
+    streaming = true;
   };
 }
