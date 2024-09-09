@@ -26,5 +26,6 @@
     school = true;
     videoEditing = true;
     streaming = true;
+    art = true;
   };
 }

@@ -24,5 +24,6 @@
     coding = true;
     android = false;
     school = true;
+    art = true;
   };
 }

@@ -9,6 +9,7 @@
   videoEditing ? false,
   streaming ? false,
   android ? false,
+  art ? false,
   ...
 }:
 with pkgs;
@@ -78,6 +79,9 @@ with pkgs;
   ]
   ++ lib.optionals school [
     zoom-us
+  ]
+  ++ lib.optionals art [
+    krita
   ]
   ++ lib.optionals gaming [
     steam
