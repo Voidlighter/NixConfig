@@ -29,7 +29,7 @@ with pkgs;
     tor-browser
 
     # Internet
-    protonvpn-gui
+    unstable.protonvpn-gui
     wireguard-tools
 
     syncthing
