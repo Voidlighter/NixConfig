@@ -2,6 +2,7 @@
   lib,
   pkgs,
   gaming ? false,
+  art ? false,
   lightweight ? true,
   school ? false,
   coding ? true,
@@ -17,20 +18,28 @@ with pkgs;
     hello
     jetbrains-mono
 
-    hyprland
-    unstable.waybar
-    unstable.mako
-    unstable.libnotify
-    unstable.swww
-    unstable.rofi-wayland
+    # hyprland
+    # unstable.waybar
+    # unstable.mako
+    # unstable.libnotify
+    # unstable.swww
+    # unstable.rofi-wayland
 
     unstable.floorp
     ungoogled-chromium
+    tor-browser
+
+    # Internet
+    protonvpn-gui
+    wireguard-tools
+
+    syncthing
+    syncthingtray
+
     ## other
     libreoffice
-    qownnotes
+    unstable.qownnotes
     kdePackages.kate
-    protonvpn-gui
     libsForQt5.kdeconnect-kde
     signal-desktop
     kde-gtk-config
@@ -73,6 +82,7 @@ with pkgs;
   ]
   ++ lib.optionals videoEditing [
     davinci-resolve
+    # davinci-resolve-studio
   ]
   ++ lib.optionals streaming [
     obs-studio
