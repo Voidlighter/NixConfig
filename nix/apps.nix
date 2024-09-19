@@ -10,7 +10,6 @@
   videoEditing ? false,
   streaming ? false,
   android ? false,
-  art ? false,
   ...
 }:
 with pkgs;
