@@ -51,7 +51,7 @@ with pkgs;
 
     # Media
     spotify
-    vlc
+    unstable.vlc
   ]
   ++ lib.optionals office [
     unstable.qownnotes
