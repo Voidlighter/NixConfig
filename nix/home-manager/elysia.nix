@@ -19,11 +19,12 @@
 
   home.packages = import ./../apps.nix {
     inherit lib pkgs;
-    gaming = false;
-    javaCoding = true;
-    coding = true;
-    android = false;
-    school = true;
     art = true;
+    coding = true;
+    javaCoding = true;
+    videoEditing = true;
+    gaming = false;
+    streaming = false;
+    android = false;
   };
 }

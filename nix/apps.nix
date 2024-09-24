@@ -1,50 +1,25 @@
 {
   lib,
   pkgs,
-  gaming ? false,
-  art ? false,
-  lightweight ? true,
-  school ? false,
+  cliUtils ? true,
+  baseApps ? true,
+  office ? true,
+  plasma ? true,
+  hyprland ? false,
   coding ? true,
+  art ? false,
   javaCoding ? false,
+  pythonCoding ? false,
   videoEditing ? false,
+  gaming ? false,
   streaming ? false,
   android ? false,
   ...
 }:
 with pkgs;
-  lib.optionals lightweight [
+  lib.optionals cliUtils [
     hello
-    jetbrains-mono
 
-    # hyprland
-    # unstable.waybar
-    # unstable.mako
-    # unstable.libnotify
-    # unstable.swww
-    # unstable.rofi-wayland
-
-    unstable.floorp
-    ungoogled-chromium
-    tor-browser
-
-    # Internet
-    unstable.protonvpn-gui
-    wireguard-tools
-
-    syncthing
-    syncthingtray
-
-    ## other
-    libreoffice
-    unstable.qownnotes
-    kdePackages.kate
-    libsForQt5.kdeconnect-kde
-    signal-desktop
-    kde-gtk-config
-    spotify
-
-    # CLI Utilities
     bat
     curl
     eza
@@ -55,9 +30,50 @@ with pkgs;
     zoxide
     fzf
     starship
+    xorg.xkill
+  ]
+  ++ lib.optionals baseApps [
+    jetbrains-mono
 
-    # Keyboard
-    vial
+    # Web Browser
+    unstable.floorp
+    ungoogled-chromium
+    tor-browser
+
+    # Internet Utils
+    protonvpn-gui
+    wireguard-tools
+    syncthing
+    syncthingtray
+
+    # Messaging
+    signal-desktop
+
+    # Media
+    spotify
+    vlc
+  ]
+  ++ lib.optionals office [
+    unstable.qownnotes
+    drawio
+    micropad
+    lorien
+    rnote
+    libreoffice
+
+    zoom-us
+  ]
+  ++ lib.optionals plasma [
+    kdePackages.kate
+    kde-gtk-config
+  ]
+  ++ lib.optionals hyprland [
+    # hyprland
+    # unstable.waybar
+    # unstable.mako
+    # unstable.libnotify
+    # unstable.swww
+    # unstable.rofi-wayland
   ]
   ++ lib.optionals coding [
     alacritty
@@ -70,6 +86,9 @@ with pkgs;
     nil
     python3
     biome
+
+    # Keyboard
+    vial
   ]
   ++ lib.optionals javaCoding [
     jetbrains.idea-ultimate
@@ -86,11 +105,9 @@ with pkgs;
   ++ lib.optionals streaming [
     obs-studio
   ]
-  ++ lib.optionals school [
-    zoom-us
-  ]
   ++ lib.optionals art [
     krita
+    inkscape-with-extensions
   ]
   ++ lib.optionals gaming [
     steam
