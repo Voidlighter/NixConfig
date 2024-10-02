@@ -13,7 +13,7 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-#     nix-index-database.hmModules.nix-index
+    #     nix-index-database.hmModules.nix-index
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
 
@@ -78,7 +78,7 @@
 
     nix-index.enable = true;
     nix-index.enableZshIntegration = true;
-#     nix-index-database.comma.enable = true;
+    #     nix-index-database.comma.enable = true;
 
     starship.enable = true;
     starship.settings = {
@@ -97,15 +97,15 @@
     alacritty = {
       enable = true;
       # custom settings
-      settings = {
-        env.TERM = "xterm-256color";
-        font = {
-          size = 12;
-          draw_bold_text_with_bright_colors = true;
-        };
-        scrolling.multiplier = 5;
-        selection.save_to_clipboard = true;
-      };
+      # settings = {
+      #   env.TERM = "xterm-256color";
+      #   font = {
+      #     size = 12;
+      #     draw_bold_text_with_bright_colors = true;
+      #   };
+      #   scrolling.multiplier = 5;
+      #   selection.save_to_clipboard = true;
+      # };
     };
     eza = {
       enable = true;

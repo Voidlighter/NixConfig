@@ -41,19 +41,19 @@
       zsh
       wget
       git
-      firefox
+      # firefox
 
-      hyprland
-      waybar
-      mako
-      libnotify
-      swww
-      rofi-wayland
-      (
-        pkgs.waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
-        })
-      )
+      # hyprland
+      # waybar
+      # mako
+      # libnotify
+      # swww
+      # rofi-wayland
+      # (
+      #   pkgs.waybar.overrideAttrs (oldAttrs: {
+      #     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+      #   })
+      # )
     ];
   };
 
