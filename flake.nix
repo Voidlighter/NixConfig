@@ -143,7 +143,7 @@
           ./nix/home-manager/elysia.nix
         ];
       };
-      "deck@steamdeck" = home-manager.lib.homeManagerConfiguration {
+      "deck@vaporite" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
@@ -152,7 +152,7 @@
           inherit inputs outputs;
           user.name = "deck";
           user.Name = "deck";
-          host = "steamdeck";
+          host = "vaporite";
         };
         modules = [
           # > Our main home-manager configuration file <
