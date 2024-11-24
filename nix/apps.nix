@@ -38,16 +38,16 @@ with pkgs;
     # Web Browser
     unstable.floorp
     ungoogled-chromium
-    tor-browser
+    unstable.tor-browser
 
     # Internet Utils
-    protonvpn-gui
+    unstable.protonvpn-gui
     wireguard-tools
     syncthing
     syncthingtray
 
     # Messaging
-    signal-desktop
+    unstable.signal-desktop
 
     # Media
     spotify
@@ -60,8 +60,10 @@ with pkgs;
     lorien
     rnote
     libreoffice
+    remnote
 
     zoom-us
+    thunderbird
   ]
   ++ lib.optionals plasma [
     kdePackages.kate
