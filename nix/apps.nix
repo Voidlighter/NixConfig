@@ -45,6 +45,7 @@ with pkgs;
     wireguard-tools
     syncthing
     syncthingtray
+    filezilla
 
     # Messaging
     unstable.signal-desktop
