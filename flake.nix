@@ -143,6 +143,22 @@
           ./nix/home-manager/elysia.nix
         ];
       };
+      "cade@deck" = home-manager.lib.homeManagerConfiguration {
+        # Home-manager requires 'pkgs' instance
+        # inherit pkgs;
+        # pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          user.name = "cade";
+          user.Name = "Cade";
+          host = "deck";
+        };
+        modules = [
+          # > Our main home-manager configuration file <
+          ./nix/home-manager/deck.nix
+        ];
+      };
     };
   };
 }
