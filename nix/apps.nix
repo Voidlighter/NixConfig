@@ -62,6 +62,7 @@ with pkgs;
     rnote
     libreoffice
     remnote
+    obsidian
 
     zoom-us
     thunderbird
