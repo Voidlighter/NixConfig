@@ -37,7 +37,22 @@
       #   hi = final.hello.overrideAttrs (oldAttrs: {
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
+      # # })
+      # (final: prev: {
+      #   unstable = inputs.nixpkgs-unstable;
       # })
+      # unstable-packages = final: _prev: {
+      #   unstable = import inputs.nixpkgs-unstable {
+      #     system = final.system;
+      #     config.allowUnfree = true;
+      #   };
+      # };
+      (final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          system = final.system;
+          config.allowUnfree = true;
+        };
+      })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -260,5 +275,6 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  # basically don't change this. It isn't the version number
   home.stateVersion = "24.05";
 }

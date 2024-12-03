@@ -143,8 +143,8 @@
   services.printing.enable = true;
 
   hardware = {
-    # Opengl
-    opengl.enable = true;
+    # Opengl in 24.05, graphics in 24.11
+    graphics.enable = true;
 
     # Most wayland compositors need this
     nvidia.modesetting.enable = true;

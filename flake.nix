@@ -2,14 +2,15 @@
   description = "Cade's Root Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
   };
 
   outputs = {
@@ -113,9 +114,10 @@
     homeConfigurations = {
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
-        # inherit pkgs;
+        # pkgs = inputs.nixpkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+
         extraSpecialArgs = {
           inherit inputs outputs;
           user.name = "cade";
@@ -131,7 +133,7 @@
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
           user.name = "cade";
@@ -147,7 +149,7 @@
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
           user.name = "deck";

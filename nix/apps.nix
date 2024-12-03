@@ -57,7 +57,7 @@ with pkgs;
   ++ lib.optionals office [
     unstable.qownnotes
     drawio
-    micropad
+    # micropad
     lorien
     rnote
     libreoffice
@@ -99,8 +99,7 @@ with pkgs;
     jetbrains.jcef
     maven
     temurin-bin-21
-    mysql
-    mysql-shell
+    mariadb
   ]
   ++ lib.optionals videoEditing [
     davinci-resolve
