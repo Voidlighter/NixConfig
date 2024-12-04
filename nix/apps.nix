@@ -36,9 +36,9 @@ with pkgs;
     jetbrains-mono
 
     # Web Browser
-    unstable.floorp
+    floorp
     ungoogled-chromium
-    unstable.tor-browser
+    tor-browser
 
     # Internet Utils
     unstable.protonvpn-gui
@@ -48,24 +48,20 @@ with pkgs;
     filezilla
 
     # Messaging
-    unstable.signal-desktop
+    signal-desktop
 
     # Media
     spotify
-    unstable.vlc
+    vlc
   ]
   ++ lib.optionals office [
-    unstable.qownnotes
-    drawio
-    # micropad
-    lorien
     rnote
     libreoffice
     remnote
     obsidian
 
     zoom-us
-    thunderbird
+    # thunderbird
   ]
   ++ lib.optionals plasma [
     kdePackages.kate
