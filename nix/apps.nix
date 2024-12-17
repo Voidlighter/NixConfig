@@ -90,6 +90,10 @@ with pkgs;
     # Keyboard
     vial
   ]
+  ++ lib.optionals keyboard [
+    wally-cli
+    keymapp
+  ]
   ++ lib.optionals javaCoding [
     jetbrains.idea-ultimate
     jetbrains.jcef

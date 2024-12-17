@@ -88,6 +88,8 @@
 
   users.defaultUserShell = pkgs.zsh;
 
+  hardware.keyboard.zsa.enable = true;
+
   programs = {
     # hyprland = {
     #   enable = true;
