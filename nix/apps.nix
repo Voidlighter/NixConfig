@@ -7,6 +7,7 @@
   plasma ? true,
   hyprland ? false,
   coding ? true,
+  keyboard ? true,
   art ? false,
   javaCoding ? false,
   pythonCoding ? false,
@@ -59,6 +60,7 @@ with pkgs;
     libreoffice
     remnote
     obsidian
+    xournalpp
 
     zoom-us
     # thunderbird
