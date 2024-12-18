@@ -89,6 +89,9 @@ with pkgs;
     python3
     biome
 
+    clang
+    ccls # c / c++
+
     # Keyboard
     vial
   ]
