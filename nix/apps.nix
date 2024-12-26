@@ -4,6 +4,7 @@
   cliUtils ? true,
   baseApps ? true,
   office ? true,
+  social ? true,
   plasma ? true,
   hyprland ? false,
   coding ? true,
@@ -64,6 +65,9 @@ with pkgs;
 
     zoom-us
     # thunderbird
+  ]
+  ++ lib.optionals social [
+    element-desktop
   ]
   ++ lib.optionals plasma [
     kdePackages.kate
