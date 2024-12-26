@@ -21,8 +21,9 @@
     inherit lib pkgs;
     art = true;
     coding = true;
-    javaCoding = true;
-    videoEditing = true;
+    java = true;
+    video = true;
+    music = true;
     gaming = false;
     streaming = false;
     android = false;

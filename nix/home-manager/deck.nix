@@ -26,9 +26,9 @@
     hyprland = false;
     coding = false;
     art = false;
-    javaCoding = false;
-    pythonCoding = false;
-    videoEditing = false;
+    java = false;
+    video = false;
+    music = true;
     gaming = true;
     streaming = false;
     android = false;

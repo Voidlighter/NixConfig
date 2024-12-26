@@ -5,17 +5,17 @@
   baseApps ? true,
   office ? true,
   social ? true,
-  plasma ? true,
-  hyprland ? false,
   coding ? true,
   keyboard ? true,
   art ? false,
-  javaCoding ? false,
-  pythonCoding ? false,
-  videoEditing ? false,
+  java ? false,
+  video ? false,
+  music ? false,
   gaming ? false,
   streaming ? false,
   android ? false,
+  plasma ? true,
+  hyprland ? false,
   ...
 }:
 with pkgs;
@@ -69,18 +69,6 @@ with pkgs;
   ++ lib.optionals social [
     element-desktop
   ]
-  ++ lib.optionals plasma [
-    kdePackages.kate
-    kde-gtk-config
-  ]
-  ++ lib.optionals hyprland [
-    # hyprland
-    # unstable.waybar
-    # unstable.mako
-    # unstable.libnotify
-    # unstable.swww
-    # unstable.rofi-wayland
-  ]
   ++ lib.optionals coding [
     alacritty
     vscodium
@@ -103,16 +91,20 @@ with pkgs;
     wally-cli
     keymapp
   ]
-  ++ lib.optionals javaCoding [
+  ++ lib.optionals java [
     jetbrains.idea-ultimate
     jetbrains.jcef
     maven
     temurin-bin-21
     mariadb
   ]
-  ++ lib.optionals videoEditing [
+  ++ lib.optionals video [
     davinci-resolve
     # davinci-resolve-studio
+  ]
+  ++ lib.optionals music [
+    lmms
+    reaper
   ]
   ++ lib.optionals streaming [
     obs-studio
@@ -128,4 +120,16 @@ with pkgs;
     android-udev-rules
     android-tools
     fwupd
+  ]
+  ++ lib.optionals plasma [
+    kdePackages.kate
+    kde-gtk-config
+  ]
+  ++ lib.optionals hyprland [
+    # hyprland
+    # unstable.waybar
+    # unstable.mako
+    # unstable.libnotify
+    # unstable.swww
+    # unstable.rofi-wayland
   ]
