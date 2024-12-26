@@ -23,9 +23,9 @@
     coding = true;
     java = true;
     video = true;
-    music = true;
+    music = false;
     gaming = false;
     streaming = false;
-    android = false;
+    vmware = false;
   };
 }

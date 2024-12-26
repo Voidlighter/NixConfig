@@ -13,6 +13,7 @@
   music ? false,
   gaming ? false,
   streaming ? false,
+  vmware ? false,
   android ? false,
   plasma ? true,
   hyprland ? false,
@@ -104,7 +105,19 @@ with pkgs;
   ]
   ++ lib.optionals music [
     lmms
+    ardour
     reaper
+    cardinal
+    bespokesynth-with-vst2
+
+    #VSTS
+    decent-sampler
+    lsp-plugins
+    samplv1
+    vital
+    #idk
+    # zam-plugins
+    # x42-plugins
   ]
   ++ lib.optionals streaming [
     obs-studio
@@ -115,6 +128,9 @@ with pkgs;
   ]
   ++ lib.optionals gaming [
     steam
+  ]
+  ++ lib.optionals vmware [
+    virtualbox
   ]
   ++ lib.optionals android [
     android-udev-rules
