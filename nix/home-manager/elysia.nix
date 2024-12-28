@@ -23,7 +23,7 @@
     coding = true;
     java = true;
     video = true;
-    music = false;
+    music = true;
     gaming = false;
     streaming = false;
     vmware = false;

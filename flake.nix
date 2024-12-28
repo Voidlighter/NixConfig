@@ -11,6 +11,10 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -107,6 +111,19 @@
           ./nix/hosts/elysia/configuration.nix
         ];
       };
+      vapor = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+          user.name = "deck";
+          user.Name = "deck";
+          host = "vapor";
+        };
+        modules = [
+          inputs.jovian.nixosModules.default
+          inputs.home-manager-unstable.nixosModules.home-manager
+          ./nix/hosts/vapor/configuration.nix
+        ];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
@@ -145,7 +162,7 @@
           ./nix/home-manager/elysia.nix
         ];
       };
-      "deck@vaporite" = home-manager.lib.homeManagerConfiguration {
+      "deck@vapor" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
@@ -154,7 +171,7 @@
           inherit inputs outputs;
           user.name = "deck";
           user.Name = "deck";
-          host = "vaporite";
+          host = "vapor";
         };
         modules = [
           # > Our main home-manager configuration file <
