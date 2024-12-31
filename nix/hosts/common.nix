@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
-  pkgs-unstable,
+  pkgs-stable,
   lib,
   inputs,
   user,
@@ -23,7 +23,7 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      unstable = pkgs-unstable;
+      stable = pkgs-stable;
     })
   ];
 

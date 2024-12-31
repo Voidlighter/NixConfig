@@ -44,7 +44,7 @@ with pkgs;
     tor-browser
 
     # Internet Utils
-    unstable.protonvpn-gui
+    protonvpn-gui
     wireguard-tools
     syncthing
     syncthingtray
@@ -127,7 +127,7 @@ with pkgs;
     inkscape-with-extensions
   ]
   ++ lib.optionals gaming [
-    steam
+    # steam
   ]
   ++ lib.optionals vmware [
     virtualbox
@@ -143,9 +143,9 @@ with pkgs;
   ]
   ++ lib.optionals hyprland [
     # hyprland
-    # unstable.waybar
-    # unstable.mako
-    # unstable.libnotify
-    # unstable.swww
-    # unstable.rofi-wayland
+    # waybar
+    # mako
+    # libnotify
+    # swww
+    # rofi-wayland
   ]

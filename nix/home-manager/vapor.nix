@@ -13,7 +13,7 @@
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
     # (
-      # Put the most recent revision here:
+    # Put the most recent revision here:
     #   let revision = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; in
     #   builtins.fetchTarball {
     #     url = "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/${revision}.tar.gz";
@@ -32,7 +32,7 @@
     office = true;
     plasma = true;
     hyprland = false;
-    coding = false;
+    coding = true;
     art = false;
     java = false;
     video = false;

@@ -2,16 +2,15 @@
   description = "Cade's Root Flake";
 
   inputs = {
-#     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # Also see the 'stable-packages' overlay at 'overlays/default.nix'.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    # home-manager-unstable.url = "github:nix-community/home-manager/home-manager-unstable"
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
+
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +20,7 @@
   outputs = {
     self,
     nixpkgs,
-#     nixpkgs-unstable,
+    nixpkgs-stable,
     nixos-hardware,
     home-manager,
     ...
@@ -36,7 +35,7 @@
     ];
   in rec {
     inherit nixpkgs;
-#     inherit nixpkgs-unstable;
+    inherit nixpkgs-stable;
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,

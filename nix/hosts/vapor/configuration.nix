@@ -1,6 +1,6 @@
 {
   pkgs,
-#   pkgs-unstable,
+  pkgs-stable,
   lib,
   inputs,
   user,
@@ -41,12 +41,11 @@
     jack.enable = true;
   };
 
-
-#   nixpkgs.overlays = [
-#     (final: prev: {
-#       unstable = pkgs-unstable;
-#     })
-#   ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      stable = pkgs-stable;
+    })
+  ];
 
   environment = {
     sessionVariables = {
@@ -93,8 +92,8 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-#   services.displayManager.sddm.wayland.enable = true;
-#   services.displayManager.sddm.enable = true;
+  #   services.displayManager.sddm.wayland.enable = true;
+  #   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
