@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgs-unstable,
+#   pkgs-unstable,
   lib,
   inputs,
   user,
@@ -42,11 +42,11 @@
   };
 
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      unstable = pkgs-unstable;
-    })
-  ];
+#   nixpkgs.overlays = [
+#     (final: prev: {
+#       unstable = pkgs-unstable;
+#     })
+#   ];
 
   environment = {
     sessionVariables = {

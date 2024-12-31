@@ -2,8 +2,8 @@
   description = "Cade's Root Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+#     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -14,14 +14,14 @@
     # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
+#     nixpkgs-unstable,
     nixos-hardware,
     home-manager,
     ...
@@ -36,7 +36,7 @@
     ];
   in rec {
     inherit nixpkgs;
-    inherit nixpkgs-unstable;
+#     inherit nixpkgs-unstable;
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,
@@ -112,7 +112,7 @@
           ./nix/hosts/elysia/configuration.nix
         ];
       };
-      vapor = nixpkgs-unstable.lib.nixosSystem {
+      vapor = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
           user.name = "deck";
