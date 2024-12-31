@@ -12,7 +12,7 @@
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-    (
+    # (
       # Put the most recent revision here:
     #   let revision = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; in
     #   builtins.fetchTarball {

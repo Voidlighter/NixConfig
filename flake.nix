@@ -9,6 +9,7 @@
 
     # home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
+    # home-manager-unstable.url = "github:nix-community/home-manager/home-manager-unstable"
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     jovian = {
@@ -111,7 +112,7 @@
           ./nix/hosts/elysia/configuration.nix
         ];
       };
-      vapor = nixpkgs.lib.nixosSystem {
+      vapor = nixpkgs-unstable.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
           user.name = "deck";
@@ -120,7 +121,7 @@
         };
         modules = [
           inputs.jovian.nixosModules.default
-          inputs.home-manager-unstable.nixosModules.home-manager
+          inputs.home-manager.nixosModules.home-manager
           ./nix/hosts/vapor/configuration.nix
         ];
       };
@@ -175,7 +176,7 @@
         };
         modules = [
           # > Our main home-manager configuration file <
-          ./nix/home-manager/deck.nix
+          ./nix/home-manager/vapor.nix
         ];
       };
     };
