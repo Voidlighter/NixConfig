@@ -31,7 +31,6 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = false;
@@ -61,14 +60,7 @@
       zsh
       wget
       git
-      # firefox
-
-      # hyprland
-      # waybar
-      # mako
-      # libnotify
-      # swww
-      # rofi-wayland
+      firefox
       # (
       #   pkgs.waybar.overrideAttrs (oldAttrs: {
       #     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
@@ -167,9 +159,6 @@
   hardware = {
     # Opengl in 24.05, graphics in 24.11
     graphics.enable = true;
-
-    # Most wayland compositors need this
-    nvidia.modesetting.enable = true;
   };
 
   # use the example session manager (no others are packaged yet so this is enabled by default,
