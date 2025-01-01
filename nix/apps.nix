@@ -22,18 +22,6 @@
 with pkgs;
   lib.optionals cliUtils [
     hello
-
-    bat
-    curl
-    eza
-    fd
-    ripgrep
-    zellij
-    bottom
-    zoxide
-    fzf
-    starship
-    xorg.xkill
   ]
   ++ lib.optionals baseApps [
     jetbrains-mono
