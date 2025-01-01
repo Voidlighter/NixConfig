@@ -15,6 +15,7 @@
     hardware = {
       has.amd.gpu = true;
     };
+    devices.steamdeck.enable = true;
     devices.steamdeck.autoUpdate = true;
     devices.steamdeck.enableGyroDsuService = true;
     decky-loader.enable = true;
@@ -23,7 +24,7 @@
       autoStart = true;
       updater.splash = "steamos";
       user = "voidlighter";
-      desktopSession = "plasma";
+      desktopSession = "plasma6";
     };
     steamos = {
       useSteamOSConfig = true;
@@ -31,6 +32,7 @@
   };
 
   # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = false;
@@ -47,12 +49,12 @@
   ];
 
   environment = {
-    sessionVariables = {
-      # If your cursor becomes invisible
-      WLR_NO_HARDWARE_CURSORS = "1";
-      # Hint electron apps to use wayland
-      NIXOS_OZONE_WL = "1";
-    };
+    # sessionVariables = {
+    #   # If your cursor becomes invisible
+    #   # WLR_NO_HARDWARE_CURSORS = "1";
+    #   # Hint electron apps to use wayland
+    #   # NIXOS_OZONE_WL = "1";
+    # };
     systemPackages = with pkgs; [
       home-manager
       neovim
@@ -60,6 +62,19 @@
       zsh
       wget
       git
+
+      bat
+      curl
+      eza
+      fd
+      ripgrep
+      zellij
+      bottom
+      zoxide
+      fzf
+      starship
+      xorg.xkill
+
       firefox
       # (
       #   pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -84,8 +99,8 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  #   services.displayManager.sddm.wayland.enable = true;
-  #   services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11

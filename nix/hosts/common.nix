@@ -41,6 +41,18 @@
       zsh
       wget
       git
+
+      bat
+      curl
+      eza
+      fd
+      ripgrep
+      zellij
+      bottom
+      zoxide
+      fzf
+      starship
+      xorg.xkill
       # firefox
 
       # hyprland
