@@ -31,6 +31,18 @@
   #     };
   #   };
 
+  nix.distributedBuilds = true;
+  nix.settings.builders-use-substitutes = true;
+
+  nix.buildMachines = [
+    {
+      hostName = "veridia";
+      sshUser = "remotebuild";
+      sshKey = "/root/.ssh/remote-build-vapor";
+      system = pkgs.stdenv.hostPlatform.system;
+      supportedFeatures = ["nixos-test" "big-parallel" "kvm"];
+    }
+  ];
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
