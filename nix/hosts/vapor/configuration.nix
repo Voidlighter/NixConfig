@@ -11,25 +11,25 @@
     ./hardware-configuration.nix
   ];
 
-#   jovian = {
-#     hardware = {
-#       has.amd.gpu = true;
-#     };
-#     devices.steamdeck.enable = true;
-#     devices.steamdeck.autoUpdate = true;
-#     devices.steamdeck.enableGyroDsuService = true;
-#     decky-loader.enable = true;
-#     steam = {
-#       enable = true;
-#       autoStart = true;
-#       updater.splash = "steamos";
-#       user = "voidlighter";
-#       desktopSession = "plasma";
-#     };
-#     steamos = {
-#       useSteamOSConfig = true;
-#     };
-#   };
+  #   jovian = {
+  #     hardware = {
+  #       has.amd.gpu = true;
+  #     };
+  #     devices.steamdeck.enable = true;
+  #     devices.steamdeck.autoUpdate = true;
+  #     devices.steamdeck.enableGyroDsuService = true;
+  #     decky-loader.enable = true;
+  #     steam = {
+  #       enable = true;
+  #       autoStart = true;
+  #       updater.splash = "steamos";
+  #       user = "voidlighter";
+  #       desktopSession = "plasma";
+  #     };
+  #     steamos = {
+  #       useSteamOSConfig = true;
+  #     };
+  #   };
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -45,7 +45,6 @@
     layout = "us";
     variant = "";
   };
-
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -101,6 +100,11 @@
   };
 
   networking.hostName = "${host}"; # Define your hostname.
+  networking.hosts = {
+    "192.168.0.115" = ["veridia"];
+    "192.168.0.195" = ["elysia"];
+    "192.168.0.218" = ["vapor"];
+  };
   hardware.bluetooth.enable = true;
 
   users.users.${user.name} = {
@@ -109,7 +113,6 @@
     extraGroups = ["networkmanager" "wheel"];
     # packages = with pkgs; [];
   };
-
 
   # # XDG Portal
   # xdg.portal.enable = true;

@@ -11,14 +11,7 @@
   ...
 }: {
   imports = [
-    # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
-
-    # Import your generated (nixos-generate-config) hardware configuration
+    # ../modules/remote-build/remote-builder.nix
   ];
 
   nixpkgs.overlays = [
@@ -59,6 +52,11 @@
   };
 
   networking.hostName = "${host}"; # Define your hostname.
+  networking.hosts = {
+    "192.168.0.115" = ["veridia"];
+    "192.168.0.195" = ["elysia"];
+    "192.168.0.218" = ["vapor"];
+  };
   hardware.bluetooth.enable = true;
 
   users.users.${user.name} = {
