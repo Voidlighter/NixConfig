@@ -5,9 +5,9 @@
     group = "remotebuild";
 
     openssh.authorizedKeys.keyFiles = [
-      /root/.ssh/remote-build-veridia.pub
-      /root/.ssh/remote-build-elysia.pub
-      /root/.ssh/remote-build-vapor.pub
+      ./remote-build-veridia.pub
+      ./remote-build-elysia.pub
+      ./remote-build-vapor.pub
     ];
   };
 
