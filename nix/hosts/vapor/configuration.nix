@@ -101,7 +101,7 @@
 
   networking.hostName = "${host}"; # Define your hostname.
   networking.hosts = {
-    "192.168.0.115" = ["veridia"];
+    "192.168.0.155" = ["veridia"];
     "192.168.0.195" = ["elysia"];
     "192.168.0.218" = ["vapor"];
   };
