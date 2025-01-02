@@ -11,25 +11,41 @@
     ./hardware-configuration.nix
   ];
 
-  jovian = {
-    hardware = {
-      has.amd.gpu = true;
-    };
-    devices.steamdeck.enable = true;
-    devices.steamdeck.autoUpdate = true;
-    devices.steamdeck.enableGyroDsuService = true;
-    decky-loader.enable = true;
-    steam = {
-      enable = true;
-      autoStart = true;
-      updater.splash = "steamos";
-      user = "voidlighter";
-      desktopSession = "plasma";
-    };
-    steamos = {
-      useSteamOSConfig = true;
-    };
+#   jovian = {
+#     hardware = {
+#       has.amd.gpu = true;
+#     };
+#     devices.steamdeck.enable = true;
+#     devices.steamdeck.autoUpdate = true;
+#     devices.steamdeck.enableGyroDsuService = true;
+#     decky-loader.enable = true;
+#     steam = {
+#       enable = true;
+#       autoStart = true;
+#       updater.splash = "steamos";
+#       user = "voidlighter";
+#       desktopSession = "plasma";
+#     };
+#     steamos = {
+#       useSteamOSConfig = true;
+#     };
+#   };
+
+  # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
   };
+
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -94,20 +110,6 @@
     # packages = with pkgs; [];
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.wayland.enable = true;
-  # services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # # XDG Portal
   # xdg.portal.enable = true;
