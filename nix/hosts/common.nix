@@ -53,19 +53,8 @@
       fzf
       starship
       xorg.xkill
-      # firefox
 
-      # hyprland
-      # waybar
-      # mako
-      # libnotify
-      # swww
-      # rofi-wayland
-      # (
-      #   pkgs.waybar.overrideAttrs (oldAttrs: {
-      #     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
-      #   })
-      # )
+      firefox
     ];
   };
 
@@ -101,11 +90,6 @@
   hardware.keyboard.zsa.enable = true;
 
   programs = {
-    # hyprland = {
-    #   enable = true;
-    #   # nvidiaPatches = true;
-    #   xwayland.enable = true;
-    # };
     neovim = {
       enable = true;
       viAlias = true;
@@ -118,19 +102,20 @@
     command-not-found.enable = false;
     # nix-index-database.comma.enable = true;
 
-    starship.enable = true;
-    starship.settings = {
-      aws.disabled = true;
-      gcloud.disabled = true;
-      kubernetes.disabled = false;
-      git_branch.style = "242";
-      directory.style = "blue";
-      directory.truncate_to_repo = false;
-      directory.truncation_length = 8;
-      python.disabled = true;
-      ruby.disabled = true;
-      hostname.ssh_only = false;
-      hostname.style = "bold green";
+    starship = {
+      enable = true;
+      presets = ["tokyo-night"];
+      settings = {
+        gcloud.disabled = true;
+        git_branch.style = "242";
+        directory.style = "blue";
+        directory.truncate_to_repo = true;
+        directory.truncation_length = 3;
+        python.disabled = true;
+        ruby.disabled = true;
+        hostname.ssh_only = false;
+        hostname.style = "bold green";
+      };
     };
     # This is where .zshrc stuff goes
     zsh = {
@@ -185,21 +170,36 @@
   networking.networkmanager.enable = true;
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [22];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+    };
+  };
 
   networking.firewall = {
     enable = true;
+    allowedTCPPorts = [
+      22
+    ];
     allowedTCPPortRanges = [
       {
+        # KDE Connect
         from = 1714;
         to = 1764;
-      } # KDE Connect
+      }
     ];
     allowedUDPPortRanges = [
       {
+        # KDE Connect
         from = 1714;
         to = 1764;
-      } # KDE Connect
+      }
     ];
   };
 
