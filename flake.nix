@@ -87,6 +87,7 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
+      # Work PC
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -100,6 +101,7 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+      # Surface Pro Laptop
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -115,11 +117,12 @@
           ./nix/hosts/elysia/configuration.nix
         ];
       };
+      # Steam Deck
       vapor = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user.name = "deck";
-          user.Name = "deck";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "vapor";
         };
         modules = [
@@ -133,6 +136,7 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
+      # Work PC
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # pkgs = inputs.nixpkgs;
@@ -150,6 +154,7 @@
           ./nix/home-manager/veridia.nix
         ];
       };
+      # Surface Pro Laptop
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
@@ -166,15 +171,16 @@
           ./nix/home-manager/elysia.nix
         ];
       };
-      "deck@vapor" = home-manager.lib.homeManagerConfiguration {
+      # Steam Deck
+      "cade@vapor" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
-          user.name = "deck";
-          user.Name = "deck";
+          user.name = "cade";
+          user.Name = "Cade";
           host = "vapor";
         };
         modules = [
