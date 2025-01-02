@@ -8,7 +8,7 @@
     ./../common.nix
     ./hardware-configuration.nix
 
-    ../modules/remote-build/remote-builder.nix
+    ../../modules/remote-build/remote-builder.nix
   ];
 
   # Enable OpenGL
