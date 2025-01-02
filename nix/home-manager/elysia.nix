@@ -22,8 +22,8 @@
     art = true;
     coding = true;
     java = true;
-    video = true;
-    music = true;
+    video = false;
+    music = false;
     gaming = false;
     streaming = false;
     vmware = false;

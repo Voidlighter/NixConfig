@@ -7,8 +7,10 @@
     # Also see the 'stable-packages' overlay at 'overlays/default.nix'.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
 
     jovian = {
@@ -95,6 +97,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./nix/hosts/veridia/configuration.nix
+          inputs.home-manager.nixosModules.default
         ];
       };
       elysia = nixpkgs.lib.nixosSystem {
@@ -108,6 +111,7 @@
           # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
           nixos-hardware.nixosModules.microsoft-surface-common
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          inputs.home-manager.nixosModules.default
           ./nix/hosts/elysia/configuration.nix
         ];
       };

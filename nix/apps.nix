@@ -92,11 +92,11 @@ with pkgs;
     # davinci-resolve-studio
   ]
   ++ lib.optionals music [
-    lmms
-    ardour
+    # lmms
+    # ardour
     reaper
-    cardinal
-    bespokesynth-with-vst2
+    # cardinal
+    # bespokesynth-with-vst2
 
     #VSTS
     decent-sampler
