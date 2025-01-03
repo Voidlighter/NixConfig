@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
   pkgs-stable,
@@ -11,8 +8,80 @@
   ...
 }: {
   imports = [
-    # ../modules/remote-build/remote-builder.nix
+    ./hardware-configuration.nix
+    "${inputs.jovian}/modules"
   ];
+
+  jovian = {
+    steam = {
+      enable = true;
+      autoStart = true;
+      user = "cade";
+      desktopSession = "plasma";
+    };
+    # hardware = {
+    #   has.amd.gpu = true;
+    # };
+    devices.steamdeck = {
+      enable = true;
+      autoUpdate = true;
+    };
+    decky-loader = {
+      enable = true;
+    };
+  };
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # You can see the resulting builder-strings of this NixOS-configuration with "cat /etc/nix/machines".
+  # These builder-strings are used by the Nix terminal tool, e.g.
+  # when calling "nix build ...".
+  nix.buildMachines = [
+    {
+      # Will be used to call "ssh builder" to connect to the builder machine.
+      # The details of the connection (user, port, url etc.)
+      # are taken from your "~/.ssh/config" file.
+      hostName = "veridia";
+      system = "x86_64-linux";
+      # Nix custom ssh-variant that avoids lots of "trusted-users" settings pain
+      protocol = "ssh-ng";
+      # default is 1 but may keep the builder idle in between builds
+      maxJobs = 3;
+      # how fast is the builder compared to your local machine
+      speedFactor = 2;
+      supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+      mandatoryFeatures = [];
+    }
+  ];
+  # required, otherwise remote buildMachines above aren't used
+  nix.distributedBuilds = true;
+  # optional, useful when the builder has a faster internet connection than yours
+  nix.settings = {
+    builders-use-substitutes = true;
+  };
+  # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
+  services.xserver.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -21,12 +90,12 @@
   ];
 
   environment = {
-    sessionVariables = {
-      # If your cursor becomes invisible
-      WLR_NO_HARDWARE_CURSORS = "1";
-      # Hint electron apps to use wayland
-      NIXOS_OZONE_WL = "1";
-    };
+    # sessionVariables = {
+    #   # If your cursor becomes invisible
+    #   # WLR_NO_HARDWARE_CURSORS = "1";
+    #   # Hint electron apps to use wayland
+    #   # NIXOS_OZONE_WL = "1";
+    # };
     systemPackages = with pkgs; [
       home-manager
       neovim
@@ -48,6 +117,11 @@
       xorg.xkill
 
       firefox
+      # (
+      #   pkgs.waybar.overrideAttrs (oldAttrs: {
+      #     mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+      #   })
+      # )
     ];
   };
 
@@ -66,21 +140,6 @@
     # packages = with pkgs; [];
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # # XDG Portal
   # xdg.portal.enable = true;
   # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -90,6 +149,11 @@
   hardware.keyboard.zsa.enable = true;
 
   programs = {
+    # hyprland = {
+    #   enable = true;
+    #   # nvidiaPatches = true;
+    #   xwayland.enable = true;
+    # };
     neovim = {
       enable = true;
       viAlias = true;
@@ -102,20 +166,19 @@
     command-not-found.enable = false;
     # nix-index-database.comma.enable = true;
 
-    starship = {
-      enable = true;
-      presets = ["tokyo-night"];
-      settings = {
-        gcloud.disabled = true;
-        git_branch.style = "242";
-        directory.style = "blue";
-        directory.truncate_to_repo = true;
-        directory.truncation_length = 3;
-        python.disabled = true;
-        ruby.disabled = true;
-        hostname.ssh_only = false;
-        hostname.style = "bold green";
-      };
+    starship.enable = true;
+    starship.settings = {
+      aws.disabled = true;
+      gcloud.disabled = true;
+      kubernetes.disabled = false;
+      git_branch.style = "242";
+      directory.style = "blue";
+      directory.truncate_to_repo = false;
+      directory.truncation_length = 8;
+      python.disabled = true;
+      ruby.disabled = true;
+      hostname.ssh_only = false;
+      hostname.style = "bold green";
     };
     # This is where .zshrc stuff goes
     zsh = {
@@ -142,9 +205,6 @@
   hardware = {
     # Opengl in 24.05, graphics in 24.11
     graphics.enable = true;
-
-    # Most wayland compositors need this
-    nvidia.modesetting.enable = true;
   };
 
   # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -170,36 +230,21 @@
   networking.networkmanager.enable = true;
 
   # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    ports = [22];
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
-      X11Forwarding = false;
-      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-    };
-  };
+  services.openssh.enable = true;
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [
-      22
-    ];
     allowedTCPPortRanges = [
       {
-        # KDE Connect
         from = 1714;
         to = 1764;
-      }
+      } # KDE Connect
     ];
     allowedUDPPortRanges = [
       {
-        # KDE Connect
         from = 1714;
         to = 1764;
-      }
+      } # KDE Connect
     ];
   };
 

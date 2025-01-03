@@ -22,18 +22,6 @@
 with pkgs;
   lib.optionals cliUtils [
     hello
-
-    bat
-    curl
-    eza
-    fd
-    ripgrep
-    zellij
-    bottom
-    zoxide
-    fzf
-    starship
-    xorg.xkill
   ]
   ++ lib.optionals baseApps [
     jetbrains-mono
@@ -44,7 +32,7 @@ with pkgs;
     tor-browser
 
     # Internet Utils
-    unstable.protonvpn-gui
+    protonvpn-gui
     wireguard-tools
     syncthing
     syncthingtray
@@ -104,11 +92,11 @@ with pkgs;
     # davinci-resolve-studio
   ]
   ++ lib.optionals music [
-    lmms
-    ardour
+    # lmms
+    # ardour
     reaper
-    cardinal
-    bespokesynth-with-vst2
+    # cardinal
+    # bespokesynth-with-vst2
 
     #VSTS
     decent-sampler
@@ -127,7 +115,7 @@ with pkgs;
     inkscape-with-extensions
   ]
   ++ lib.optionals gaming [
-    steam
+    # steam
   ]
   ++ lib.optionals vmware [
     virtualbox
@@ -143,9 +131,9 @@ with pkgs;
   ]
   ++ lib.optionals hyprland [
     # hyprland
-    # unstable.waybar
-    # unstable.mako
-    # unstable.libnotify
-    # unstable.swww
-    # unstable.rofi-wayland
+    # waybar
+    # mako
+    # libnotify
+    # swww
+    # rofi-wayland
   ]

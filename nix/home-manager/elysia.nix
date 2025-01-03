@@ -22,7 +22,7 @@
     art = true;
     coding = true;
     java = true;
-    video = true;
+    video = false;
     music = false;
     gaming = false;
     streaming = false;

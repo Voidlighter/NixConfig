@@ -12,7 +12,15 @@
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-
+    # (
+    # Put the most recent revision here:
+    #   let revision = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; in
+    #   builtins.fetchTarball {
+    #     url = "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/${revision}.tar.gz";
+    #     # Update the hash as needed:
+    #     sha256 = "sha256:0000000000000000000000000000000000000000000000000000";
+    #   } + "/modules"
+    # )
     # You can also split up your configuration and import pieces of it here:
     ./common.nix
   ];
@@ -24,12 +32,12 @@
     office = true;
     plasma = true;
     hyprland = false;
-    coding = false;
+    coding = true;
     art = false;
     java = false;
     video = false;
     music = true;
-    gaming = true;
+    gaming = false;
     streaming = false;
     android = false;
   };

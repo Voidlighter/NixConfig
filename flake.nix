@@ -2,21 +2,27 @@
   description = "Cade's Root Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # Also see the 'stable-packages' overlay at 'overlays/default.nix'.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # home-manager.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
+
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
+    nixpkgs-stable,
     nixos-hardware,
     home-manager,
     ...
@@ -31,7 +37,7 @@
     ];
   in rec {
     inherit nixpkgs;
-    inherit nixpkgs-unstable;
+    inherit nixpkgs-stable;
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,
@@ -81,6 +87,7 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
+      # Work PC
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -91,8 +98,10 @@
         modules = [
           # > Our main nixos configuration file <
           ./nix/hosts/veridia/configuration.nix
+          inputs.home-manager.nixosModules.default
         ];
       };
+      # Surface Pro Laptop
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
@@ -104,7 +113,22 @@
           # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
           nixos-hardware.nixosModules.microsoft-surface-common
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          inputs.home-manager.nixosModules.default
           ./nix/hosts/elysia/configuration.nix
+        ];
+      };
+      # Steam Deck
+      vapor = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+          user.name = "cade";
+          user.Name = "Cade";
+          host = "vapor";
+        };
+        modules = [
+          inputs.jovian.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          ./nix/hosts/vapor/configuration.nix
         ];
       };
     };
@@ -112,6 +136,7 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
+      # Work PC
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # pkgs = inputs.nixpkgs;
@@ -129,6 +154,7 @@
           ./nix/home-manager/veridia.nix
         ];
       };
+      # Surface Pro Laptop
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
@@ -145,20 +171,21 @@
           ./nix/home-manager/elysia.nix
         ];
       };
-      "deck@vaporite" = home-manager.lib.homeManagerConfiguration {
+      # Steam Deck
+      "cade@vapor" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
         # inherit pkgs;
         # pkgs = nixpkgs.legacyPackages.${system};
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
-          user.name = "deck";
-          user.Name = "deck";
-          host = "vaporite";
+          user.name = "cade";
+          user.Name = "Cade";
+          host = "vapor";
         };
         modules = [
           # > Our main home-manager configuration file <
-          ./nix/home-manager/deck.nix
+          ./nix/home-manager/vapor.nix
         ];
       };
     };
