@@ -9,9 +9,16 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    "${inputs.jovian}/modules"
   ];
 
   jovian = {
+    steam = {
+      enable = true;
+      autoStart = true;
+      user = "cade";
+      desktopSession = "plasma";
+    };
     # hardware = {
     #   has.amd.gpu = true;
     # };
@@ -19,15 +26,8 @@
       enable = true;
       autoUpdate = true;
     };
-    decky-loader.enable = true;
-    steam = {
+    decky-loader = {
       enable = true;
-      autoStart = true;
-      user = "root";
-      desktopSession = "plasma";
-    };
-    steamos = {
-      useSteamOSConfig = true;
     };
   };
 
