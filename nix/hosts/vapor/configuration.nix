@@ -23,7 +23,7 @@
     # decky-loader.enable = true;
     steam = {
       enable = true;
-      # autoStart = true;
+      autoStart = true;
       updater.splash = "steamos";
       user = "voidlighter";
       desktopSession = "plasma";
@@ -32,6 +32,11 @@
       useSteamOSConfig = true;
     };
   };
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # You can see the resulting builder-strings of this NixOS-configuration with "cat /etc/nix/machines".
   # These builder-strings are used by the Nix terminal tool, e.g.
@@ -62,11 +67,6 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
