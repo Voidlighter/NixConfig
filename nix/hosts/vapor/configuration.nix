@@ -11,25 +11,25 @@
     ./hardware-configuration.nix
   ];
 
-  #   jovian = {
-  #     hardware = {
-  #       has.amd.gpu = true;
-  #     };
-  #     devices.steamdeck.enable = true;
-  #     devices.steamdeck.autoUpdate = true;
-  #     devices.steamdeck.enableGyroDsuService = true;
-  #     decky-loader.enable = true;
-  #     steam = {
-  #       enable = true;
-  #       autoStart = true;
-  #       updater.splash = "steamos";
-  #       user = "voidlighter";
-  #       desktopSession = "plasma";
-  #     };
-  #     steamos = {
-  #       useSteamOSConfig = true;
-  #     };
-  #   };
+  jovian = {
+    hardware = {
+      has.amd.gpu = true;
+    };
+    devices.steamdeck.enable = true;
+    # devices.steamdeck.autoUpdate = true;
+    # devices.steamdeck.enableGyroDsuService = true;
+    # decky-loader.enable = true;
+    steam = {
+      enable = true;
+      # autoStart = true;
+      updater.splash = "steamos";
+      user = "voidlighter";
+      desktopSession = "plasma";
+    };
+    steamos = {
+      useSteamOSConfig = true;
+    };
+  };
 
   # You can see the resulting builder-strings of this NixOS-configuration with "cat /etc/nix/machines".
   # These builder-strings are used by the Nix terminal tool, e.g.
