@@ -12,11 +12,13 @@
   ];
 
   jovian = {
-    hardware = {
-      has.amd.gpu = true;
+    # hardware = {
+    #   has.amd.gpu = true;
+    # };
+    devices.steamdeck = {
+      enable = true;
+      autoUpdate = true;
     };
-    devices.steamdeck.enable = true;
-    # devices.steamdeck.autoUpdate = true;
     # devices.steamdeck.enableGyroDsuService = true;
     # decky-loader.enable = true;
     steam = {
