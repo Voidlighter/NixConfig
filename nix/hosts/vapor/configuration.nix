@@ -9,7 +9,6 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    <jovian-nixos/modules>
   ];
 
   jovian = {
