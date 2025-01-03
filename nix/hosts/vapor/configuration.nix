@@ -9,6 +9,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    <jovian-nixos/modules>
   ];
 
   jovian = {
@@ -19,13 +20,11 @@
       enable = true;
       autoUpdate = true;
     };
-    # devices.steamdeck.enableGyroDsuService = true;
-    # decky-loader.enable = true;
+    decky-loader.enable = true;
     steam = {
       enable = true;
       autoStart = true;
-      updater.splash = "steamos";
-      user = "voidlighter";
+      user = "root";
       desktopSession = "plasma";
     };
     steamos = {
