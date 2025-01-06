@@ -9,6 +9,7 @@
   user,
   host,
   options,
+  config,
   ...
 }: {
   imports = [
@@ -29,7 +30,7 @@
       default = true;
     };
     added-system-packages = lib.mkOption {
-      type = lib.types.list lib.types.package;
+      type = lib.types.listOf lib.types.package;
       default = [];
     };
   };
@@ -46,12 +47,12 @@
 
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
-    services.displayManager.sddm.wayland.enable = options.uses-sddm;
-    services.displayManager.sddm.enable = options.uses-sddm;
+    services.displayManager.sddm.wayland.enable = config.uses-sddm;
+    services.displayManager.sddm.enable = config.uses-sddm;
     services.xserver = {
       enable = true;
       videoDrivers =
-        if options.uses-nvidia == true
+        if config.uses-nvidia == true
         then ["nvidia"]
         else
           lib.mkOverride 2000 [
@@ -63,7 +64,7 @@
     };
 
     # Enable the KDE Plasma Desktop Environment.
-    services.desktopManager.plasma6.enable = options.uses-kde;
+    services.desktopManager.plasma6.enable = config.uses-kde;
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -110,7 +111,7 @@
       graphics.enable = true;
 
       # Most wayland compositors need this
-      nvidia.modesetting.enable = options.uses-nvidia;
+      nvidia.modesetting.enable = config.uses-nvidia;
 
       keyboard.zsa.enable = true;
     };
@@ -238,11 +239,11 @@
           # inputs.nix-software-center.packages.${system}.nix-software-center
           # Theming
           kde-rounded-corners
-          libsforqt5.qt5.qtquickcontrols2
-          libsforqt5.qt5.qtgraphicaleffects
+          libsForQt5.qt5.qtquickcontrols2
+          libsForQt5.qt5.qtgraphicaleffects
           libsForQt5.qtstyleplugin-kvantum
         ]
-        ++ added-system-packages;
+        ++ config.added-system-packages;
     };
 
     # Allows for use of stable.hello instead of just hello during a 'with pkgs'

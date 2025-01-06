@@ -1,5 +1,8 @@
 {
   lib,
+  inputs,
+  config,
+  options,
   pkgs,
   extraUtils ? true,
   baseApps ? true,

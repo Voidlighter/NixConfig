@@ -87,27 +87,32 @@
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./nix/modules/home-manager;
 
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild switch --flake .#your-hostname'
+    user.name = "cade";
+    user.Name = "Cade";
 
     # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+    # Available through 'nixos-rebuild switch --flake .#your-hostname'
     nixosConfigurations = {
       # Work PC
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user.name = "cade";
-          user.Name = "Cade";
+          user = outputs.user;
           host = "veridia";
         };
         modules = [
           ./nix/hosts/veridia/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cade = import ./nix/home-manager/veridia.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.cade = import ./nix/home-manager/veridia.nix;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                user = outputs.user;
+              };
+            };
           }
         ];
       };
@@ -115,8 +120,7 @@
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user.name = "cade";
-          user.Name = "Cade";
+          user = outputs.user;
           host = "elysia";
         };
         modules = [
@@ -125,10 +129,17 @@
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           ./nix/hosts/elysia/configuration.nix
           home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cade = import ./nix/home-manager/elysia.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.cade = import ./nix/home-manager/elysia.nix;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                user = outputs.user;
+              };
+            };
           }
         ];
       };
@@ -136,8 +147,7 @@
       vapor = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user.name = "cade";
-          user.Name = "Cade";
+          user = outputs.user;
           host = "vapor";
         };
         modules = [
@@ -145,10 +155,17 @@
           ./nix/hosts/vapor/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.cade = import ./nix/home-manager/vapor.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.cade = import ./nix/home-manager/vapor.nix;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                user = outputs.user;
+              };
+            };
           }
         ];
       };

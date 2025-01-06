@@ -3,7 +3,9 @@
 {
   lib,
   inputs,
+  outputs,
   config,
+  options,
   pkgs,
   user,
   ...
@@ -14,7 +16,7 @@
   ];
 
   home.packages = import ./../apps.nix {
-    inherit lib pkgs;
+    inherit inputs outputs lib config options pkgs;
     baseApps = true;
     office = true;
     plasma = true;

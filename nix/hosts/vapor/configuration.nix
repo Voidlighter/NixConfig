@@ -16,13 +16,10 @@
     "${inputs.jovian}/modules"
   ];
 
-  options = {
+  config = {
     uses-kde = true;
     uses-sddm = false;
     added-system-packages = with pkgs; [steam-rom-manager];
-  };
-
-  config = {
     jovian = {
       steam = {
         enable = true;

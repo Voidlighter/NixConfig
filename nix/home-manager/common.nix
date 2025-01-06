@@ -4,6 +4,7 @@
   inputs,
   outputs,
   config,
+  options,
   pkgs,
   user,
   ...
@@ -16,10 +17,8 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./theme-files/gruvbox-plus.nix
+    # ./theme-files/gruvbox-plus.nix
   ];
-
-  options = {};
 
   config = {
     home = {
@@ -67,33 +66,6 @@
       ".icons/bibata".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Classic";
     };
 
-    nixpkgs = {
-      # You can add overlays here
-      overlays = [
-        # Add overlays your own flake exports (from overlays and pkgs dir):
-        outputs.overlays.additions
-        outputs.overlays.modifications
-        outputs.overlays.unstable-packages
-
-        # If you want to use overlays exported from other flakes:
-        # neovim-nightly-overlay.overlays.default
-
-        (final: prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            system = final.system;
-            config.allowUnfree = true;
-          };
-        })
-      ];
-      # Configure your nixpkgs instance
-      config = {
-        # Disable if you don't want unfree packages
-        allowUnfree = true;
-        # Workaround for https://github.com/nix-community/home-manager/issues/2942
-        allowUnfreePredicate = _: true;
-      };
-    };
-
     programs = {
       home-manager.enable = true;
 
@@ -117,7 +89,7 @@
 
       starship = {
         enable = true;
-        presets = ["tokyo-night"];
+        # presets = ["tokyo-night"];
         settings = {
           gcloud.disabled = true;
           git_branch.style = "242";

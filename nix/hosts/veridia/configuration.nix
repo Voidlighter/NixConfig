@@ -13,9 +13,8 @@
     ../../modules/remote-build/remote-builder.nix
   ];
 
-  options.uses-nvidia = true;
-
   config = {
+    uses-nvidia = true;
     # Enable OpenGL
     hardware.graphics = {
       enable = true;

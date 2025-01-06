@@ -3,7 +3,9 @@
 {
   lib,
   inputs,
+  outputs,
   config,
+  options,
   pkgs,
   user,
   ...
@@ -18,7 +20,7 @@
   ];
 
   home.packages = import ./../apps.nix {
-    inherit lib pkgs;
+    inherit inputs outputs lib config options pkgs;
     art = true;
     coding = true;
     java = true;
