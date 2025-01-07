@@ -32,55 +32,6 @@
   };
 
   config = {
-    nixpkgs.overlays = [
-      (final: prev: {
-        stable = pkgs-stable;
-      })
-    ];
-
-    environment = {
-      sessionVariables = {
-        # If your cursor becomes invisible
-        WLR_NO_HARDWARE_CURSORS = "1";
-        # Hint electron apps to use wayland
-        NIXOS_OZONE_WL = "1";
-      };
-      systemPackages = with pkgs; [
-        home-manager
-        neovim
-        # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
-        zsh
-        wget
-        git
-
-        bat
-        curl
-        eza
-        fd
-        ripgrep
-        zellij
-        bottom
-        zoxide
-        fzf
-        starship
-        xorg.xkill
-
-        firefox
-        # Fonts
-        nerd-fonts.jetbrains-mono
-        inter
-        rubik
-        # Nix UI: Snowfallorg
-        inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-        inputs.nix-software-center.packages.${system}.nix-software-center
-        # Theming
-        kde-rounded-corners
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-        libsForQt5.qtstyleplugin-kvantum
-      ];
-    };
-
     networking.hostName = "${host}"; # Define your hostname.
     networking.hosts = {
       "192.168.0.155" = ["veridia"];
@@ -96,28 +47,27 @@
       # packages = with pkgs; [];
     };
 
+    services = {
+      displayManager.sddm.wayland.enable = true;
+      displayManager.sddm.enable = true;
+
+      desktopManager.plasma6.enable = true;
+
+      xserver.enable = true;
+      # set keymap in X11
+      xserver.xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
-    services.displayManager.sddm.wayland.enable = true;
-    services.displayManager.sddm.enable = true;
-    services.xserver.enable = true;
-
-    # Enable the KDE Plasma Desktop Environment.
-    services.desktopManager.plasma6.enable = true;
-
-    # Configure keymap in X11
-    services.xserver.xkb = {
-      layout = "us";
-      variant = "";
-    };
 
     # # XDG Portal
     # xdg.portal.enable = true;
     # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     users.defaultUserShell = pkgs.zsh;
-
-    hardware.keyboard.zsa.enable = true;
 
     programs = {
       neovim = {
@@ -164,8 +114,6 @@
     # Enable touchpad support (enabled default in most desktopManager).
     services.libinput.enable = true;
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
@@ -175,6 +123,8 @@
 
       # Most wayland compositors need this
       nvidia.modesetting.enable = true;
+
+      keyboard.zsa.enable = true;
     };
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -196,9 +146,6 @@
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-    # Enable networking
-    networking.networkmanager.enable = true;
-
     # Enable the OpenSSH daemon.
     services.openssh = {
       enable = true;
@@ -211,6 +158,9 @@
         PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
       };
     };
+
+    # Enable networking
+    networking.networkmanager.enable = true;
 
     networking.firewall = {
       enable = true;
@@ -233,6 +183,49 @@
       ];
     };
 
+    environment = {
+      sessionVariables = {
+        # If your cursor becomes invisible
+        WLR_NO_HARDWARE_CURSORS = "1";
+        # Hint electron apps to use wayland
+        NIXOS_OZONE_WL = "1";
+      };
+      systemPackages = with pkgs; [
+        home-manager
+        neovim
+        # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+        zsh
+        wget
+        git
+
+        bat
+        curl
+        eza
+        fd
+        ripgrep
+        zellij
+        bottom
+        zoxide
+        fzf
+        starship
+        xorg.xkill
+
+        firefox
+        # Fonts
+        nerd-fonts.jetbrains-mono
+        inter
+        rubik
+        # Nix UI: Snowfallorg
+        inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
+        inputs.nix-software-center.packages.${system}.nix-software-center
+        # Theming
+        kde-rounded-corners
+        libsForQt5.qt5.qtquickcontrols2
+        libsForQt5.qt5.qtgraphicaleffects
+        libsForQt5.qtstyleplugin-kvantum
+      ];
+    };
+
     # Set your time zone.
     time.timeZone = "America/Denver";
 
@@ -251,9 +244,16 @@
       LC_TIME = "en_US.UTF-8";
     };
 
+    nixpkgs.overlays = [
+      (final: prev: {
+        stable = pkgs-stable;
+      })
+    ];
+
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
+    nix.settings.experimental-features = ["nix-command" "flakes"];
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
