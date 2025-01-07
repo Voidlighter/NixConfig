@@ -121,9 +121,6 @@
       # Opengl in 24.05, graphics in 24.11
       graphics.enable = true;
 
-      # Most wayland compositors need this
-      nvidia.modesetting.enable = true;
-
       keyboard.zsa.enable = true;
     };
 
