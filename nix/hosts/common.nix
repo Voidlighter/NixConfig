@@ -193,6 +193,7 @@
         firefox
         # Fonts
         nerd-fonts.jetbrains-mono
+        nerd-fonts.fira-code
         inter
         rubik
         # Nix UI: Snowfallorg
