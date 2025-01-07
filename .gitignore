@@ -1,1 +1,4 @@
 result
+.flake.nix.kate-swp
+nix/.apps.nix.kate-swp
+nix/home-manager/.elysia.nix.kate-swp
