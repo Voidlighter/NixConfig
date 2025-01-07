@@ -17,6 +17,12 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kwin-effects-forceblur = {
+      url = "github:taj-ny/kwin-effects-forceblur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-conf-editor.url = "github:snowfallorg/nixos-conf-editor";
+    nix-software-center.url = "github:snowfallorg/nix-software-center";
   };
 
   outputs = {
