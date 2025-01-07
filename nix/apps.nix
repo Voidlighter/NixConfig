@@ -1,7 +1,10 @@
 {
   lib,
+  inputs,
+  config,
+  options,
   pkgs,
-  cliUtils ? true,
+  extraUtils ? true,
   baseApps ? true,
   office ? true,
   social ? true,
@@ -16,16 +19,15 @@
   vmware ? false,
   android ? false,
   plasma ? true,
-  hyprland ? false,
+  theming ? true,
   ...
 }:
 with pkgs;
-  lib.optionals cliUtils [
+  lib.optionals extraUtils [
     hello
+    qdirstat # Graphical disk usage analyzer
   ]
   ++ lib.optionals baseApps [
-    jetbrains-mono
-
     # Web Browser
     floorp
     ungoogled-chromium
@@ -129,11 +131,9 @@ with pkgs;
     kdePackages.kate
     kde-gtk-config
   ]
-  ++ lib.optionals hyprland [
-    # hyprland
-    # waybar
-    # mako
-    # libnotify
-    # swww
-    # rofi-wayland
+  ++ lib.optionals theming [
+    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+    papirus-folders
+    papirus-icon-theme
+    themix-gui
   ]
