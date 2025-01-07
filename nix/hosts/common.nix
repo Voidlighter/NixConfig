@@ -60,12 +60,6 @@
         variant = "";
       };
     };
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-
-    # # XDG Portal
-    # xdg.portal.enable = true;
-    # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     users.defaultUserShell = pkgs.zsh;
 
@@ -124,11 +118,6 @@
       keyboard.zsa.enable = true;
     };
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-    # };
-
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     programs.mtr.enable = true;
@@ -136,12 +125,6 @@
       enable = true;
       enableSSHSupport = true;
     };
-
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     # Enable the OpenSSH daemon.
     services.openssh = {
@@ -240,6 +223,21 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
+
+    # # XDG Portal
+    # xdg.portal.enable = true;
+    # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+    # };
+
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     nixpkgs.overlays = [
       (final: prev: {
