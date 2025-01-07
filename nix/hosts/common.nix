@@ -171,7 +171,7 @@
         NIXOS_OZONE_WL = "1";
       };
       systemPackages = with pkgs; [
-        home-manager
+        # home-manager
         neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
         zsh
