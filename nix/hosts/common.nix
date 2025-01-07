@@ -67,12 +67,12 @@
 
         firefox
         # Fonts
-        jetbrains-mono
+        nerd-fonts.jetbrains-mono
         inter
         rubik
         # Nix UI: Snowfallorg
-        # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-        # inputs.nix-software-center.packages.${system}.nix-software-center
+        inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
+        inputs.nix-software-center.packages.${system}.nix-software-center
         # Theming
         kde-rounded-corners
         libsForQt5.qt5.qtquickcontrols2
