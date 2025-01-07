@@ -16,6 +16,21 @@
     # ../modules/remote-build/remote-builder.nix
   ];
 
+  options = {
+    desktop-manager = lib.mkOption {
+      type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic"];
+      default = "plasma";
+    };
+    greeter = lib.mkOption {
+      type = lib.types.enum ["sddm" "gdm" "lightdm"];
+      default = "sddm";
+    };
+    added-system-packages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+    };
+  };
+
   config = {
     nixpkgs.overlays = [
       (final: prev: {
