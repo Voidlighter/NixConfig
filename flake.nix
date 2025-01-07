@@ -90,6 +90,8 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild switch --flake .#your-hostname'
 
+    cfg.user.name = "cade";
+    cfg.user.Name = "Cade";
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -97,14 +99,23 @@
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user.name = "cade";
-          user.Name = "Cade";
+          user = outputs.cfg.user;
           host = "veridia";
         };
         modules = [
-          # > Our main nixos configuration file <
           ./nix/hosts/veridia/configuration.nix
-          inputs.home-manager.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.cade = import ./nix/home-manager/veridia.nix;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                user = outputs.cfg.user;
+              };
+            };
+          }
         ];
       };
       # Surface Pro Laptop
