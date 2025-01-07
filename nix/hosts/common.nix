@@ -16,8 +16,8 @@
     # ../modules/remote-build/remote-builder.nix
   ];
 
-  options = {
-    desktop-manager = lib.mkOption {
+  options.cfg = {
+    desktop = lib.mkOption {
       type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic"];
       default = "plasma";
     };
@@ -48,10 +48,10 @@
     };
 
     services = {
-      displayManager.sddm.wayland.enable = true;
-      displayManager.sddm.enable = true;
+      displayManager.sddm.wayland.enable = config.cfg.greeter == "sddm";
+      displayManager.sddm.enable = config.cfg.greeter == "sddm";
 
-      desktopManager.plasma6.enable = true;
+      desktopManager.plasma6.enable = config.cfg.desktop == "plasma";
 
       xserver.enable = true;
       # set keymap in X11
@@ -171,7 +171,6 @@
         NIXOS_OZONE_WL = "1";
       };
       systemPackages = with pkgs; [
-        # home-manager
         neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
         zsh
