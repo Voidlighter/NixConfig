@@ -31,10 +31,8 @@
     };
   };
 
-  # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.wayland.enable = true;
-  # services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # desktop-manager = "plasma";
+  # greeter = "sddm";
 
   # You can see the resulting builder-strings of this NixOS-configuration with "cat /etc/nix/machines".
   # These builder-strings are used by the Nix terminal tool, e.g.

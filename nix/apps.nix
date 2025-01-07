@@ -16,7 +16,7 @@
   vmware ? false,
   android ? false,
   plasma ? true,
-  hyprland ? false,
+  theming ? false,
   ...
 }:
 with pkgs;
@@ -129,11 +129,9 @@ with pkgs;
     kdePackages.kate
     kde-gtk-config
   ]
-  ++ lib.optionals hyprland [
-    # hyprland
-    # waybar
-    # mako
-    # libnotify
-    # swww
-    # rofi-wayland
+  ++ lib.optionals theming [
+    # inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+    # papirus-folders
+    # papirus-icon-theme
+    # themix-gui
   ]
