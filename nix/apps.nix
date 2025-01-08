@@ -132,7 +132,7 @@ with pkgs;
     kde-gtk-config
   ]
   ++ lib.optionals theming [
-    # inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
     papirus-folders
     papirus-icon-theme
     themix-gui
