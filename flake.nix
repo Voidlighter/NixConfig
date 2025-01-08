@@ -23,6 +23,11 @@
     };
     nixos-conf-editor.url = "github:snowfallorg/nixos-conf-editor";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
@@ -114,6 +119,9 @@
                 inherit inputs outputs;
                 user = outputs.cfg.user;
               };
+              sharedModules = [
+                inputs.plasma-manager.homeManagerModules.plasma-manager
+              ];
             };
           }
         ];
