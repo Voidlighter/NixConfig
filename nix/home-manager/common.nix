@@ -108,7 +108,7 @@
 
         gapa = "git add --patch";
         grpa = "git reset --patch";
-        gst = "git status";
+        gtruest = "git status";
         gdh = "git diff HEAD";
         gp = "git push";
         gph = "git push -u origin HEAD";

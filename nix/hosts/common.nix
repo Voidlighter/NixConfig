@@ -16,7 +16,7 @@
     # ../modules/remote-build/remote-builder.nix
   ];
 
-  options.cfg = {
+  options.my = {
     desktop = lib.mkOption {
       type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic"];
       default = "plasma";
@@ -28,6 +28,31 @@
     added-system-packages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [];
+    };
+    apps = lib.mkOption {
+      type = lib.types.attrs;
+      default =
+        lib.attrsets.getAttrs [
+          "system"
+          "extraUtils"
+          "baseApps"
+          "office"
+          "social"
+          "coding"
+          "keyboard"
+          "art"
+          # "java"
+          # "video"
+          # "music"
+          # "gaming"
+          # "streaming"
+          # "vmware"
+          # "android"
+          "plasma"
+          "theming"
+        ]
+        import
+        ../apps.nix;
     };
   };
 
@@ -48,10 +73,10 @@
     };
 
     services = {
-      displayManager.sddm.wayland.enable = config.cfg.greeter == "sddm";
-      displayManager.sddm.enable = config.cfg.greeter == "sddm";
+      displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
+      displayManager.sddm.enable = config.my.greeter == "sddm";
 
-      desktopManager.plasma6.enable = config.cfg.desktop == "plasma";
+      desktopManager.plasma6.enable = config.my.desktop == "plasma";
 
       xserver.enable = true;
       # set keymap in X11
@@ -76,21 +101,6 @@
       command-not-found.enable = false;
       # nix-index-database.comma.enable = true;
 
-      starship = {
-        enable = true;
-        presets = ["tokyo-night"];
-        settings = {
-          gcloud.disabled = true;
-          git_branch.style = "242";
-          directory.style = "blue";
-          directory.truncate_to_repo = true;
-          directory.truncation_length = 3;
-          python.disabled = true;
-          ruby.disabled = true;
-          hostname.ssh_only = false;
-          hostname.style = "bold green";
-        };
-      };
       # This is where .zshrc stuff goes
       zsh = {
         enable = true;
@@ -102,6 +112,8 @@
         shellAliases = {
           ls = "eza";
         };
+
+        promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       };
     };
 
@@ -170,40 +182,7 @@
         # Hint electron apps to use wayland
         NIXOS_OZONE_WL = "1";
       };
-      systemPackages = with pkgs; [
-        neovim
-        # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
-        zsh
-        wget
-        git
-
-        bat
-        curl
-        eza
-        fd
-        ripgrep
-        zellij
-        bottom
-        zoxide
-        fzf
-        zsh-powerlevel10k
-        xorg.xkill
-
-        firefox
-        # Fonts
-        nerd-fonts.jetbrains-mono
-        nerd-fonts.fira-code
-        inter
-        rubik
-        # Nix UI: Snowfallorg
-        inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-        inputs.nix-software-center.packages.${system}.nix-software-center
-        # Theming
-        kde-rounded-corners
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-        libsForQt5.qtstyleplugin-kvantum
-      ];
+      systemPackages = config.my.apps.system;
     };
 
     # Set your time zone.
@@ -254,6 +233,6 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    system.stateVersion = "24.05"; # Did you read the comment?
+    system.stateVersion = "24.05"; # Did you read the comment=
   };
 }

@@ -12,8 +12,8 @@
   ];
 
   config = {
-    cfg.desktop = "plasma";
-    cfg.greeter = "sddm";
+    my.desktop = "plasma";
+    my.greeter = "sddm";
 
     # Enable OpenGL
     hardware.graphics = {

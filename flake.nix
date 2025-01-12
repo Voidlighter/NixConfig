@@ -95,8 +95,8 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild switch --flake .#your-hostname'
 
-    cfg.user.name = "cade";
-    cfg.user.Name = "Cade";
+    my.user.name = "cade";
+    my.user.Name = "Cade";
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -104,7 +104,7 @@
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user = outputs.cfg.user;
+          user = outputs.my.user;
           host = "veridia";
         };
         modules = [
@@ -117,7 +117,7 @@
               users.cade = import ./nix/home-manager/veridia.nix;
               extraSpecialArgs = {
                 inherit inputs outputs;
-                user = outputs.cfg.user;
+                user = outputs.my.user;
               };
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager
@@ -130,7 +130,7 @@
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user = outputs.cfg.user;
+          user = outputs.my.user;
           host = "elysia";
         };
         modules = [
@@ -145,7 +145,7 @@
               users.cade = import ./nix/home-manager/elysia.nix;
               extraSpecialArgs = {
                 inherit inputs outputs;
-                user = outputs.cfg.user;
+                user = outputs.my.user;
               };
             };
           }
@@ -155,7 +155,7 @@
       vapor = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user = outputs.cfg.user;
+          user = outputs.my.user;
           host = "vapor";
         };
         modules = [
@@ -168,7 +168,7 @@
               users.cade = import ./nix/home-manager/vapor.nix;
               extraSpecialArgs = {
                 inherit inputs outputs;
-                user = outputs.cfg.user;
+                user = outputs.my.user;
               };
             };
           }

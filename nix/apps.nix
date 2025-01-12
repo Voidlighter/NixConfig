@@ -4,30 +4,47 @@
   config,
   options,
   pkgs,
-  extraUtils ? true,
-  baseApps ? true,
-  office ? true,
-  social ? true,
-  coding ? true,
-  keyboard ? true,
-  art ? false,
-  java ? false,
-  video ? false,
-  music ? false,
-  gaming ? false,
-  streaming ? false,
-  vmware ? false,
-  android ? false,
-  plasma ? true,
-  theming ? true,
   ...
-}:
-with pkgs;
-  lib.optionals extraUtils [
+}: {
+  system = with pkgs; [
+    neovim
+    # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+    zsh
+    wget
+    git
+
+    bat
+    curl
+    eza
+    fd
+    ripgrep
+    zellij
+    bottom
+    zoxide
+    fzf
+    zsh-powerlevel10k
+    xorg.xkill
+
+    firefox
+    # Fonts
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    inter
+    rubik
+    # Nix UI: Snowfallorg
+    inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
+    inputs.nix-software-center.packages.${system}.nix-software-center
+    # Theming
+    kde-rounded-corners
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
+    libsForQt5.qtstyleplugin-kvantum
+  ];
+  extraUtils = with pkgs; [
     hello
     qdirstat # Graphical disk usage analyzer
-  ]
-  ++ lib.optionals baseApps [
+  ];
+  baseApps = with pkgs; [
     # Web Browser
     floorp
     ungoogled-chromium
@@ -46,8 +63,8 @@ with pkgs;
     # Media
     spotify
     vlc
-  ]
-  ++ lib.optionals office [
+  ];
+  office = with pkgs; [
     rnote
     libreoffice
     remnote
@@ -56,11 +73,11 @@ with pkgs;
 
     zoom-us
     # thunderbird
-  ]
-  ++ lib.optionals social [
+  ];
+  social = with pkgs; [
     element-desktop
-  ]
-  ++ lib.optionals coding [
+  ];
+  coding = with pkgs; [
     alacritty
     vscodium
     zed-editor
@@ -77,23 +94,23 @@ with pkgs;
 
     # Keyboard
     vial
-  ]
-  ++ lib.optionals keyboard [
+  ];
+  keyboard = with pkgs; [
     wally-cli
     keymapp
-  ]
-  ++ lib.optionals java [
+  ];
+  java = with pkgs; [
     jetbrains.idea-ultimate
     jetbrains.jcef
     maven
     temurin-bin-21
     mariadb
-  ]
-  ++ lib.optionals video [
+  ];
+  video = with pkgs; [
     davinci-resolve
     # davinci-resolve-studio
-  ]
-  ++ lib.optionals music [
+  ];
+  music = with pkgs; [
     # lmms
     # ardour
     reaper
@@ -108,34 +125,35 @@ with pkgs;
     #idk
     # zam-plugins
     # x42-plugins
-  ]
-  ++ lib.optionals streaming [
+  ];
+  streaming = with pkgs; [
     obs-studio
-  ]
-  ++ lib.optionals art [
+  ];
+  art = with pkgs; [
     krita
     inkscape-with-extensions
-  ]
-  ++ lib.optionals gaming [
+  ];
+  gaming = with pkgs; [
     # steam
-  ]
-  ++ lib.optionals vmware [
+  ];
+  vmware = with pkgs; [
     virtualbox
-  ]
-  ++ lib.optionals android [
+  ];
+  android = with pkgs; [
     android-udev-rules
     android-tools
     fwupd
-  ]
-  ++ lib.optionals plasma [
+  ];
+  plasma = with pkgs; [
     kdePackages.kate
     kde-gtk-config
-  ]
-  ++ lib.optionals theming [
+  ];
+  theming = with pkgs; [
     inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
     papirus-folders
     papirus-icon-theme
     themix-gui
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
-  ]
+  ];
+}
