@@ -136,4 +136,6 @@ with pkgs;
     papirus-folders
     papirus-icon-theme
     themix-gui
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
   ]
