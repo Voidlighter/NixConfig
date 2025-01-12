@@ -186,7 +186,7 @@
         bottom
         zoxide
         fzf
-        starship
+        zsh-powerlevel10k
         xorg.xkill
 
         firefox
