@@ -42,5 +42,5 @@
     import
     ./../apps.nix;
 
-  home.packages = lib.attrsets.attrsValues config.my.apps;
+  config.home.packages = lib.attrsets.attrsValues config.my.apps;
 }
