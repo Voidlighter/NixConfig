@@ -19,15 +19,28 @@
     ./common.nix
   ];
 
-  home.packages = import ./../apps.nix {
-    inherit inputs outputs lib config options pkgs;
-    art = true;
-    coding = true;
-    java = true;
-    video = true;
-    music = true;
-    gaming = true;
-    streaming = true;
-    android = false;
-  };
+  config.my.apps =
+    lib.attrsets.getAttrs [
+      "system"
+      "extraUtils"
+      "baseApps"
+      "office"
+      "social"
+      "coding"
+      "keyboard"
+      "art"
+      "java"
+      "video"
+      "music"
+      "gaming"
+      "streaming"
+      # "vmware"
+      # "android"
+      "plasma"
+      "theming"
+    ]
+    import
+    ./../apps.nix;
+
+  home.packages = lib.attrsets.attrsValues config.my.apps;
 }
