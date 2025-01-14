@@ -85,9 +85,11 @@
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./nix/overlays {inherit inputs;};
+
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
     nixosModules = import ./nix/modules/nixos;
+
     # Reusable home-manager modules you might want to export
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./nix/modules/home-manager;
@@ -95,8 +97,6 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild switch --flake .#your-hostname'
 
-    my.user.name = "cade";
-    my.user.Name = "Cade";
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -104,7 +104,8 @@
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          user = outputs.my.user;
+          user.name = "cade";
+          user.Name = "Cade";
           host = "veridia";
         };
         modules = [
@@ -117,7 +118,8 @@
               users.cade = import ./nix/home-manager/veridia.nix;
               extraSpecialArgs = {
                 inherit inputs outputs;
-                user = outputs.my.user;
+                user.name = "cade";
+                user.Name = "Cade";
               };
               sharedModules = [
                 inputs.plasma-manager.homeManagerModules.plasma-manager

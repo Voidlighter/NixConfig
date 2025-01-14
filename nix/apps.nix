@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  # lib,
   ...
 }: {
   system = with pkgs; [
@@ -9,7 +10,6 @@
     zsh
     wget
     git
-
     bat
     curl
     eza
@@ -21,42 +21,28 @@
     fzf
     zsh-powerlevel10k
     xorg.xkill
-
     firefox
-    # Fonts
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-    inter
-    rubik
-    # Nix UI: Snowfallorg
-    inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-    inputs.nix-software-center.packages.${system}.nix-software-center
-    # Theming
-    kde-rounded-corners
-    libsForQt5.qt5.qtquickcontrols2
-    libsForQt5.qt5.qtgraphicaleffects
-    libsForQt5.qtstyleplugin-kvantum
   ];
   extraUtils = with pkgs; [
     hello
     qdirstat # Graphical disk usage analyzer
+    # Nix UI: Snowfallorg
+    inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
+    inputs.nix-software-center.packages.${system}.nix-software-center
   ];
   baseApps = with pkgs; [
     # Web Browser
     floorp
     ungoogled-chromium
     tor-browser
-
     # Internet Utils
     protonvpn-gui
     wireguard-tools
     syncthing
     syncthingtray
     filezilla
-
     # Messaging
     signal-desktop
-
     # Media
     spotify
     vlc
@@ -67,7 +53,6 @@
     remnote
     obsidian
     xournalpp
-
     zoom-us
     # thunderbird
   ];
@@ -85,10 +70,8 @@
     nil
     python3
     biome
-
     clang
     ccls # c / c++
-
     # Keyboard
     vial
   ];
@@ -113,7 +96,6 @@
     reaper
     # cardinal
     # bespokesynth-with-vst2
-
     #VSTS
     decent-sampler
     lsp-plugins
@@ -136,21 +118,29 @@
   vmware = with pkgs; [
     virtualbox
   ];
-  android = with pkgs; [
-    android-udev-rules
-    android-tools
-    fwupd
-  ];
+  # android = with pkgs; [
+  #   android-udev-rules
+  #   android-tools
+  #   fwupd
+  # ];
   plasma = with pkgs; [
     kdePackages.kate
     kde-gtk-config
   ];
   theming = with pkgs; [
-    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
     papirus-folders
     papirus-icon-theme
     themix-gui
+    # Fonts
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
+    inter
+    rubik
+    # Theming
+    kde-rounded-corners
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
+    kdePackages.qtstyleplugin-kvantum
+    inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
   ];
 }

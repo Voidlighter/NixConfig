@@ -4,6 +4,7 @@
   lib,
   inputs,
   outputs,
+  osConfig,
   config,
   options,
   pkgs,
@@ -18,29 +19,30 @@
     # You can also split up your configuration and import pieces of it here:
     ./common.nix
   ];
-
-  config.my.apps =
-    lib.attrsets.getAttrs [
-      "system"
-      "extraUtils"
-      "baseApps"
-      "office"
-      "social"
-      "coding"
-      "keyboard"
-      "art"
-      "java"
-      "video"
-      "music"
-      "gaming"
-      "streaming"
-      # "vmware"
-      # "android"
-      "plasma"
-      "theming"
-    ]
-    import
-    ./../apps.nix;
-
-  config.home.packages = lib.attrsets.attrsValues config.my.apps;
+  config = {
+    home.packages = lib.concatLists (
+      lib.attrValues (
+        lib.getAttrs [
+          # "system"
+          "extraUtils"
+          "baseApps"
+          "office"
+          "social"
+          "coding"
+          "keyboard"
+          "art"
+          "java"
+          "video"
+          "music"
+          "gaming"
+          "streaming"
+          # "vmware"
+          # "android"
+          "plasma"
+          "theming"
+        ]
+        (import ./../apps.nix {inherit inputs pkgs;})
+      )
+    );
+  };
 }
