@@ -282,6 +282,11 @@
       keyboard.zsa.enable = true;
     };
 
+    services.udev.packages = with pkgs; [
+      vial
+      via
+    ];
+
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     programs.mtr.enable = true;
