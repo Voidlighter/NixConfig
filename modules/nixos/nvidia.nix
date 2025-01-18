@@ -1,26 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ./../common.nix
-    ./hardware-configuration.nix
-
-    ../../modules/remote-build/remote-builder.nix
-  ];
-
+{config, ...}: {
   config = {
-    my.desktop = "plasma";
-    my.greeter = "sddm";
-
-    # Enable OpenGL
-    hardware.graphics = {
-      enable = true;
-    };
-
     services.xserver.videoDrivers = ["nvidia"];
+    environment.sessionVariables = {
+      # If your cursor becomes invisible
+      WLR_NO_HARDWARE_CURSORS = "1";
+      # Hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
+    };
 
     hardware.nvidia = {
       # Modesetting is required.
@@ -51,15 +37,6 @@
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
-    # Enable sound with pipewire.
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
     };
   };
 }
