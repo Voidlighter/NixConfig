@@ -45,5 +45,7 @@
         enable = true;
       };
     };
+
+    musnix.soundcardPciId = "04:00.1";
   };
 }
