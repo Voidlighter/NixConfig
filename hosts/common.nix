@@ -35,7 +35,7 @@
       default = "sddm";
     };
     audio = lib.mkOption {
-      type = lib.types.listOf lib.types.enum ["rtkit" "pipewire" "pulseaudio"];
+      type = lib.types.listOf (lib.types.enum ["rtkit" "pipewire" "pulseaudio"]);
       default = ["rtkit" "pipewire"];
     };
   };
