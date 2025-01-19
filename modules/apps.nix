@@ -27,6 +27,7 @@
           neovim
           # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
           zsh
+          # nushell
           wget
           git
           bat
@@ -59,6 +60,7 @@
           tor-browser
           # Internet Utils
           protonvpn-gui
+          #proton-pass
           wireguard-tools
           syncthing
           syncthingtray
@@ -130,6 +132,11 @@
           wine
           yabridge
           yabridgectl
+          qjackctl
+          calf
+          tap-plugins
+          x42-plugins
+          helm
         ];
         streaming = with pkgs; [
           obs-studio
@@ -167,8 +174,13 @@
           libsForQt5.qt5.qtquickcontrols2
           libsForQt5.qt5.qtgraphicaleffects
           kdePackages.qtstyleplugin-kvantum
+          kdePackages.plasma-workspace-wallpapers
           inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
         ];
+        # tts = with pkgs; [
+        #   python312Packages.faster-whisper
+        #   wyoming-faster-whisper
+        # ];
       };
     };
   };

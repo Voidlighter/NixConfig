@@ -31,5 +31,7 @@
       "plasma"
       "theming"
     ];
+
+    musnix.soundcardPciId = "03:00.1";
   };
 }

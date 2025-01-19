@@ -61,7 +61,12 @@
       # packages = with pkgs; [];
     };
 
-    musnix.enable = builtins.elem "music" config.my.app-group-selection;
+    musnix = {
+      enable = builtins.elem "music" config.my.app-group-selection;
+      # soundcardPciId = "03:00.1";
+      kernel.realtime = builtins.elem "music" config.my.app-group-selection;
+      rtirq.enable = builtins.elem "music" config.my.app-group-selection;
+    };
 
     services = {
       displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
