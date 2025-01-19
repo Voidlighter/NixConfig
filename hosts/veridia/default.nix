@@ -21,7 +21,7 @@
       "coding"
       "keyboard"
       "art"
-      "java"
+      # "java"
       "video"
       "music"
       "gaming"
