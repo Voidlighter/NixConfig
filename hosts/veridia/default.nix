@@ -33,5 +33,6 @@
     ];
 
     musnix.soundcardPciId = "03:00.1";
+    musnix.kernel.realtime = true;
   };
 }
