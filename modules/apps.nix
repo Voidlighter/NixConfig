@@ -130,6 +130,7 @@
           ## Compatibility
           # bottles
           wine
+          wine-staging
           yabridge
           yabridgectl
           qjackctl

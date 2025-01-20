@@ -64,6 +64,7 @@
     musnix = {
       enable = builtins.elem "music" config.my.app-group-selection;
       # soundcardPciId = "03:00.1";
+      rtcqs.enable = builtins.elem "music" config.my.app-group-selection;
       rtirq.enable = builtins.elem "music" config.my.app-group-selection;
     };
 
