@@ -167,9 +167,13 @@
           themix-gui
           # Fonts
           nerd-fonts.jetbrains-mono
-          nerd-fonts.fira-code
+          # nerd-fonts.fira-code
           inter
           rubik
+          open-sans
+          texlivePackages.josefin
+          texlivePackages.jura
+          league-of-moveable-type
           # Theming
           kde-rounded-corners
           libsForQt5.qt5.qtquickcontrols2
