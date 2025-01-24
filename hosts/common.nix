@@ -62,10 +62,10 @@
     };
 
     musnix = {
-      enable = builtins.elem "music" config.my.app-group-selection;
+      enable = builtins.elem "music" config.my.app.selection;
       # soundcardPciId = "03:00.1";
-      rtcqs.enable = builtins.elem "music" config.my.app-group-selection;
-      rtirq.enable = builtins.elem "music" config.my.app-group-selection;
+      rtcqs.enable = builtins.elem "music" config.my.app.selection;
+      rtirq.enable = builtins.elem "music" config.my.app.selection;
     };
 
     services = {
@@ -181,7 +181,7 @@
     };
 
     environment = {
-      systemPackages = config.my.all-apps.system;
+      systemPackages = config.my.app.set.system;
       # sessionVariables = {
       #   # If your cursor becomes invisible
       #   # WLR_NO_HARDWARE_CURSORS = "1";

@@ -13,7 +13,7 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pipewire"];
 
-    my.app-group-selection = [
+    my.app.selection = [
       "baseApps"
       "extraUtils"
       "office"
@@ -30,6 +30,7 @@
       # "android"
       "plasma"
       "theming"
+      "ai"
     ];
 
     musnix.soundcardPciId = "03:00.1";

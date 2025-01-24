@@ -11,7 +11,7 @@
     my.desktop = "plasma";
     my.greeter = "";
     my.audio = ["rtkit" "pipewire"];
-    my.app-group-selection = [
+    my.app.selection = [
       "baseApps"
       "extraUtils"
       "office"

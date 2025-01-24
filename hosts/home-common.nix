@@ -27,7 +27,7 @@
     file = {
     };
 
-    packages = osConfig.my.app-list;
+    packages = osConfig.my.app.list;
   };
 
   fonts.fontconfig.enable = true;

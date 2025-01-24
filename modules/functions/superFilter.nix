@@ -2,7 +2,7 @@
   lib,
   pkgs,
 }: let
-  allElems = pkgs.callPackage ./functions/allElems.nix {inherit lib;};
+  allElems = pkgs.callPackage ./allElems.nix {inherit lib;};
 in
   # recursively find set names contained in args, and if found, collect everything in their set.
   # for example, superFilter ["a"] {a = {b = 5; c = 10;}} returns [5 10] while ["b"] just returns [5]

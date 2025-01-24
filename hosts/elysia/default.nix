@@ -9,7 +9,7 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pulseaudio"];
 
-    my.app-group-selection = [
+    my.app.selection = [
       "baseApps"
       "extraUtils"
       "office"

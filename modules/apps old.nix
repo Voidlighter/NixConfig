@@ -4,20 +4,23 @@
   pkgs,
   lib,
   ...
-}: let
-  superFilter = pkgs.callPackage ./functions/superFilter.nix {inherit lib pkgs;};
-  # allElems = pkgs.callPackage ./functions/allElems.nix {inherit lib;};
-in {
-  options.my.app = {
-    selection = lib.mkOption {
+}: {
+  options.my = {
+    app-group-selection = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = lib.attrNames (config.app.set);
+      default = lib.attrNames (config.all-apps);
     };
-    list = lib.mkOption {
+    app-list = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = superFilter config.my.app.selection config.my.app.set;
+      default = lib.concatLists (
+        lib.attrValues (
+          lib.getAttrs
+          (config.my.app-group-selection)
+          (config.my.all-apps)
+        )
+      );
     };
-    set = lib.mkOption {
+    all-apps = lib.mkOption {
       type = lib.types.attrs;
       default = {
         system = with pkgs; [
