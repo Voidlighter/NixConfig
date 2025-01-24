@@ -2,3 +2,4 @@ result
 .flake.nix.kate-swp
 .apps.nix.kate-swp
 home-manager/.elysia.nix.kate-swp
+modules/tmp.nix
