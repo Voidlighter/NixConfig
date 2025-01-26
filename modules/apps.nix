@@ -127,8 +127,10 @@ in {
           # x42-plugins
           ## Compatibility
           # bottles
-          wine
-          wine-staging
+          # wine
+          # wine-staging
+          wineWowPackages.staging
+          winetricks
           yabridge
           yabridgectl
           qjackctl
@@ -181,20 +183,16 @@ in {
           kdePackages.plasma-workspace-wallpapers
           inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
         ];
-        ai = {
-          tts = with pkgs; [
-            python312Packages.faster-whisper
-            wyoming-faster-whisper
-          ];
-          stt = with pkgs; [
-            python312Packages.faster-whisper
-            wyoming-faster-whisper
-          ];
-          llm = with pkgs; [
-            python312Packages.faster-whisper
-            wyoming-faster-whisper
-          ];
-        };
+        # ai = {
+        #   tts = with pkgs; [
+        #     python312Packages.faster-whisper
+        #     wyoming-faster-whisper
+        #   ];
+        #   stt = with pkgs; [
+        #   ];
+        #   llm = with pkgs; [
+        #   ];
+        # };
       };
     };
   };

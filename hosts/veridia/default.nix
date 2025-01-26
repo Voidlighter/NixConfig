@@ -3,7 +3,7 @@
     ./../common.nix
     ./home.nix
     ./hardware.nix
-
+    ../../modules/nixos/musnix.nix
     ../../modules/nixos/nvidia.nix
   ];
 

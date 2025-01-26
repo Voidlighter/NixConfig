@@ -8,7 +8,6 @@
 }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.musnix.nixosModules.musnix
     ../modules/apps.nix
     # ../modules/remote-build/remote-builder.nix
   ];
@@ -41,7 +40,7 @@
   };
 
   config = {
-    hardware.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
+    services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
     security.rtkit.enable = builtins.elem "rtkit" config.my.audio;
     services.pipewire = {
       enable = builtins.elem "pipewire" config.my.audio;
@@ -59,13 +58,6 @@
       description = config.my.user.Name;
       extraGroups = ["networkmanager" "wheel" "audio"];
       # packages = with pkgs; [];
-    };
-
-    musnix = {
-      enable = builtins.elem "music" config.my.app.selection;
-      # soundcardPciId = "03:00.1";
-      rtcqs.enable = builtins.elem "music" config.my.app.selection;
-      rtirq.enable = builtins.elem "music" config.my.app.selection;
     };
 
     services = {
