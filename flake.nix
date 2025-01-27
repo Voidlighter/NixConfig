@@ -61,31 +61,6 @@
       veridia = mkSystem [./hosts/veridia]; # Desktop PC
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
-
-      # Steam Deck
-      # vapor = nixpkgs.lib.nixosSystem {
-      #   specialArgs = {
-      #     inherit inputs outputs;
-      #     user.name = "cade";
-      #     user.Name = "Cade";
-      #     host = "vapor";
-      #   };
-      #   modules = [
-      #     inputs.jovian.nixosModules.default
-      #     ./hosts/vapor/configuration.nix
-      #     {
-      #       home-manager = {
-      #         useGlobalPkgs = true;
-      #         useUserPackages = true;
-      #         users.cade = import ./hosts/vapor/home.nix;
-      #         extraSpecialArgs = {
-      #           inherit inputs outputs;
-      #           user = outputs.my.user;
-      #         };
-      #       };
-      #     }
-      #   ];
-      # };
     };
 
     # Your custom packages

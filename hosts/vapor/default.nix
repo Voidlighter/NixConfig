@@ -5,6 +5,7 @@
     ./hardware.nix
     inputs.jovian.nixosModules.default
     "${inputs.jovian}/modules"
+    ../../modules/nixos/musnix.nix
   ];
   config = {
     my.hostname = "vapor";

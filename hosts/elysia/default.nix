@@ -1,8 +1,8 @@
-{...}: {
+{inputs, ...}: {
   imports = [
     ./../common.nix
-    inputs.nixos-hardware.microsoft-surface-common
-    inputs.nixos-hardware.microsoft-surface-pro-intel
+    # inputs.nixos-hardware.nixosModules.microsoft-surface-common
+    inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     ./hardware.nix
   ];
   config = {
