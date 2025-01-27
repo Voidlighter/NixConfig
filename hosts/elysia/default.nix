@@ -1,6 +1,8 @@
 {...}: {
   imports = [
     ./../common.nix
+    inputs.nixos-hardware.microsoft-surface-common
+    inputs.nixos-hardware.microsoft-surface-pro-intel
     ./hardware.nix
   ];
   config = {
@@ -17,7 +19,7 @@
       "coding"
       "keyboard"
       "art"
-      "java"
+      # "java"
       # "video"
       # "music"
       # "gaming"
