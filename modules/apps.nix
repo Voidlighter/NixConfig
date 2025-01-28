@@ -183,16 +183,25 @@ in {
           kdePackages.plasma-workspace-wallpapers
           inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
         ];
-        # ai = {
-        #   tts = with pkgs; [
-        #     python312Packages.faster-whisper
-        #     wyoming-faster-whisper
-        #   ];
-        #   stt = with pkgs; [
-        #   ];
-        #   llm = with pkgs; [
-        #   ];
-        # };
+        ai = {
+          tts = with pkgs; [
+            piper-tts
+            wyoming-piper
+          ];
+          stt = with pkgs; [
+            python313Packages.faster-whisper
+            wyoming-faster-whisper
+          ];
+          llm = with pkgs; [
+            (
+              if (config.my.gpu == "nvidia")
+              then ollama-cuda
+              else if (config.my.gpu == "amd")
+              then ollama-rocm
+              else ollama
+            )
+          ];
+        };
       };
     };
   };
