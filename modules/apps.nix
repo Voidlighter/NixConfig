@@ -146,6 +146,9 @@ in {
           krita
           inkscape-with-extensions
         ];
+        modeling = with pkgs; [
+          blender
+        ];
         gaming = with pkgs; [
           steam
         ];
