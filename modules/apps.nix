@@ -148,6 +148,7 @@ in {
         ];
         modeling = with pkgs; [
           blender
+          freecad-wayland
         ];
         gaming = with pkgs; [
           steam
@@ -203,6 +204,8 @@ in {
               then ollama-rocm
               else ollama
             )
+            open-webui
+            docker
           ];
         };
       };
