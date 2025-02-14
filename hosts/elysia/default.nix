@@ -19,6 +19,7 @@
       "coding"
       "keyboard"
       "art"
+      "modeling"
       # "java"
       # "video"
       # "music"
