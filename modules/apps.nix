@@ -208,6 +208,9 @@ in {
             docker
           ];
         };
+        work = with pkgs; [
+          mattermost-desktop
+        ];
       };
     };
   };

@@ -17,6 +17,8 @@
   # config = {
   # users.${osConfig.my.user.name} = {
   home = {
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    # basically don't change this. It isn't the version number
     stateVersion = "24.05";
     username = "${osConfig.my.user.name}";
     homeDirectory = "/home/${osConfig.my.user.name}";
@@ -66,9 +68,6 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  # basically don't change this. It isn't the version number
-  # home.stateVersion = "24.05";
   # };
   #   };
   # };
