@@ -1,12 +1,11 @@
 {...}: {
   imports = [
     ./../common.nix
-    ./home.nix
   ];
   config = {
     my.hostname = "crateria";
 
-    my.app-group-selection = [
+    my.app.selection = [
       "baseApps"
       "extraUtils"
       "office"

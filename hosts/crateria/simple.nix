@@ -9,52 +9,100 @@
 }: {
   # You can import other home-manager modules here
   imports = [
+    ../../modules/home-manager/zsh.nix
+    ../../modules/home-manager/starship.nix
+    ../../modules/apps.nix
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    # nix-index-database.hmModules.nix-index
+    inputs.plasma-manager.homeManagerModules.plasma-manager
+    # inputs.musnix.nixosModules.musnix
   ];
-
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = _: true;
+  options.my = {
+    hostname = lib.mkOption {
+      type = lib.types.str;
+      default = "CadeComputer";
+    };
+    user.name = lib.mkOption {
+      type = lib.types.str;
+      default = "cade";
+    };
+    user.Name = lib.mkOption {
+      type = lib.types.str;
+      default = "Cade";
+    };
+    desktop = lib.mkOption {
+      type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic" ""];
+      default = "plasma";
+    };
+    greeter = lib.mkOption {
+      type = lib.types.enum ["sddm" "gdm" "lightdm" "cosmic" ""];
+      default = "sddm";
+    };
+    audio = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum ["rtkit" "pipewire" "pulseaudio"]);
+      default = ["rtkit" "pipewire"];
+    };
+    gpu = lib.mkOption {
+      type = lib.types.enum ["amd" "nvidia" ""];
+      default = "";
     };
   };
+  config = {
+    my.hostname = "crateria";
 
-  # TODO: Set your username
-  home = {
-    username = "cade";
-    homeDirectory = "/home/cade";
+    my.app.selection = [
+      "baseApps"
+      "extraUtils"
+      "office"
+      # "social"
+      "coding"
+      # "keyboard"
+      # "art"
+      # "java"
+      # "video"
+      # "music"
+      # "gaming"
+      # "streaming"
+      # "vmware"
+      # "android"
+      # "plasma"
+      # "theming"
+      "work"
+    ];
+
+
+    nixpkgs = {
+      overlays = [];
+      config = {
+        allowUnfree = true;
+        # Workaround for https://github.com/nix-community/home-manager/issues/2942
+        allowUnfreePredicate = _: true;
+      };
+      
+    };
+
+    home = {
+      username = "cade";
+      homeDirectory = "/home/cade";
+      stateVersion = "23.05";
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+      file = {
+      };
+
+      packages = config.my.app.list;
+    };
+
+    # Add stuff for your user as you see fit:
+    programs.neovim.enable = true;
+
+    # Enable home-manager and git
+    programs.home-manager.enable = true;
+    programs.git.enable = true;
+
+    # Nicely reload system units when changing configs
+    systemd.user.startServices = "sd-switch";
   };
-
-  # Add stuff for your user as you see fit:
-  programs.neovim.enable = true;
-  home.packages = with pkgs; [ mattermost-desktop ];
-
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
 }
