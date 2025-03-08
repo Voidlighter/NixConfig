@@ -24,6 +24,7 @@ in {
           neovim
           # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
           zsh
+          tmux
           # nushell
           wget
           git
@@ -163,7 +164,7 @@ in {
         # ];
         plasma = with pkgs; [
           kdePackages.kate
-          kde-gtk-config
+          kdePackages.kde-gtk-config
         ];
         theming = with pkgs; [
           papirus-folders
