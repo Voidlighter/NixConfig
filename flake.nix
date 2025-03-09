@@ -63,6 +63,7 @@
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
       laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
+      small = mkSystem [./hosts/small]; # Testing Laptop
       # crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
     };
     # homeConfigurations = {

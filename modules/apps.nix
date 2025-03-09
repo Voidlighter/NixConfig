@@ -23,6 +23,7 @@ in {
         system = with pkgs; [
           neovim
           # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+          bash
           zsh
           tmux
           # nushell

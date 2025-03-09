@@ -108,6 +108,7 @@
 
         # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       };
+      bash.enable = true;
     };
 
     # Enable touchpad support (enabled default in most desktopManager).
