@@ -9,8 +9,8 @@
 
   config = {
     my.hostname = "veridia";
-    my.desktop = "plasma";
-    my.greeter = "sddm";
+    my.desktop = "cosmic";
+    my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
     my.gpu = "nvidia";
 
