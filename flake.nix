@@ -61,18 +61,19 @@
     nixosConfigurations = {
       veridia = mkSystem [./hosts/veridia]; # Desktop PC
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
+      laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
       # crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
     };
-    homeConfigurations = {
-      "cade@crateria" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [./hosts/crateria/simple.nix];
-      };
-    };
+    # homeConfigurations = {
+    #   "cade@crateria" = home-manager.lib.homeManagerConfiguration {
+    #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    #     extraSpecialArgs = {
+    #       inherit inputs outputs;
+    #     };
+    #     modules = [./hosts/home-standalone/simple.nix];
+    #   };
+    # };
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,

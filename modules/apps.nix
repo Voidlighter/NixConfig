@@ -44,12 +44,12 @@ in {
           firefox
         ];
         extraUtils = with pkgs; [
+          nemo-with-extensions
           neofetch.out
-          hello
           qdirstat # Graphical disk usage analyzer
-          # Nix UI: Snowfallorg
-          inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-          inputs.nix-software-center.packages.${system}.nix-software-center
+          ## Nix UI: Snowfallorg
+          # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
+          # inputs.nix-software-center.packages.${system}.nix-software-center
         ];
         baseApps = with pkgs; [
           # Web Browser
