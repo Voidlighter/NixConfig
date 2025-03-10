@@ -1,9 +1,10 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./../common.nix
     ./home.nix
-    ./hardware.nix
-    ../../modules/custom-pkgs/falcon.nix
+    # ./hardware.nix
+    "${pkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+    # ../../modules/custom-pkgs/falcon.nix
   ];
 
   config = {

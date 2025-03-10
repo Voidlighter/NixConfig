@@ -16,6 +16,7 @@
       "baseApps"
       "extraUtils"
       "office"
+      # "school"
       # "social"
       # "coding"
       # "keyboard"

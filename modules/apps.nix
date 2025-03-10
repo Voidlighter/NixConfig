@@ -74,11 +74,13 @@ in {
         office = with pkgs; [
           # rnote
           libreoffice
-          python312Packages.weasyprint
           # remnote
+          thunderbird
+          # python312Packages.weasyprint
+        ];
+        school = with pkgs; [
           obsidian
           zoom-us
-          # thunderbird
         ];
         social = with pkgs; [
           element-desktop

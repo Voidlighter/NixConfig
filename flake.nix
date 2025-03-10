@@ -70,6 +70,20 @@
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
       small = mkSystem [./hosts/small]; # Testing Laptop
       # crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
+      small-iso = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/small-iso/default.nix
+        ];
+      };
+      crateria-iso = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/crateria-iso/default.nix
+        ];
+      };
     };
     # homeConfigurations = {
     #   "cade@crateria" = home-manager.lib.homeManagerConfiguration {
