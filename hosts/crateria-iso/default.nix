@@ -1,4 +1,8 @@
-{modulesPath, ...}: {
+{
+  modulesPath,
+  config,
+  ...
+}: {
   imports = [
     ./../common.nix
     ./home.nix
@@ -34,6 +38,11 @@
       # "ai"
       "work"
     ];
+
+    users.users.${config.my.user.name} = {
+      isNormalUser = true;
+      initialPassword = ""; # Set the initial password
+    };
 
     # Enable the default live user
     users.users.nixos = {
