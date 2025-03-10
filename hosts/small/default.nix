@@ -1,16 +1,19 @@
-{inputs, ...}: {
+{...}: {
   imports = [
     ./../common.nix
+    ./home.nix
+    ./hardware.nix
   ];
+
   config = {
     my.hostname = "small";
     my.desktop = "cosmic";
     my.greeter = "cosmic";
-    my.audio = ["rtkit" "pulseaudio"];
+    my.audio = ["rtkit" "pipewire"];
 
     my.app.selection = [
       "baseApps"
-      # "extraUtils"
+      "extraUtils"
       # "office"
       # "social"
       # "coding"
@@ -26,6 +29,7 @@
       # "android"
       # "plasma"
       # "theming"
+      # "ai"
     ];
   };
 }

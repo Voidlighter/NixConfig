@@ -12,6 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix-extras-falcon = {
+    #   url = "~/NixExtras/CrowdStrike";
+    # };
+
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,6 +64,7 @@
     # Available through 'nixos-rebuild switch --flake ./dotfiles#your-hostname'
     nixosConfigurations = {
       veridia = mkSystem [./hosts/veridia]; # Desktop PC
+      veridia-lite = mkSystem [./hosts/veridia-lite]; # Desktop PC
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
       laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck

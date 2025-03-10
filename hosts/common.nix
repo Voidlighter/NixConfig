@@ -108,7 +108,6 @@
 
         # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       };
-      bash.enable = true;
     };
 
     # Enable touchpad support (enabled default in most desktopManager).
@@ -150,6 +149,13 @@
       };
     };
 
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+    # Enables wireless support via wpa_supplicant.
+    # I forced this off to make it work for building install-isos.
+    networking.wireless.enable = lib.mkForce false;
     networking.networkmanager.enable = true;
     networking.hostName = config.my.hostname; # Define your hostname.
     networking.hosts = {
@@ -216,12 +222,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
     # };
-
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     nixpkgs.overlays = [
       (final: prev: {

@@ -43,6 +43,9 @@ in {
           alacritty
           xorg.xkill
           firefox
+          tor-browser
+          vscodium
+          filezilla
         ];
         extraUtils = with pkgs; [
           nemo-with-extensions
@@ -56,21 +59,17 @@ in {
           # Web Browser
           floorp
           ungoogled-chromium
-          tor-browser
           # Internet Utils
           protonvpn-gui
           #proton-pass
           wireguard-tools
           syncthing
           syncthingtray
-          filezilla
           # Messaging
           signal-desktop
           # Media
           spotify
           vlc
-          # Text Editing
-          vscodium
         ];
         office = with pkgs; [
           # rnote
