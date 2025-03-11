@@ -2,12 +2,13 @@
   imports = [
     ./../common.nix
     ./home.nix
-    ./hardware.nix
-    ../../modules/custom-pkgs/falcon.nix
+    # ./hardware.nix
+    "${pkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+    # ../../modules/custom-pkgs/falcon.nix
   ];
 
   config = {
-    my.hostname = "crateria";
+    my.hostname = "laserbeak";
     my.desktop = "cosmic";
     my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
