@@ -8,7 +8,7 @@
 }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.musnix.nixosModules.musnix
+    inputs.nixos-cosmic.nixosModules.default
     ../modules/apps.nix
     # ../modules/remote-build/remote-builder.nix
   ];
@@ -31,17 +31,21 @@
       default = "plasma";
     };
     greeter = lib.mkOption {
-      type = lib.types.enum ["sddm" "gdm" "lightdm" ""];
+      type = lib.types.enum ["sddm" "gdm" "lightdm" "cosmic" ""];
       default = "sddm";
     };
     audio = lib.mkOption {
       type = lib.types.listOf (lib.types.enum ["rtkit" "pipewire" "pulseaudio"]);
       default = ["rtkit" "pipewire"];
     };
+    gpu = lib.mkOption {
+      type = lib.types.enum ["amd" "nvidia" ""];
+      default = "";
+    };
   };
 
   config = {
-    hardware.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
+    services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
     security.rtkit.enable = builtins.elem "rtkit" config.my.audio;
     services.pipewire = {
       enable = builtins.elem "pipewire" config.my.audio;
@@ -61,12 +65,12 @@
       # packages = with pkgs; [];
     };
 
-    musnix.enable = builtins.elem "music" config.my.app-group-selection;
-
     services = {
       displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
       displayManager.sddm.enable = config.my.greeter == "sddm";
+      displayManager.cosmic-greeter.enable = config.my.greeter == "cosmic";
 
+      desktopManager.cosmic.enable = config.my.desktop == "cosmic";
       desktopManager.plasma6.enable = config.my.desktop == "plasma";
 
       xserver.enable = true;
@@ -144,7 +148,14 @@
         PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
       };
     };
+    
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+    # Enables wireless support via wpa_supplicant.
+    # I forced this off to make it work for building install-isos.
+    networking.wireless.enable = lib.mkForce false;
     networking.networkmanager.enable = true;
     networking.hostName = config.my.hostname; # Define your hostname.
     networking.hosts = {
@@ -176,7 +187,7 @@
     };
 
     environment = {
-      systemPackages = config.my.all-apps.system;
+      systemPackages = config.my.app.set.system;
       # sessionVariables = {
       #   # If your cursor becomes invisible
       #   # WLR_NO_HARDWARE_CURSORS = "1";
@@ -212,12 +223,6 @@
     #media-session.enable = true;
     # };
 
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
     nixpkgs.overlays = [
       (final: prev: {
         stable = pkgs-stable;
@@ -226,6 +231,11 @@
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
+
+    nix.settings = {
+      substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
+      trusted-public-keys = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+    };
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
     # Bootloader.

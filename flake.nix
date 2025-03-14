@@ -12,10 +12,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix-extras-falcon = {
+    #   url = "~/NixExtras/CrowdStrike";
+    # };
+
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nixos-conf-editor.url = "github:snowfallorg/nixos-conf-editor";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
     plasma-manager = {
@@ -60,33 +65,27 @@
     nixosConfigurations = {
       veridia = mkSystem [./hosts/veridia]; # Desktop PC
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
+      laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
-
-      # Steam Deck
-      # vapor = nixpkgs.lib.nixosSystem {
-      #   specialArgs = {
-      #     inherit inputs outputs;
-      #     user.name = "cade";
-      #     user.Name = "Cade";
-      #     host = "vapor";
-      #   };
-      #   modules = [
-      #     inputs.jovian.nixosModules.default
-      #     ./hosts/vapor/configuration.nix
-      #     {
-      #       home-manager = {
-      #         useGlobalPkgs = true;
-      #         useUserPackages = true;
-      #         users.cade = import ./hosts/vapor/home.nix;
-      #         extraSpecialArgs = {
-      #           inherit inputs outputs;
-      #           user = outputs.my.user;
-      #         };
-      #       };
-      #     }
-      #   ];
-      # };
+      small = mkSystem [./hosts/small]; # Testing Laptop
+      crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
+      mothership = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/mothership/default.nix
+        ];
+      };
     };
+    # homeConfigurations = {
+    #   "cade@crateria" = home-manager.lib.homeManagerConfiguration {
+    #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    #     extraSpecialArgs = {
+    #       inherit inputs outputs;
+    #     };
+    #     modules = [./hosts/home-standalone/simple.nix];
+    #   };
+    # };
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,

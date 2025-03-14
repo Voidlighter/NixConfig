@@ -1,6 +1,8 @@
-{...}: {
+{inputs, ...}: {
   imports = [
     ./../common.nix
+    # inputs.nixos-hardware.nixosModules.microsoft-surface-common
+    inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     ./hardware.nix
   ];
   config = {
@@ -9,15 +11,17 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pulseaudio"];
 
-    my.app-group-selection = [
+    my.app.selection = [
       "baseApps"
       "extraUtils"
       "office"
+      "school"
       "social"
       "coding"
       "keyboard"
       "art"
-      "java"
+      "modeling"
+      # "java"
       # "video"
       # "music"
       # "gaming"

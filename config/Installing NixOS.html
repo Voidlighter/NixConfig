@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Queensland FP Lab - Installing NixOS</title>
+    <link href="Installing%20NixOS_files/css.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="Installing%20NixOS_files/bootstrap.min.css">
+        <link rel="stylesheet" href="Installing%20NixOS_files/font-awesome.min.css">
+        <link rel="stylesheet" href="Installing%20NixOS_files/custom.css">
+        <link rel="stylesheet" href="Installing%20NixOS_files/syntax.css">
+        
+          
+        
+        <link rel="alternate" type="application/atom+xml" title="Queensland Functional Programming Lab Blog" href="https://qfpl.io/atom.xml">
+        <link rel="alternate" type="application/rss+xml" title="Queensland Functional Programming Lab Blog" href="https://qfpl.io/rss.xml">
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script type="text/javascript" async="" src="Installing%20NixOS_files/analytics.js"></script><script type="text/javascript" async="" src="Installing%20NixOS_files/js_002"></script><script async="" src="Installing%20NixOS_files/js"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', 'UA-106321204-1', { 'anonymize_ip': true });
+        </script>
+    </head>
+    <body>
+
+        <header>
+            <nav class="navbar navbar-expand-lg data61-green">
+              <a class="navbar-brand text-white" href="https://qfpl.io/">
+                <div class="card brand-logo">
+                  <div class="card-body">
+                    <div class="brand-anim-block">
+                      <img id="qfpl-brand-data61-logo" height="55" alt="Data61 logo" src="Installing%20NixOS_files/DATA61-CSIRO_MONO.png">
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+                <i class="fa fa-lg fa-fw fa-bars text-white"></i>
+              </button>
+
+              <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/location">Location</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/people">People</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/talks">Talks</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-white" href="https://qfpl.io/archive">Archive</a>
+                    </li>
+                  </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+          <div class="container-fluid">
+              <div class="container">
+  <div class="row">
+    <div class="col my-2">
+      <h2>Installing NixOS</h2>
+      <small>Posted on January 24, 2018</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col my-2">
+      <p>If you’re not used to the arcana of hands on Linux installations, then installing NixOS might be a little intimidating. The <a href="https://nixos.org/nixos/manual/">official documentation</a>
+ does a good job of explaining what needs to be done, but you might have
+ to piece different sections together to get the job done. Our team all 
+currently run NixOS on their work machines, so we have an install guide 
+that provides a more step-by-step experience. It’s been tested a couple 
+of times now, so I thought we should make it public.</p>
+<h2 id="conventions">Conventions</h2>
+<p>I’ll be using <code>$</code> for regular user login prompts, <code>#</code> for root login prompts, and <code>--</code> for comments.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Our team have some requirements for security and as a result of the hardware we use. They are:</p>
+<ul>
+<li>LVM disk partitioning</li>
+<li><a href="https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup">Luks encryption</a> for the entire LVM physical volume</li>
+<li>UEFI boot loader and boot partition</li>
+<li>USB stick install</li>
+</ul>
+<p>We don’t dual boot, so this guide will only cover a full disk installation.</p>
+<h2 id="installation-media">Installation media</h2>
+<p>Firstly, we need to get the appropriate install media. We use the 
+64-bit minimal install CD. This, and others, are available on the <a href="https://nixos.org/nixos/download.html">NixOS downloads page</a>.</p>
+<p>Once you’ve obtained the installation media, copy it to a USB stick. <strong>Note that this will destroy anything on the USB stick</strong>. The snippet below uses <code>$DISK</code> as a placeholder for the USB stick you want the installer on, and <code>$INSTALLER_ISO</code> as a placeholder for the image file you downloaded. The <code>bs=1M</code> option sets the block size of the copy to one megabyte, which speeds up the copy.</p>
+<pre><code>-- identify which disk you want the installer on
+$ lsblk
+
+-- no output until it's finished
+# dd if=$INSTALLER_ISO of=$DISK bs=1M</code></pre>
+<h2 id="system-configuration">System configuration</h2>
+<p>There are apparently some things in the UEFI system setup (fancy new 
+BIOS) need to be configured for NixOS to install happily. To access the 
+menu on your machine and make the changes, consult your favourite search
+ engine. My Dell requires you to press <code>F2</code> at the beginning of a boot to access the menu.</p>
+<p>Once in the menu:</p>
+<ul>
+<li>Ensure safe boot is disabled</li>
+<li>Ensure UEFI mode is enabled</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Now that your UEFI setup is configured, it’s time to boot the installation media. Once again, on my Dell machine one must press <code>F12</code> during boot to open the boot menu and select the USB device as the one to boot from. This varies from machine to machine.</p>
+<p>Note that from here on in we’ll be in root prompts the whole time. 
+The NixOS install environment helpfully drops you in a shell with root 
+logged in.</p>
+<h3 id="networking">Networking</h3>
+<p>Having internet access during an OS install can be handy to pull in 
+configs. In the case of NixOS, if you want anything more than a very 
+bare bones system to boot into, you’re going to want internet access to 
+pull in system packages.</p>
+<p>If you can’t just plug in an ethernet cable, then you’re probably 
+going to want to use WiFi. To make that happen do the following:</p>
+<pre><code>-- Generates the actual key used to authenticate on your WPA secured network
+# wpa_passphrase $SSID $PASSPHRASE &gt; /etc/wpa_supplicant.conf
+
+-- Restarts WPA Supplicant, which gives us WiFi for now
+# systemctl restart wpa_supplicant.service</code></pre>
+<h3 id="partitioning">Partitioning</h3>
+<p>Time to destroy some valuable data! Just kidding. You won’t make a 
+mistake, and more importantly, you have 3 copies of your data on at 
+least 2 different types of storage media and in 2 different physical 
+locations that are unlikely to be hit by the same disaster right? 
+Right?!</p>
+<p>Jokes aside, <strong>this process will wipe anything on the disk</strong>. Consider yourself warned.</p>
+<p>As I understand it, a UEFI boot device requires a GUID partition table (GPT). Hence we’ll be using <code>gdisk</code> instead of the venerable <code>fdisk</code>. If you’re installing on a system that doesn’t use UEFI, then you can do a similar job with good ’ol <code>fdisk</code>.</p>
+<p>To start, we’ll delete any existing partitions and start with a clean slate:</p>
+<pre><code>-- Identify the disk to install NixOS on - something like /dev/nvme0n1 or /dev/sda.
+-- We'll refer to it as $DISK.
+# lsblk
+
+-- Open gdisk on the disk we're installing on
+# gdisk $DISK 
+
+-----------------------
+-- BEGIN GDISK COMMANDS
+
+-- print the partitions on the disk
+Command: p
+
+-- Delete a partition. Select the partition number when prompted.
+-- Repeat for all partitions.
+Command: d
+
+-- END GDISK COMMANDS
+---------------------</code></pre>
+<p>Now we create the partitions we need: an EFI boot partition, and an 
+LVM partition. LVM (logical volume management) allows us to more easily 
+change our partitions (size and layout) should we need. In our case, the
+ LVM partition will contain our root and swap partitions.</p>
+<p>This code block assumes we’re still at a gdisk prompt.</p>
+<pre><code>-- Create the EFI boot partition
+Command: n
+Partition number: 1
+First sector: &lt;enter for default&gt;
+Last sector: +1G       --  make a 1 gigabyte partition
+Hex code or GUID: ef00 -- this is the EFI System type
+
+-- Create the LVM partition
+Command: n
+Partition number: 2
+First sector: &lt;enter for default&gt;
+Last sector: &lt;enter for default - rest of disk&gt;
+Hex code or GUID: 8e00 -- Linux LVM type
+
+-- Write changes and quit
+Command: w</code></pre>
+<h3 id="encryption-and-lvm">Encryption and LVM</h3>
+<p>Our partition table and primary partitions are in place. Now we can 
+encrypt the partition that will contain our LVM partitions. This is the 
+second partition that we created above - so should be something like <code>/dev/nvme0n1p2</code> or <code>/dev/sda2</code>. We’ll refer to it as <code>$LVM_PARTITION</code>
+ below. Note that our boot partition won’t be encrypted. I can’t think 
+of a reason why you would want this, and if you did, you probably 
+wouldn’t need partitioning advice from me. Also note that our swap 
+partition <em>is</em> encrypted. You don’t have any control over what’s 
+moved into your swap space, so it could end up containing all sorts of 
+private stuff in the clear - for example passwords copied from a 
+password manager.</p>
+<p>In our example below, we’re creating a swap space that is the same 
+size as our RAM (16GB), and filling the rest of the disk with our root 
+filesystem. You might want to tweak these sizes for your machine.</p>
+<pre><code>-- You will be asked to enter your passphrase - DO NOT FORGET THIS
+# cryptsetup luksFormat $LVM_PARTITION
+
+-- Decrypt the encrypted partition and call it nixos-enc. The decrypted partition
+-- will get mounted at /dev/mapper/nixos-enc
+# cryptsetup luksOpen $LVM_PARTITION nixos-enc
+    
+-- Create the LVM physical volume using nixos-enc
+# pvcreate /dev/mapper/nixos-enc 
+
+-- Create a volume group that will contain our root and swap partitions
+# vgcreate nixos-vg /dev/mapper/nixos-enc
+
+-- Create a swap partition that is 16G in size - the amount of RAM on this machine
+-- Volume is labeled "swap"'
+# lvcreate -L 16G -n swap nixos-vg
+
+-- Create a logical volume for our root filesystem from all remaining free space.
+-- Volume is labeled "root"
+# lvcreate -l 100%FREE -n root nixos-vg</code></pre>
+<h3 id="create-our-filesystems">Create our filesystems</h3>
+<p>In the below snippet, <code>$BOOT_PARTITION</code> refers to the boot partition created above - something like <code>/dev/sda1</code>.</p>
+<pre><code>-- Create a FAT32 filesystem on our boot partition
+# mkfs.vfat -n boot $BOOT_PARTITION
+
+-- Create an ext4 filesystem for our root partition
+# mkfs.ext4 -L nixos /dev/nixos-vg/root
+
+-- Tell our swap partition to be a swap
+# mkswap -L swap /dev/nixos-vg/swap
+
+-- Turn the swap on before install
+# swapon /dev/nixos-vg/swap</code></pre>
+<h3 id="mount-filesystems-and-prep-for-install">Mount filesystems and prep for install</h3>
+<p>We’re almost there. Now it’s time to mount the partitions we’ve 
+created, put our system configuration in place, and finally, pull the 
+trigger.</p>
+<p>The snippet below uses <code>$BOOT_PARTITION</code> as a placeholder 
+for the UEFI boot partition we created earlier. This was the first 
+partition on the disk, and will probably be something like <code>/dev/sda1</code> or <code>/dev/nvme0n1p1</code>.</p>
+<pre><code># mount /dev/nixos-vg/root /mnt
+# mkdir /mnt/boot
+# mount $BOOT_PARTITION /mnt/boot</code></pre>
+<p>Now that we have filesystems we can write to, let’s generate our initial config.</p>
+<pre><code># nixos-generate-config --root /mnt</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>NixOS is primarily configured by <code>/etc/nixos/configuration.nix</code>. Given that our root filesystem is mounted at <code>/mnt</code>, that will be <code>/mnt/etc/nixos/configuration.nix</code> for now. Let’s open it up and set some important options.</p>
+<p>If anything is broken in your config, installation should fail with 
+an error message to help diagnose your problem. Furthermore, because 
+NixOS is the way it is, you can radically reconfigure your system later 
+knowing that you can fallback to a known good configuration, and once 
+you’re confident everything works, clean up packages you no longer need.
+ In short, don’t stress too much about installing and configuring 
+absolutely everything. It’s fine to start with a small but working 
+system and build up as you learn what you want.</p>
+<pre><code>-- Vim 4 life! Or, you know, use `nano` or whatever else you might prefer.
+vim /mnt/etc/nixos/configuration.nix</code></pre>
+<p>It is of critical importance that we tell NixOS we have a LUKS 
+encrypted partition that needs to be decrypted before we can access any 
+LVM partitions. We do that like so.</p>
+<pre><code>boot.initrd.luks.devices = {
+  root = { 
+    device = "/dev/nvme0n1p2";
+    preLVM = true;
+  };
+};</code></pre>
+<p>NixOS also needs to know that we’re using EFI, however this was correctly configured for me automatically.</p>
+<pre><code>boot.loader.systemd-boot.enable = true;</code></pre>
+<p>I also use network manager and its associated applet to manage my 
+networking. If you’d like to do the same, add the following, as well as 
+the applet package mentioned below.</p>
+<pre><code>networking.networkmanager.enable = true;</code></pre>
+<p>In addition to these core configuration items, you might want to 
+install some packages to get you started. Our NixOS install will be very
+ bare without them. Packages can be specified as additional 
+configuration items, and there should be a commented out section of 
+configuration that you can uncomment and edit. For example, a fairly 
+modest set of packages would look something like this. Note that <code>networkmanagerapplet</code> is included to give us a tray icon to configure networking from.</p>
+<p>As the comment in the configuration file tells you, you can search for packages to install with <code>nix-env -qaP | grep $PACKAGE</code>.</p>
+<pre><code>environment.systemPackages = (with pkgs; [
+  firefox
+  git
+  htop
+  networkmanagerapplet
+  nix-prefetch-scripts
+  nix-repl
+  vagrant
+  vim
+  wget
+  which
+  xscreensaver
+]);</code></pre>
+<p>One last thing I’ll call out, is specifying your user. It’s not a good idea to use <code>root</code>
+ all the time, so to create your user, add/uncomment something like the 
+following. In the example below, we’ll create a user called “qfpl”. 
+We’ll give them a home directory and add them to a few groups. Most 
+importantly, you probably want your user to be a member of <code>wheel</code> so they can run privileged commands with <code>sudo</code>.</p>
+<pre><code>users.extraUsers.qfpl = {
+  createHome = true;
+  extraGroups = ["wheel" "video" "audio" "disk" "networkmanager"];
+  group = "users";
+  home = "/home/qfpl";
+  isNormalUser = true;
+  uid = 1000;
+};</code></pre>
+<p>By default you’ll get <a href="https://www.kde.org/plasma-desktop">Plasma</a>
+ as your desktop environment. If you want something else, then you’ll 
+have to do some research on what’s available and how to configure it.</p>
+<p>There’s a bunch of other stuff commented out in the generated <code>configuration.nix</code>
+ and I encourage you to read through it and uncomment and/or set 
+anything that takes your fancy. For example, setting your time zone is 
+probably a good idea. To see an example of a full configuration with 
+XMonad configured as the window manager, you can check out <a href="https://github.com/ajmcmiddlin/dot-files/blob/c687b94f8c4bb0007fc8ebac2c5cbb06564a1cd4/etc/nixos/configuration.nix.5520">my config</a>
+ on GitHub. Configuration files may vary between NixOS versions, so be 
+sure to check that there are no version specific subtleties before 
+borrowing heavily from another configuration.nix file. (The above config
+ does not specifically add cache.nixos.org to the binary cache; 
+neglecting to include the binary cache in NixOS version 18.03 or higher 
+will result in tonnes of compilation!)</p>
+<h3 id="pull-the-trigger">Pull the trigger!</h3>
+<p>Once you’re happy with your configuration, we can pull the trigger on an install.</p>
+<pre><code># nixos-install
+-- IT'LL ASK YOU FOR YOUR ROOT PASSWORD NOW - DON'T FORGET IT
+# reboot</code></pre>
+<p>Go get a coffee while everything installs, and hopefully you’ll reboot to your new system.</p>
+<p>If something has gone wrong, don’t worry. You can always boot back 
+into the installation media, mount your partitions, update the 
+configuration, and install again. To mount existing partitions, you’ll 
+need to decrypt the LVM partition and then activate its volume group.</p>
+<pre><code># cryptsetup luksOpen $LVM_PARTITION nixos-enc
+# lvscan
+# vgchange -ay
+# mount /dev/nixos-vg/root /mnt
+# ...</code></pre>
+<p>Assuming your system has booted to a login screen, you’re going to 
+want to set your user’s password so you don’t login to your graphical 
+environment as <code>root</code>. To do this, press <code>Ctrl-Alt-F1</code> to open a terminal, login as <code>root</code>, and run <code>passwd $USER</code>, replacing <code>$USER</code> with the name of the user you configured. Once set, run <code>reboot</code> to reboot your machine and login as your regular user.</p>
+<h2 id="references">References</h2>
+<p>Here are the sources I consulted in putting this together.</p>
+<ul>
+<li><a href="https://nixos.org/nixos/manual/">NixOS Manual</a></li>
+<li><a href="https://bluishcoder.co.nz/2014/05/14/installing-nixos-with-encrypted-root-on-thinkpad-w540.html">bluishcoder install guide</a></li>
+</ul>
+    </div>
+  </div>
+
+  
+  <div class="row">
+    <div class="col my-2">
+      <div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">
+      <a href="https://qfpl.io/projects/infra">The Functional Infrastructure Project</a>
+    </h2>
+  </div>
+  <div class="panel-body">
+    <p>We’re using functional programming to set up the infrastructure that we use from day to day.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+  
+
+  
+  <div class="row">
+    <div class="col my-2">
+      
+        <div class="p-1">
+  <h4 class="data61-bottom-line">
+    &gt; <a href="https://qfpl.io/people/ajmcmiddlin">Andrew McMiddlin</a>
+  </h4>
+  <p>Andrew digs referential transparency, static typing, coffee, and table tennis.</p>
+</div>
+
+      
+    </div>
+  </div>
+  
+</div>
+
+          </div>
+          <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                  <li role="presentation"><a href="https://qfpl.io/">Home</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/location">Location</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/people">People</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/projects">Projects</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/talks">Talks</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/contact">Contact</a></li>
+                  <li role="presentation"><a href="https://qfpl.io/archive">Archive</a></li>
+              </ul>
+          </div>
+        </main>
+
+        <footer class="page-footer data61-green">
+            <div class="container">
+              <div class="row justify-content-centre">
+                <div class="col">
+                  <a href="https://github.com/qfpl"><i class="text-white fa fa-github fa-2x"></i></a>
+                  <a href="https://twitter.com/queenslandfplab"><i class="text-white fa fa-twitter fa-2x"></i></a>
+                  <a href="mailto:contact@qfpl.io"><i class="text-white fa fa-envelope-o fa-2x"></i></a>
+                </div>
+                <div class="col">
+                  <a class="float-right" rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+                    <img alt="Creative Commons License" style="border-width:0" src="Installing%20NixOS_files/88x31.png">
+                  </a>
+                </div>
+              </div>
+            </div>
+        </footer>
+
+        <script src="Installing%20NixOS_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+        <script src="Installing%20NixOS_files/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+
+        <script src="Installing%20NixOS_files/bootstrap.min.js"></script>
+
+        
+          
+        
+    
+
+</body></html>

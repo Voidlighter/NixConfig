@@ -1,0 +1,5 @@
+(
+    start_on_login: false,
+    increment: 25,
+    view_moves: Continuously,
+)
