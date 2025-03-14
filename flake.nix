@@ -64,24 +64,16 @@
     # Available through 'nixos-rebuild switch --flake ./dotfiles#your-hostname'
     nixosConfigurations = {
       veridia = mkSystem [./hosts/veridia]; # Desktop PC
-      veridia-lite = mkSystem [./hosts/veridia-lite]; # Desktop PC
       elysia = mkSystem [./hosts/elysia]; # Surface Pro Laptop
       laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
       small = mkSystem [./hosts/small]; # Testing Laptop
-      # crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
-      small-iso = nixpkgs.lib.nixosSystem {
+      crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
+      mothership = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         system = "x86_64-linux";
         modules = [
-          ./hosts/small-iso/default.nix
-        ];
-      };
-      crateria-iso = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/crateria-iso/default.nix
+          ./hosts/mothership/default.nix
         ];
       };
     };

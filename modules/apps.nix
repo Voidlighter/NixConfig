@@ -46,6 +46,12 @@ in {
           tor-browser
           vscodium
           filezilla
+          # Fonts
+          nerd-fonts.jetbrains-mono
+          # nerd-fonts.fira-code
+          inter
+          rubik
+          open-sans
         ];
         extraUtils = with pkgs; [
           nemo-with-extensions
@@ -172,12 +178,6 @@ in {
           papirus-folders
           papirus-icon-theme
           themix-gui
-          # Fonts
-          nerd-fonts.jetbrains-mono
-          # nerd-fonts.fira-code
-          inter
-          rubik
-          open-sans
           texlivePackages.josefin
           texlivePackages.jura
           league-of-moveable-type

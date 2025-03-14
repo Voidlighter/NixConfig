@@ -10,7 +10,7 @@
   ];
 
   config = {
-    my.hostname = "small";
+    my.hostname = "mothership";
     my.desktop = "cosmic";
     my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
