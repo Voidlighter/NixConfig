@@ -16,7 +16,6 @@
 
   # config = {
   # users.${osConfig.my.user.name} = {
-  initialPassword = "";
   home = {
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     # basically don't change this. It isn't the version number

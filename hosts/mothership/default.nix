@@ -8,7 +8,7 @@
   imports = [
     ./../common.nix
     ./home.nix
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
     # "${modulesPath}/installer/cd-dvd/iso-image"
   ];
 
