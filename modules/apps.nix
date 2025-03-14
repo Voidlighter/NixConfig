@@ -157,7 +157,6 @@ in {
         ];
         modeling = with pkgs; [
           blender
-          freecad-wayland
         ];
         gaming = with pkgs; [
           steam
