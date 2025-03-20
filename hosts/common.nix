@@ -42,6 +42,10 @@
       type = lib.types.enum ["amd" "nvidia" ""];
       default = "";
     };
+    shell = lib.mkOption {
+      type = lib.types.enum ["zsh" "bash"];
+      default = "zsh";
+    };
   };
 
   config = {
@@ -57,7 +61,7 @@
 
     hardware.bluetooth.enable = true;
 
-    users.defaultUserShell = pkgs.zsh;
+    users.defaultUserShell = pkgs.${config.my.shell};
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       description = config.my.user.Name;
@@ -96,7 +100,7 @@
 
       # This is where .zshrc stuff goes
       zsh = {
-        enable = true;
+        enable = config.my.shell == "zsh";
         # autocd = true;
         autosuggestions.enable = true;
         enableCompletion = true;
@@ -107,6 +111,28 @@
         };
 
         # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      };
+
+      bash = {
+        enable = config.my.shell == "bash";
+	lsColorsFile = null; #${pkgs.dircolors-solarized}/ansi-dark
+	shellInit = "";
+	promptInit = ''
+	  # Provide a nice prompt if the terminal supports it.
+	  if [ "$TERM" != "dumb" ] || [ -n "$INSIDE_EMACS" ]; then
+	    PROMPT_COLOR="1;31m"
+	    ((UID)) && PROMPT_COLOR="1;32m"
+	    if [ -n "$INSIDE_EMACS" ]; then
+	      # Emacs term mode doesn't support xterm title escape sequence (\e]0;)
+	      PS1="\n\[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
+	    else
+	      PS1="\n\[\033[$PROMPT_COLOR\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\\$\[\033[0m\] "
+	    fi
+	    if test "$TERM" = "xterm"; then
+	      PS1="\[\033]2;\h:\u:\w\007\]$PS1"
+	    fi
+	  fi
+	''
       };
     };
 
@@ -188,12 +214,14 @@
 
     environment = {
       systemPackages = config.my.app.set.system;
-      # sessionVariables = {
-      #   # If your cursor becomes invisible
-      #   # WLR_NO_HARDWARE_CURSORS = "1";
-      #   # Hint electron apps to use wayland
-      #   # NIXOS_OZONE_WL = "1";
-      # };
+      sessionVariables = {
+        # If your cursor becomes invisible
+        # WLR_NO_HARDWARE_CURSORS = "1";
+        # Hint electron apps to use wayland
+        NIXOS_OZONE_WL = "1";
+        # Allow COSMIC clipboard manager
+        COSMIC_DATA_CONTROL_ENABLED = "1";
+      };
     };
 
     # Set your time zone.
