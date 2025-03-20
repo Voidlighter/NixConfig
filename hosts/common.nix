@@ -188,12 +188,14 @@
 
     environment = {
       systemPackages = config.my.app.set.system;
-      # sessionVariables = {
-      #   # If your cursor becomes invisible
-      #   # WLR_NO_HARDWARE_CURSORS = "1";
-      #   # Hint electron apps to use wayland
-      #   # NIXOS_OZONE_WL = "1";
-      # };
+      sessionVariables = {
+        # If your cursor becomes invisible
+        # WLR_NO_HARDWARE_CURSORS = "1";
+        # Hint electron apps to use wayland
+        # NIXOS_OZONE_WL = "1";
+	# Allows COSMIC to have a clipboard manager
+	COSMIC_DATA_CONTROL_ENABLED = "1";
+      };
     };
 
     # Set your time zone.
