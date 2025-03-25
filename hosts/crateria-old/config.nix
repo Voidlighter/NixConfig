@@ -13,30 +13,10 @@
   ];
 
   # Bootloader.
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices = {
-    cryptroot = {
-      device = "/dev/disk/by-uuid/44fecdea-ecc1-4ccf-8125-c40d8a9c133f";
-      preLVM = false; # If using LVM, change to true
-    };
-  };
-
-  fileSystems."/" = {
-    device = "/dev/mapper/cryptroot";
-    fsType = "ext4";
-  };
-
-  boot.loader = {
-    grub = {
-      enable = true;
-      device = "/dev/nvme0n1";
-    };
-    efi.canTouchEfiVariables = true;
-  };
-
-  networking.hostName = "Crateria"; # Define your hostname.
+  networking.hostName = "Laserbeak"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

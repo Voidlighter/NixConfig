@@ -148,7 +148,7 @@
         PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
       };
     };
-    
+
     # Configure network proxy if necessary
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -193,8 +193,8 @@
         # WLR_NO_HARDWARE_CURSORS = "1";
         # Hint electron apps to use wayland
         # NIXOS_OZONE_WL = "1";
-	# Allows COSMIC to have a clipboard manager
-	COSMIC_DATA_CONTROL_ENABLED = "1";
+        # Allows COSMIC to have a clipboard manager
+        COSMIC_DATA_CONTROL_ENABLED = "1";
       };
     };
 
