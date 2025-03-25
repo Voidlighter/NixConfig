@@ -12,10 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-extras-falcon = {
-    #   url = "~/NixExtras/CrowdStrike";
-    # };
-
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,6 +73,7 @@
         specialArgs = {inherit inputs outputs;};
         system = "x86_64-linux";
         modules = [
+          inputs.disko.nixosModules.disko
           ./hosts/mothership/default.nix
         ];
       };

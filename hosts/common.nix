@@ -9,6 +9,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.nixos-cosmic.nixosModules.default
+    inputs.disko.nixosModules.disko
     ../modules/apps.nix
     # ../modules/remote-build/remote-builder.nix
   ];

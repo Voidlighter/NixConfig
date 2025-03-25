@@ -1,5 +1,6 @@
-{...}: {
+{inputs, ...}: {
   imports = [
+    inputs.musnix.nixosModules.musnix
     ./../common.nix
     ./home.nix
     ./hardware.nix
