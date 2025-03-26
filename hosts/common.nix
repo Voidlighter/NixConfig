@@ -29,7 +29,7 @@
     };
     desktop = lib.mkOption {
       type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic" ""];
-      default = "plasma";
+      default = "plasma"; #gnome doesn't work?
     };
     greeter = lib.mkOption {
       type = lib.types.enum ["sddm" "gdm" "lightdm" "cosmic" ""];
@@ -58,12 +58,58 @@
 
     hardware.bluetooth.enable = true;
 
-    users.defaultUserShell = pkgs.zsh;
+    users.defaultUserShell = pkgs.bash;
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       description = config.my.user.Name;
       extraGroups = ["networkmanager" "wheel" "audio"];
       # packages = with pkgs; [];
+    };
+
+
+    programs = {
+      neovim = {
+        enable = true;
+        viAlias = true;
+        vimAlias = true;
+        # vimdiffAlias = true;
+      };
+
+      nix-index.enable = true;
+      nix-index.enableZshIntegration = true;
+      command-not-found.enable = false;
+      # nix-index-database.comma.enable = true;
+
+      # This is where .zshrc stuff goes
+      bash = {
+        shellAliases = {
+          ls = "eza";
+        };
+        # programs.bash.initExtra = ''
+        #   # More bash init stuff
+        # '';
+
+        # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      };
+      ssh = {
+        extraConfig = ''
+          Host orc
+            User cadepb
+            HostName ssh.rc.byu.edu
+            ControlMaster auto
+            ControlPath ~/.ssh/master-%r@%h:%p.socket
+            ControlPersist yes
+            ForwardX11 yes
+            XAuthLocation /opt/X11/bin/xauth
+            ServerAliveInterval 300
+        '';
+      };
+      # Some programs need SUID wrappers, can be configured further or are started in user sessions.
+      mtr.enable = true;
+      gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+      };
     };
 
     services = {
@@ -80,74 +126,36 @@
         layout = "us";
         variant = "";
       };
-    };
 
-    programs = {
-      neovim = {
+      # Enable touchpad support (enabled default in most desktopManager).
+      libinput.enable = true;
+
+      # Enable CUPS to print documents.
+      printing.enable = true;
+      udev.packages = with pkgs; [
+        vial
+        via
+      ];
+
+      # Enable the OpenSSH daemon.
+      openssh = {
         enable = true;
-        viAlias = true;
-        vimAlias = true;
-        # vimdiffAlias = true;
-      };
-
-      nix-index.enable = true;
-      nix-index.enableZshIntegration = true;
-      command-not-found.enable = false;
-      # nix-index-database.comma.enable = true;
-
-      # This is where .zshrc stuff goes
-      zsh = {
-        enable = true;
-        # autocd = true;
-        autosuggestions.enable = true;
-        enableCompletion = true;
-        histSize = 10000;
-
-        shellAliases = {
-          ls = "eza";
+        ports = [22];
+        settings = {
+          PasswordAuthentication = true;
+          AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+          UseDns = true;
+          X11Forwarding = false;
+          PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
         };
-
-        # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       };
     };
-
-    # Enable touchpad support (enabled default in most desktopManager).
-    services.libinput.enable = true;
-
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
 
     hardware = {
       # Opengl in 24.05, graphics in 24.11
       graphics.enable = true;
 
       keyboard.zsa.enable = true;
-    };
-
-    services.udev.packages = with pkgs; [
-      vial
-      via
-    ];
-
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    programs.mtr.enable = true;
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-
-    # Enable the OpenSSH daemon.
-    services.openssh = {
-      enable = true;
-      ports = [22];
-      settings = {
-        PasswordAuthentication = true;
-        AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-        UseDns = true;
-        X11Forwarding = false;
-        PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-      };
     };
 
     # Configure network proxy if necessary
@@ -242,9 +250,9 @@
     nix.settings = {
       substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
       trusted-public-keys = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+      experimental-features = ["nix-command" "flakes"];
     };
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
     # Bootloader.
     boot.loader.systemd-boot.enable = lib.mkDefault true;
     boot.loader.efi.canTouchEfiVariables = true;

@@ -5,7 +5,7 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-    ./../modules/home-manager/zsh.nix
+    ./../modules/home-manager/bash.nix
     ./../modules/home-manager/starship.nix
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
