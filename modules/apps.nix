@@ -64,15 +64,15 @@ in {
         baseApps = with pkgs; [
           # Web Browser
           floorp
-          ungoogled-chromium
+          # ungoogled-chromium
           # Internet Utils
-          protonvpn-gui
+          # protonvpn-gui
           #proton-pass
-          wireguard-tools
-          syncthing
-          syncthingtray
+          # wireguard-tools
+          # syncthing
+          # syncthingtray
           # Messaging
-          signal-desktop
+          # signal-desktop
           # Media
           spotify
           vlc

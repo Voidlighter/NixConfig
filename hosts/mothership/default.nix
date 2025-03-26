@@ -8,9 +8,9 @@
   imports = [
     ./../common.nix
     ./home.nix
-    ./disko-config.nix
+    ./disk-config.nix
     # "${modulesPath}/installer/cd-dvd/installation-cd-graphical-base.nix"
-    # "${modulesPath}/installer/cd-dvd/iso-image"
+    "${modulesPath}/installer/cd-dvd/iso-image.nix"
   ];
 
   config = {

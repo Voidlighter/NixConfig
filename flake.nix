@@ -12,10 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #disko = {
+    #  url = "github:nix-community/disko";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,13 +68,22 @@
       laserbeak = mkSystem [./hosts/laserbeak]; # Testing Laptop
       vapor = mkSystem [./hosts/vapor]; # Steam Deck
       small = mkSystem [./hosts/small]; # Testing Laptop
-      crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
+      # crateria = mkSystem [./hosts/crateria]; # Supercomputer Access
+      workship = mkSystem [./hosts/workship]; # Supercomputer Access
       mothership = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         system = "x86_64-linux";
         modules = [
           inputs.disko.nixosModules.disko
           ./hosts/mothership/default.nix
+        ];
+      };
+      crateria = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "x86_64-linux";
+        modules = [
+          #inputs.disko.nixosModules.disko
+          ./hosts/crateria/default.nix
         ];
       };
     };

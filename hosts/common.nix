@@ -9,7 +9,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.nixos-cosmic.nixosModules.default
-    inputs.disko.nixosModules.disko
+    # inputs.disko.nixosModules.disko
     ../modules/apps.nix
     # ../modules/remote-build/remote-builder.nix
   ];
@@ -188,7 +188,11 @@
     };
 
     environment = {
-      systemPackages = config.my.app.set.system;
+      systemPackages =
+        config.my.app.set.system
+        ++ [
+          #config.system.build.diskoScript
+        ];
       sessionVariables = {
         # If your cursor becomes invisible
         # WLR_NO_HARDWARE_CURSORS = "1";
@@ -242,7 +246,7 @@
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
     # Bootloader.
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.enable = lib.mkDefault true;
     boot.loader.efi.canTouchEfiVariables = true;
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

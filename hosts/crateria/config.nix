@@ -8,8 +8,12 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    ./falcon.nix
-    ./hardware.nix
+    ./../common.nix
+    # ./falcon.nix
+    inputs.disko.nixosModules.disko
+    ./disk-config.nix
+    # ./hardware.nix
+
   ];
 
   # Bootloader.
