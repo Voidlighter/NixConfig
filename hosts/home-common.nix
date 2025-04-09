@@ -1,6 +1,8 @@
 {
   osConfig,
   inputs,
+  lib,
+  pkgs,
   ...
 }: {
   # You can import other home-manager modules here
@@ -16,6 +18,17 @@
 
   # config = {
   # users.${osConfig.my.user.name} = {
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+        "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
+        "text/html" = "${lib.getExe pkgs.floorp}";
+        "text/xml" = "${lib.getExe pkgs.floorp}";
+        "x-scheme-handler/ftp" = "${lib.getExe pkgs.floorp}";
+        "x-scheme-handler/http" = "${lib.getExe pkgs.floorp}";
+        "x-scheme-handler/https" = "${lib.getExe pkgs.floorp}";
+    };
+  };
   home = {
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     # basically don't change this. It isn't the version number
@@ -24,7 +37,9 @@
     homeDirectory = "/home/${osConfig.my.user.name}";
 
     sessionVariables = {
-      EDITOR = "nvim";
+        EDITOR = "${lib.getExe pkgs.neovim}";
+        BROWSER = "${lib.getExe pkgs.floorp}";
+        # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
     file = {
     };
@@ -95,6 +110,7 @@ passwd
       '';
     };
   };
+  
 
   fonts.fontconfig.enable = true;
 
@@ -127,6 +143,13 @@ passwd
     eza = {
       enable = true;
     };
+
+    # dconf.settings = {
+    #   "org/virt-manager/virt-manager/connections" = {
+    #     autoconnect = ["qemu:///system"];
+    #     uris = ["qemu:///system"];
+    #   };
+    # };
   };
 
   # Nicely reload system units when changing configs

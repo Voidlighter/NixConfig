@@ -29,7 +29,7 @@
     };
     desktop = lib.mkOption {
       type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic" ""];
-      default = "plasma"; #gnome doesn't work?
+      default = "plasma"; # gnome doesn't work?
     };
     greeter = lib.mkOption {
       type = lib.types.enum ["sddm" "gdm" "lightdm" "cosmic" ""];
@@ -62,7 +62,7 @@
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       description = config.my.user.Name;
-      extraGroups = ["networkmanager" "wheel" "audio"];
+      extraGroups = ["networkmanager" "wheel" "audio" "libvirtd"];
       # packages = with pkgs; [];
     };
 

@@ -13,11 +13,10 @@
       "..." = "./..";
       "...." = "././..";
       cd = "z";
-      ls = "eza";
+      # ls = "eza";
       ll = "ls -lah";
       grep = "grep --color=auto";
       gc = "nix-collect-garbage --delete-old";
-      refresh = "source ${config.home.homeDirectory}/.zshrc";
       show_path = "echo $PATH | tr ':' '\n'";
 
       gapa = "git add --patch";

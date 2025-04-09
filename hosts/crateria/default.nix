@@ -30,7 +30,7 @@
       # "music"
       # "gaming"
       # "streaming"
-      # "vmware"
+      "vmware"
       # "android"
       # "plasma"
       # "theming"
@@ -41,5 +41,9 @@
       isNormalUser = true;
       initialPassword = ""; # Set the initial password
     };
+    programs.virt-manager.enable = true;
+    users.groups.libvirtd.members = ["cade"];
+    virtualisation.libvirtd.enable = true;
+    virtualisation.spiceUSBRedirection.enable = true;
   };
 }

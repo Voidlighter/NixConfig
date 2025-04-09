@@ -162,7 +162,8 @@ in {
           steam
         ];
         vmware = with pkgs; [
-          virtualbox
+          qemu_kvm
+          swtpm
         ];
         # android = with pkgs; [
         #   android-udev-rules
