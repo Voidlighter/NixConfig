@@ -213,6 +213,7 @@ in {
         };
         work = with pkgs; [
           mattermost-desktop
+          zoom-us
         ];
       };
     };
