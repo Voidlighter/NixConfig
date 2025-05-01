@@ -11,8 +11,7 @@
     inputs.nixos-cosmic.nixosModules.default
     # inputs.disko.nixosModules.disko
     ../modules/apps.nix
-    ../modules/home-manager/bash.nix
-    ./../modules/home-manager/starship.nix
+    # ./../modules/home-manager/starship.nix
     # ../modules/remote-build/remote-builder.nix
   ];
 

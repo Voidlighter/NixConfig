@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   config.programs.starship = {
     enable = true;
     # enableBashIntegration = true;
@@ -16,4 +16,5 @@
       hostname.style = "bold green";
     };
   };
+  config.xdg.configFile."starship.toml".source = lib.mkForce ./starship.toml;
 }

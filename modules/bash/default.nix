@@ -1,23 +1,27 @@
 {
   config,
+  osConfig,
   pkgs,
   ...
 }: {
-  config.programs.bash = {
+  programs.bash = {
+    enable = true;
     # History settings
-    # historySize = 10000;
+    historySize = 10000;
     # historyFileSize = 10000;
     # historyControl = [ "ignoredups" "ignorespace" ];
     # blesh.enable = true;
 
     shellAliases = {
-      "..." = "./..";
-      "...." = "././..";
+      "..." = "../..";
+      "...." = "../../..";
       # ls = "eza";
       ll = "ls -lah";
       grep = "grep --color=auto";
       gc = "nix-collect-garbage --delete-old";
       show_path = "echo $PATH | tr ':' '\n'";
+
+      nrs = "sudo nixos-rebuild switch --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
 
       gapa = "git add --patch";
       grpa = "git reset --patch";
@@ -31,7 +35,7 @@
       gcd = "git checkout develop";
     };
 
-    shellInit = ''
+    bashrcExtra = ''
       # Vi mode
       set -o vi
 
@@ -39,8 +43,9 @@
       bind '"\e[A": history-search-backward'
       bind '"\e[B": history-search-forward'
 
-      #starship
+      # starship
       eval -- "$(/etc/profiles/per-user/cade/bin/starship init bash --print-full-init)"
     '';
   };
+  # config.xdg.configFile."starship.toml".source = lib.mkForce ./starship.toml;
 }

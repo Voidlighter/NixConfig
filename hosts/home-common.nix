@@ -11,6 +11,8 @@
     # inputs.nix-colors.homeManagerModule
     # nix-index-database.hmModules.nix-index
     inputs.plasma-manager.homeManagerModules.plasma-manager
+    ../modules/starship
+    ../modules/bash
     # inputs.musnix.nixosModules.musnix
   ];
 
