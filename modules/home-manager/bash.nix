@@ -5,14 +5,14 @@
 }: {
   config.programs.bash = {
     # History settings
-    historySize = 10000;
-    historyFileSize = 10000;
-    historyControl = [ "ignoredups" "ignorespace" ];
+    # historySize = 10000;
+    # historyFileSize = 10000;
+    # historyControl = [ "ignoredups" "ignorespace" ];
+    # blesh.enable = true;
 
     shellAliases = {
       "..." = "./..";
       "...." = "././..";
-      cd = "z";
       # ls = "eza";
       ll = "ls -lah";
       grep = "grep --color=auto";
@@ -31,7 +31,7 @@
       gcd = "git checkout develop";
     };
 
-    initExtra = ''
+    shellInit = ''
       # Vi mode
       set -o vi
 

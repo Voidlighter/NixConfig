@@ -24,6 +24,7 @@ in {
           neovim
           # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
           bash
+          blesh
           zsh
           tmux
           # nushell

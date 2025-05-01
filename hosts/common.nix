@@ -11,6 +11,8 @@
     inputs.nixos-cosmic.nixosModules.default
     # inputs.disko.nixosModules.disko
     ../modules/apps.nix
+    ../modules/home-manager/bash.nix
+    ./../modules/home-manager/starship.nix
     # ../modules/remote-build/remote-builder.nix
   ];
 
@@ -91,6 +93,7 @@
 
         # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       };
+      zoxide.enable = true;
       ssh = {
         extraConfig = ''
           Host orc
@@ -100,6 +103,7 @@
             ControlPath ~/.ssh/master-%r@%h:%p.socket
             ControlPersist yes
             ForwardX11 yes
+            ForwardX11Trusted yes
             XAuthLocation /opt/X11/bin/xauth
             ServerAliveInterval 300
         '';
