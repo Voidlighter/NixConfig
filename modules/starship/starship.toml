@@ -34,6 +34,7 @@ add_newline = true
 
 [username]
 show_always = true
+style_user = "bold green"
 # style_user = "bg:#9A348E"
 # style_root = "bg:#9A348E"
 # format = '[$user ]($style)'
