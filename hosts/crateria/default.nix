@@ -12,8 +12,8 @@
     my.hostname = "crateria";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.desktop = "cosmic";
-    my.greeter = "cosmic";
+    my.desktop = "plasma";
+    my.greeter = "sddm";
     my.audio = ["rtkit" "pipewire"];
 
     my.app.selection = [

@@ -103,7 +103,7 @@
             ControlPersist yes
             ForwardX11 yes
             ForwardX11Trusted yes
-            XAuthLocation /opt/X11/bin/xauth
+            XAuthLocation /run/current-system/sw/bin/xauth
             ServerAliveInterval 300
         '';
       };
@@ -117,11 +117,13 @@
 
     services = {
       displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
-      displayManager.sddm.enable = config.my.greeter == "sddm";
+      # displayManager.sddm.enable = config.my.greeter == "sddm";
+      displayManager.sddm.enable = true;
       displayManager.cosmic-greeter.enable = config.my.greeter == "cosmic";
 
       desktopManager.cosmic.enable = config.my.desktop == "cosmic";
-      desktopManager.plasma6.enable = config.my.desktop == "plasma";
+      # desktopManager.plasma6.enable = config.my.desktop == "plasma";
+      desktopManager.plasma6.enable = true;
 
       xserver.enable = true;
       # set keymap in X11
