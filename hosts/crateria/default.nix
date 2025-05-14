@@ -16,6 +16,13 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pipewire"];
 
+    # TODO: I want to make my settings like this instead.
+    # my.apps.base.enable = true;
+    # my.apps.extraUtils.enable = true;
+    # my.apps.office.enable = true;
+    # my.apps.vmware.enable = true;
+    # my.apps.work.enable = true;
+
     my.app.selection = [
       "baseApps"
       "extraUtils"

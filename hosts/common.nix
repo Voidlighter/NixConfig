@@ -76,6 +76,7 @@
         # vimdiffAlias = true;
       };
 
+      nix-ld.enable = true;
       nix-index.enable = true;
       nix-index.enableZshIntegration = true;
       command-not-found.enable = false;
