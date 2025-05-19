@@ -21,7 +21,6 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nixos-conf-editor.url = "github:snowfallorg/nixos-conf-editor";
     nix-software-center.url = "github:snowfallorg/nix-software-center";
     plasma-manager = {

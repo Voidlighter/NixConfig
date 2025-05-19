@@ -8,6 +8,7 @@
 }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.nixos-hardware.nixosModules.dell-xps-13-9350
     # inputs.nixos-cosmic.nixosModules.default
     # inputs.disko.nixosModules.disko
     ../modules/apps.nix

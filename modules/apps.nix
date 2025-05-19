@@ -57,6 +57,7 @@ in {
         extraUtils = with pkgs; [
           nemo-with-extensions
           neofetch.out
+          bat-extras.core
           qdirstat # Graphical disk usage analyzer
           ## Nix UI: Snowfallorg
           # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
