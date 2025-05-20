@@ -68,7 +68,6 @@
       # packages = with pkgs; [];
     };
 
-
     programs = {
       neovim = {
         enable = true;
@@ -204,10 +203,7 @@
 
     environment = {
       systemPackages =
-        config.my.app.set.system
-        ++ [
-          #config.system.build.diskoScript
-        ];
+        config.my.apps.system;
       sessionVariables = {
         # If your cursor becomes invisible
         # WLR_NO_HARDWARE_CURSORS = "1";

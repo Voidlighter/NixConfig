@@ -19,10 +19,9 @@
     my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
 
-    my.app.selection = [
-      "baseApps"
-      "extraUtils"
-    ];
+    my.app.base.enable = true;
+    my.app.utils.enable = true;
+    my.apps.extras = [];
 
     environment = {
       systemPackages = lib.mkForce (config.my.app.set.system ++ []);

@@ -1,4 +1,9 @@
-{pkgs, inputs, config, ...}: {
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     ./../common.nix
     ./home.nix
@@ -16,34 +21,13 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pipewire"];
 
-    # TODO: I want to make my settings like this instead.
-    # my.apps.base.enable = true;
-    # my.apps.extraUtils.enable = true;
-    # my.apps.office.enable = true;
-    # my.apps.vmware.enable = true;
-    # my.apps.work.enable = true;
+    my.app.base.enable = true;
+    my.app.utils.enable = true;
+    my.app.office.enable = true;
+    my.app.vmware.enable = true;
+    my.app.work.enable = true;
+    my.apps.extras = [];
 
-    my.app.selection = [
-      "baseApps"
-      "extraUtils"
-      "office"
-      # "social"
-      # "coding"
-      # "keyboard"
-      # "art"
-      # "modeling"
-      # "java"
-      # "video"
-      # "music"
-      # "gaming"
-      # "streaming"
-      "vmware"
-      # "android"
-      # "plasma"
-      # "theming"
-      # "ai"
-      "work"
-    ];
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       initialPassword = ""; # Set the initial password

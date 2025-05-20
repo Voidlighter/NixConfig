@@ -9,28 +9,21 @@
   ];
   config = {
     my.hostname = "vapor";
-    my.desktop = "plasma";
+    my.desktop = "cosmic";
     my.greeter = "";
     my.audio = ["rtkit" "pipewire"];
-    my.app.selection = [
-      "baseApps"
-      "extraUtils"
-      "office"
-      # "school"
-      # "social"
-      # "coding"
-      # "keyboard"
-      # "art"
-      # "java"
-      # "video"
-      "music"
-      "gaming"
-      # "streaming"
-      # "vmware"
-      # "android"
-      "plasma"
-      "theming"
-    ];
+
+    my.app.base.enable = true;
+    my.app.utils.enable = true;
+    my.app.office.enable = true;
+    my.app.school.enable = true;
+    my.app.social.enable = true;
+    my.app.coding.enable = true;
+    my.app.keyboard.enable = true;
+    my.app.gaming.enable = true;
+    my.app.modeling.enable = true;
+    my.app.theming.enable = true;
+    my.apps.extras = [];
 
     jovian = {
       steam = {
@@ -49,6 +42,6 @@
     };
 
     musnix.soundcardPciId = "04:00.1";
-    musnix.kernel.realtime = false;
+    # musnix.kernel.realtime = false;
   };
 }

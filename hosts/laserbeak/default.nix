@@ -13,26 +13,11 @@
     my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
 
-    my.app.selection = [
-      "baseApps"
-      "extraUtils"
-      "office"
-      # "social"
-      # "coding"
-      # "keyboard"
-      # "art"
-      # "modeling"
-      # "java"
-      # "video"
-      # "music"
-      # "gaming"
-      # "streaming"
-      # "vmware"
-      # "android"
-      # "plasma"
-      # "theming"
-      # "ai"
-      "work"
-    ];
+    my.app.base.enable = true;
+    my.app.utils.enable = true;
+    my.app.office.enable = true;
+    my.app.coding.enable = true;
+    my.app.theming.enable = true;
+    my.apps.extras = [];
   };
 }
