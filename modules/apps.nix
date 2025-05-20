@@ -46,7 +46,7 @@
     apps.system = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        neovim
+        # neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
         bash
         blesh
