@@ -21,11 +21,11 @@
     my.greeter = "sddm";
     my.audio = ["rtkit" "pipewire"];
 
-    my.app.base.enable = true;
-    my.app.utils.enable = true;
-    my.app.office.enable = true;
-    my.app.vmware.enable = true;
-    my.app.work.enable = true;
+    my.app.base = true;
+    my.app.utils = true;
+    my.app.office = true;
+    my.app.vmware = true;
+    my.app.work = true;
     my.apps.extras = [];
 
     users.users.${config.my.user.name} = {

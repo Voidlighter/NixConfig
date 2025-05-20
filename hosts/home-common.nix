@@ -41,9 +41,7 @@
       BROWSER = "${lib.getExe pkgs.floorp}";
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
-    file = {
-    };
-
+    
     packages = osConfig.my.apps.home;
     file = {
       ".config/autostart/mattermost.desktop".text = ''

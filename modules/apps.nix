@@ -10,34 +10,61 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [];
     };
-    apps.home = lib.mkOption {
-      type = lib.types.listOf lib.types.package;
-      default = [
-        (lib.optional config.my.app.system.enable config.my.apps.system)
-        (lib.optional config.my.app.utils.enable config.my.apps.utils)
-        (lib.optional config.my.app.base.enable config.my.apps.base)
-        (lib.optional config.my.app.office.enable config.my.apps.office)
-        (lib.optional config.my.app.school.enable config.my.apps.school)
-        (lib.optional config.my.app.social.enable config.my.apps.social)
-        (lib.optional config.my.app.coding.enable config.my.apps.coding)
-        (lib.optional config.my.app.keyboard.enable config.my.apps.keyboard)
-        (lib.optional config.my.app.java.enable config.my.apps.java)
-        (lib.optional config.my.app.video.enable config.my.apps.video)
-        (lib.optional config.my.app.music.enable config.my.apps.music)
-        (lib.optional config.my.app.streaming.enable config.my.apps.streaming)
-        (lib.optional config.my.app.art.enable config.my.apps.art)
-        (lib.optional config.my.app.modeling.enable config.my.apps.modeling)
-        (lib.optional config.my.app.gaming.enable config.my.apps.gaming)
-        (lib.optional config.my.app.vmware.enable config.my.apps.vmware)
-        (lib.optional config.my.app.android.enable config.my.apps.android)
-        (lib.optional config.my.app.plasma.enable config.my.apps.plasma)
-        (lib.optional config.my.app.theming.enable config.my.apps.theming)
-        (lib.optional config.my.app.kde-theming.enable config.my.apps.kde-theming)
-        (lib.optional config.my.app.ai.enable config.my.apps.ai)
-        (lib.optional config.my.app.tts.enable config.my.apps.tts)
-        (lib.optional config.my.app.stt.enable config.my.apps.stt)
-        (lib.optional config.my.app.llm.enable config.my.apps.llm)
-        (lib.optional config.my.app.work.enable config.my.apps.work)
+  apps.home = lib.mkOption {
+    type = lib.types.listOf lib.types.package;
+    default = let
+      systemPackages = if config.my.app.system or true then config.my.apps.system else [];
+      utilsPackages = if config.my.app.utils or false then config.my.apps.utils else [];
+      basePackages = if config.my.app.base or false then config.my.apps.base else [];
+      officePackages = if config.my.app.office or false then config.my.apps.office else [];
+      schoolPackages = if config.my.app.school or false then config.my.apps.school else [];
+      socialPackages = if config.my.app.social or false then config.my.apps.social else [];
+      codingPackages = if config.my.app.coding or false then config.my.apps.coding else [];
+      keyboardPackages = if config.my.app.keyboard or false then config.my.apps.keyboard else [];
+      javaPackages = if config.my.app.java or false then config.my.apps.java else [];
+      videoPackages = if config.my.app.video or false then config.my.apps.video else [];
+      musicPackages = if config.my.app.music or false then config.my.apps.music else [];
+      streamingPackages = if config.my.app.streaming or false then config.my.apps.streaming else [];
+      artPackages = if config.my.app.art or false then config.my.apps.art else [];
+      modelingPackages = if config.my.app.modeling or false then config.my.apps.modeling else [];
+      gamingPackages = if config.my.app.gaming or false then config.my.apps.gaming else [];
+      vmwarePackages = if config.my.app.vmware or false then config.my.apps.vmware else [];
+      androidPackages = if config.my.app.android or false then config.my.apps.android else [];
+      plasmaPackages = if config.my.app.plasma or false then config.my.apps.plasma else [];
+      themingPackages = if config.my.app.theming or false then config.my.apps.theming else [];
+      kdeThemingPackages = if config.my.app.kde-theming or false then config.my.apps.kde-theming else [];
+      aiPackages = if config.my.app.ai or false then config.my.apps.ai else [];
+      ttsPackages = if config.my.app.tts or false then config.my.apps.tts else [];
+      sttPackages = if config.my.app.stt or false then config.my.apps.stt else [];
+      llmPackages = if config.my.app.llm or false then config.my.apps.llm else [];
+      workPackages = if config.my.app.work or false then config.my.apps.work else [];
+    in
+      lib.flatten [
+        systemPackages
+        utilsPackages
+        basePackages
+        officePackages
+        schoolPackages
+        socialPackages
+        codingPackages
+        keyboardPackages
+        javaPackages
+        videoPackages
+        musicPackages
+        streamingPackages
+        artPackages
+        modelingPackages
+        gamingPackages
+        vmwarePackages
+        androidPackages
+        plasmaPackages
+        themingPackages
+        kdeThemingPackages
+        aiPackages
+        ttsPackages
+        sttPackages
+        llmPackages
+        workPackages
         config.my.apps.extras
       ];
     };
@@ -296,7 +323,11 @@
     app.ai = lib.mkEnableOption "For all ai";
     apps.ai = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = config.my.apps.tts + config.my.apps.stt + config.my.apps.llm;
+      default = lib.flatten [
+        config.my.apps.tts
+        config.my.apps.stt
+        config.my.apps.llm
+      ];
     };
     app.tts = lib.mkEnableOption "For text to speech";
     apps.tts = lib.mkOption {
@@ -306,7 +337,7 @@
         wyoming-piper
       ];
     };
-    stt = lib.mkEnableOption "For speech to text";
+    app.stt = lib.mkEnableOption "For speech to text";
     apps.stt = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
