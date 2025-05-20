@@ -256,9 +256,14 @@
       experimental-features = ["nix-command" "flakes"];
     };
 
-    # Bootloader.
-    boot.loader.systemd-boot.enable = lib.mkDefault true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    # Bootloader
+      boot.loader.grub.enable = true;
+      boot.loader.grub.efiSupport = true;
+      boot.loader.grub.device = "nodev";
+      boot.loader.grub.useOSProber = true;
+      boot.loader.efi.canTouchEfiVariables = true;
+    # boot.loader.systemd-boot.enable = lib.mkDefault true;
+    # boot.loader.efi.canTouchEfiVariables = true;
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "24.05"; # Did you read the comment=
