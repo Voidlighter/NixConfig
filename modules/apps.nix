@@ -28,6 +28,7 @@
         (lib.optionals config.my.app.art.enable config.my.apps.art)
         (lib.optionals config.my.app.modeling.enable config.my.apps.modeling)
         (lib.optionals config.my.app.gaming.enable config.my.apps.gaming)
+        (lib.optionals config.my.app.game-dev.enable config.my.apps.game-dev)
         (lib.optionals config.my.app.vmware.enable config.my.apps.vmware)
         (lib.optionals config.my.app.android.enable config.my.apps.android)
         (lib.optionals config.my.app.plasma.enable config.my.apps.plasma)
@@ -240,6 +241,13 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         steam
+      ];
+    };
+    app.game-dev.enable = lib.mkEnableOption "For game development";
+    apps.game-dev = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = with pkgs; [
+        godot
       ];
     };
     app.vmware.enable = lib.mkEnableOption "For virtual machines";

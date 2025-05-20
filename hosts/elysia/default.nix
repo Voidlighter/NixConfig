@@ -17,6 +17,7 @@
     my.app.school.enable = true;
     my.app.social.enable = true;
     my.app.coding.enable = true;
+    my.app.game-dev.enable = true;
     my.app.keyboard.enable = true;
     my.app.art.enable = true;
     my.app.modeling.enable = true;
