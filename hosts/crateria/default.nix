@@ -17,8 +17,8 @@
     my.hostname = "crateria";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.desktop = "plasma";
-    my.greeter = "sddm";
+    my.desktop = "cosmic";
+    my.greeter = "cosmic";
     my.audio = ["rtkit" "pipewire"];
 
     my.app.base.enable = true;
