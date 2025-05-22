@@ -18,10 +18,15 @@
       # ls = "eza";
       ll = "ls -lah";
       grep = "grep --color=auto";
-      gc = "nix-collect-garbage --delete-old";
+      ncg = "nix-collect-garbage --delete-old";
+      ndot = "nix-collect-garbage --delete-older-than";
       show_path = "echo $PATH | tr ':' '\n'";
 
       nrs = "sudo nixos-rebuild switch --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+      nrb = "sudo nixos-rebuild build --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+
+      hms = "home-manager switch --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
+      hmb = "home-manager build --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
 
       gapa = "git add --patch";
       grpa = "git reset --patch";

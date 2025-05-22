@@ -29,8 +29,8 @@
     ".config/autostart/mattermost.desktop".text = ''
       [Desktop Entry]
       Name=Mattermost
-      Exec=mattermost-desktop
-      Icon=mattermost-desktop
+      Exec=${lib.getExe pkgs.mattermost-desktop}
+      Icon=${lib.getExe pkgs.mattermost-desktop}
       Terminal=false
       Type=Application
       Categories=Network;
