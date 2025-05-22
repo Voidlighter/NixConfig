@@ -7,45 +7,9 @@
   ...
 }: {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
-    inputs.nixos-hardware.nixosModules.dell-xps-13-9350
-    # inputs.nixos-cosmic.nixosModules.default
-    # inputs.disko.nixosModules.disko
     ../modules/apps.nix
-    # ./../modules/home-manager/starship.nix
-    # ../modules/remote-build/remote-builder.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
-
-  options.my = {
-    hostname = lib.mkOption {
-      type = lib.types.str;
-      default = "CadeComputer";
-    };
-    user.name = lib.mkOption {
-      type = lib.types.str;
-      default = "cade";
-    };
-    user.Name = lib.mkOption {
-      type = lib.types.str;
-      default = "Cade";
-    };
-    desktop = lib.mkOption {
-      type = lib.types.enum ["plasma" "gnome" "cinnamon" "cosmic" ""];
-      default = "plasma"; # gnome doesn't work?
-    };
-    greeter = lib.mkOption {
-      type = lib.types.enum ["sddm" "gdm" "lightdm" "cosmic" ""];
-      default = "sddm";
-    };
-    audio = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum ["rtkit" "pipewire" "pulseaudio"]);
-      default = ["rtkit" "pipewire"];
-    };
-    gpu = lib.mkOption {
-      type = lib.types.enum ["amd" "nvidia" ""];
-      default = "";
-    };
-  };
 
   config = {
     services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;

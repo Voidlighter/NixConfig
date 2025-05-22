@@ -25,26 +25,5 @@
     my.app.theming.enable = true;
     my.app.kde-theming.enable = true;
     my.apps.extras = [];
-
-    # my.app.selection = [
-    #   "baseApps"
-    #   "extraUtils"
-    #   "office"
-    #   "school"
-    #   "social"
-    #   "coding"
-    #   "keyboard"
-    #   "art"
-    #   "modeling"
-    #   # "java"
-    #   # "video"
-    #   # "music"
-    #   # "gaming"
-    #   # "streaming"
-    #   # "vmware"
-    #   # "android"
-    #   "plasma"
-    #   "theming"
-    # ];
   };
 }

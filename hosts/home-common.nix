@@ -13,6 +13,7 @@
     inputs.plasma-manager.homeManagerModules.plasma-manager
     ../modules/starship
     ../modules/bash
+    ../modules/apps.nix
     # inputs.musnix.nixosModules.musnix
   ];
 
@@ -21,12 +22,32 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
-      "text/html" = "${lib.getExe pkgs.floorp}";
       "text/xml" = "${lib.getExe pkgs.floorp}";
+      "text/html" = "${lib.getExe pkgs.floorp}";
       "x-scheme-handler/ftp" = "${lib.getExe pkgs.floorp}";
       "x-scheme-handler/http" = "${lib.getExe pkgs.floorp}";
       "x-scheme-handler/https" = "${lib.getExe pkgs.floorp}";
+      "x-scheme-handler/chrome" = "${lib.getExe pkgs.floorp}";
+      "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-htm" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-html" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-shtml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-xhtml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-xht" = "${lib.getExe pkgs.floorp}";
+    };
+    associations.added = {
+      "text/xml" = "${lib.getExe pkgs.floorp}";
+      "text/html" = "${lib.getExe pkgs.floorp}";
+      "x-scheme-handler/ftp" = "${lib.getExe pkgs.floorp}";
+      "x-scheme-handler/http" = "${lib.getExe pkgs.floorp}";
+      "x-scheme-handler/https" = "${lib.getExe pkgs.floorp}";
+      "x-scheme-handler/chrome" = "${lib.getExe pkgs.floorp}";
+      "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-htm" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-html" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-shtml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-xhtml" = "${lib.getExe pkgs.floorp}";
+      "application/x-extension-xht" = "${lib.getExe pkgs.floorp}";
     };
   };
   home = {
@@ -53,6 +74,7 @@
         Type=Application
         Categories=Network;
       '';
+
       "install-instructions.md".text = ''
         # Minimal UEFI/GPT Installation
         ```
@@ -105,6 +127,13 @@
         sudo nixos-install --flake ~/NixConfig#HOST
         passwd
         ```
+
+        # Connect to WiFi
+
+        ```
+        nmcli connection modify "TheSSID" wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.phase2-auth mschapv2 802-1x.identity "MyName"
+        nmcli --ask connection up TheSSID
+        ```
       '';
     };
   };
@@ -114,6 +143,7 @@
   programs = {
     home-manager = {
       enable = true;
+      # useGlobalPkgs = true;
     };
 
     git = {

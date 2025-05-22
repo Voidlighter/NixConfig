@@ -68,6 +68,7 @@
         starship
         alacritty
         xorg.xkill
+        xorg.xauth
         firefox
         tor-browser
         vscodium

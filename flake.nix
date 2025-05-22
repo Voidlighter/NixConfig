@@ -78,24 +78,17 @@
           ./hosts/mothership/default.nix
         ];
       };
-      # crateria = nixpkgs.lib.nixosSystem {
-      #   specialArgs = {inherit inputs outputs;};
-      #   system = "x86_64-linux";
-      #   modules = [
-      #     #inputs.disko.nixosModules.disko
-      #     ./hosts/crateria/default.nix
-      #   ];
-      # };
     };
-    # homeConfigurations = {
-    #   "cade@crateria" = home-manager.lib.homeManagerConfiguration {
-    #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    #     extraSpecialArgs = {
-    #       inherit inputs outputs;
-    #     };
-    #     modules = [./hosts/home-standalone/simple.nix];
-    #   };
-    # };
+    homeConfigurations = {
+      "cade@crateria" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          osConfig = self.nixosConfigurations.crateria.config;
+        };
+        modules = [./hosts/crateria/home.nix];
+      };
+    };
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', e.g.,
