@@ -44,7 +44,7 @@
       bind '"\e[B": history-search-forward'
 
       # starship
-      eval -- "$(/etc/profiles/per-user/cade/bin/starship init bash --print-full-init)"
+      eval -- "$(starship init bash)"
     '';
   };
   # config.xdg.configFile."starship.toml".source = lib.mkForce ./starship.toml;
