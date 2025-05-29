@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./config.nix
     ./hardware.nix
     ../options.nix
     ../common.nix
@@ -14,6 +13,13 @@
   ];
 
   config = {
+    my.hostname = "elysia";
+    my.user.name = "cade";
+    my.user.Name = "Cade";
+    my.greeter = "sddm";
+    my.desktop = "plasma";
+    my.audio = ["rtkit" "pipewire"];
+
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       initialPassword = ""; # Set the initial password

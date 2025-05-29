@@ -88,6 +88,14 @@
         };
         modules = [./hosts/crateria/home.nix];
       };
+      "cade@elysia" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          osConfig = self.nixosConfigurations.elysia.config;
+        };
+        modules = [./hosts/elysia/home.nix];
+      };
     };
 
     # Your custom packages
