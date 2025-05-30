@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   inputs,
   lib,
   pkgs,
@@ -54,8 +55,8 @@
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     # basically don't change this. It isn't the version number
     stateVersion = "24.05";
-    username = "${config.my.user.name}";
-    homeDirectory = "/home/${config.my.user.name}";
+    username = "${osConfig.my.user.name}";
+    homeDirectory = "/home/${osConfig.my.user.name}";
 
     sessionVariables = {
       EDITOR = "${lib.getExe pkgs.neovim}";
@@ -63,7 +64,7 @@
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
     
-    packages = config.my.apps.home;
+    packages = osConfig.my.apps.home;
   };
 
   fonts.fontconfig.enable = true;
@@ -71,7 +72,6 @@
   programs = {
     home-manager = {
       enable = true;
-      # useGlobalPkgs = true;
     };
 
     git = {
@@ -83,9 +83,9 @@
 
     neovim = {
       enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
+      # viAlias = true;
+      # vimAlias = true;
+      # vimdiffAlias = true;
     };
 
     nix-index.enable = true;
@@ -117,8 +117,8 @@
         hostname.style = "bold green";
       };
     };
-    config.xdg.configFile."starship.toml".source = lib.mkForce ../config/starship.toml;
   };
+  xdg.configFile."starship.toml".source = lib.mkForce ../config/starship.toml;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

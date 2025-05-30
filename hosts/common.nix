@@ -34,20 +34,14 @@
     };
 
     programs = {
-      neovim = {
-        enable = true;
-        viAlias = true;
-        vimAlias = true;
-        # vimdiffAlias = true;
-      };
 
       nix-ld.enable = true;
       nix-index.enable = true;
-      nix-index.enableZshIntegration = true;
+      nix-index.enableBashIntegration = true;
       command-not-found.enable = false;
       # nix-index-database.comma.enable = true;
 
-      # This is where .zshrc stuff goes
+      # This is where .bashrc stuff goes
       bash = {
         shellAliases = {
           ls = "eza";
@@ -110,6 +104,7 @@
 
       # Enable CUPS to print documents.
       printing.enable = true;
+
       udev.packages = with pkgs; [
         vial
         via
@@ -118,14 +113,6 @@
       # Enable the OpenSSH daemon.
       openssh = {
         enable = true;
-        ports = [22];
-        settings = {
-          PasswordAuthentication = true;
-          AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-          UseDns = true;
-          X11Forwarding = false;
-          PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-        };
       };
     };
 
@@ -157,25 +144,11 @@
       allowedTCPPorts = [
         22
       ];
-      allowedTCPPortRanges = [
-        {
-          # KDE Connect
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          # KDE Connect
-          from = 1714;
-          to = 1764;
-        }
-      ];
     };
 
     environment = {
-      systemPackages =
-        config.my.apps.system;
+      systemPackages = config.my.apps.system;
+
       sessionVariables = {
         # If your cursor becomes invisible
         # WLR_NO_HARDWARE_CURSORS = "1";

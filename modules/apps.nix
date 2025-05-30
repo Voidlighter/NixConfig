@@ -49,6 +49,7 @@
         flatpak
         # neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+        vim
         bash
         blesh
         zsh

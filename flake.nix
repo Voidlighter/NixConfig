@@ -85,9 +85,9 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;
-          config = self.nixosConfigurations.crateria.config;
+          osConfig = self.nixosConfigurations.crateria.config;
         };
-        modules = [./hosts/crateria/home-test.nix];
+        modules = [./hosts/crateria/home.nix];
       };
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
