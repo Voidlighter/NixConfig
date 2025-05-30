@@ -62,7 +62,7 @@
         zellij
         bottom
         # zsh-powerlevel10k
-        # starship
+        starship
         alacritty
         xorg.xkill
         xorg.xauth
