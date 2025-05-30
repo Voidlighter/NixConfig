@@ -9,6 +9,7 @@
   imports = [
     ../modules/apps.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
 
   config = {
@@ -68,7 +69,7 @@
             ControlPersist yes
             ForwardX11 yes
             ForwardX11Trusted yes
-            XAuthLocation /run/current-system/sw/bin/xauth
+            XAuthLocation ${lib.getExe pkgs.xorg.xauth}
             ServerAliveInterval 300
         '';
       };
@@ -95,6 +96,13 @@
       xserver.xkb = {
         layout = "us";
         variant = "";
+      };
+
+      flatpak = {
+        enable = true;
+        packages = [ "us.zoom.Zoom" ];
+        update.auto.enable = false;
+        uninstallUnmanaged = false;
       };
 
       # Enable touchpad support (enabled default in most desktopManager).
@@ -197,7 +205,7 @@
     };
 
     # # XDG Portal
-    # xdg.portal.enable = true;
+    xdg.portal.enable = true; # I think my zoom flatpak needs this
     # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -230,6 +238,6 @@
     # boot.loader.efi.canTouchEfiVariables = true;
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    system.stateVersion = "24.05"; # Did you read the comment=
+    system.stateVersion = "24.05"; # Did you read the comment
   };
 }

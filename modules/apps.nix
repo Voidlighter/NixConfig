@@ -46,6 +46,7 @@
     apps.system = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
+        flatpak
         # neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
         bash
@@ -55,30 +56,19 @@
         # nushell
         wget
         git
-        bat
         curl
-        eza
         fd
         ripgrep
         zellij
         bottom
-        zoxide
-        fzf
         # zsh-powerlevel10k
-        starship
+        # starship
         alacritty
         xorg.xkill
         xorg.xauth
         firefox
         tor-browser
         vscodium
-        filezilla
-        # Fonts
-        nerd-fonts.jetbrains-mono
-        # nerd-fonts.fira-code
-        inter
-        rubik
-        open-sans
       ];
     };
     app.utils.enable = lib.mkEnableOption "nifty utilities" // {default = true;};
@@ -86,12 +76,24 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         nemo-with-extensions
-        neofetch.out
+        fastfetch
+        eza
+        bat
         bat-extras.core
+        zoxide
+        fzf
         qdirstat # Graphical disk usage analyzer
+
+        # filezilla
         ## Nix UI: Snowfallorg
         # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
         # inputs.nix-software-center.packages.${system}.nix-software-center
+        
+        # Fonts
+        nerd-fonts.jetbrains-mono
+        inter
+        rubik
+        open-sans
       ];
     };
     app.base.enable = lib.mkEnableOption "browser, music, video player" // {default = true;};
@@ -348,6 +350,7 @@
       default = with pkgs; [
         mattermost-desktop
         zoom-us
+        sl
       ];
     };
   };

@@ -1,5 +1,5 @@
 {
-  osConfig,
+  config,
   inputs,
   lib,
   pkgs,
@@ -11,51 +11,51 @@
     # inputs.nix-colors.homeManagerModule
     # nix-index-database.hmModules.nix-index
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    ../modules/starship
+    # ../modules/home-manager/starship
     ../modules/bash
     ../modules/apps.nix
     # inputs.musnix.nixosModules.musnix
   ];
 
   # config = {
-  # users.${osConfig.my.user.name} = {
+  # users.${config.my.user.name} = {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/xml" = "${lib.getExe pkgs.floorp}";
-      "text/html" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/ftp" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/http" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/https" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/chrome" = "${lib.getExe pkgs.floorp}";
-      "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-htm" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-html" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-shtml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-xhtml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-xht" = "${lib.getExe pkgs.floorp}";
+      "text/xml" = "floorp.desktop";
+      "text/html" = "floorp.desktop";
+      "x-scheme-handler/ftp" = "floorp.desktop";
+      "x-scheme-handler/http" = "floorp.desktop";
+      "x-scheme-handler/https" = "floorp.desktop";
+      "x-scheme-handler/chrome" = "floorp.desktop";
+      "application/xhtml+xml" = "floorp.desktop";
+      "application/x-extension-htm" = "floorp.desktop";
+      "application/x-extension-html" = "floorp.desktop";
+      "application/x-extension-shtml" = "floorp.desktop";
+      "application/x-extension-xhtml" = "floorp.desktop";
+      "application/x-extension-xht" = "floorp.desktop";
     };
     associations.added = {
-      "text/xml" = "${lib.getExe pkgs.floorp}";
-      "text/html" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/ftp" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/http" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/https" = "${lib.getExe pkgs.floorp}";
-      "x-scheme-handler/chrome" = "${lib.getExe pkgs.floorp}";
-      "application/xhtml+xml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-htm" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-html" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-shtml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-xhtml" = "${lib.getExe pkgs.floorp}";
-      "application/x-extension-xht" = "${lib.getExe pkgs.floorp}";
+      "text/xml" = "floorp.desktop";
+      "text/html" = "floorp.desktop";
+      "x-scheme-handler/ftp" = "floorp.desktop";
+      "x-scheme-handler/http" = "floorp.desktop";
+      "x-scheme-handler/https" = "floorp.desktop";
+      "x-scheme-handler/chrome" = "floorp.desktop";
+      "application/xhtml+xml" = "floorp.desktop";
+      "application/x-extension-htm" = "floorp.desktop";
+      "application/x-extension-html" = "floorp.desktop";
+      "application/x-extension-shtml" = "floorp.desktop";
+      "application/x-extension-xhtml" = "floorp.desktop";
+      "application/x-extension-xht" = "floorp.desktop";
     };
   };
   home = {
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     # basically don't change this. It isn't the version number
     stateVersion = "24.05";
-    username = "${osConfig.my.user.name}";
-    homeDirectory = "/home/${osConfig.my.user.name}";
+    username = "${config.my.user.name}";
+    homeDirectory = "/home/${config.my.user.name}";
 
     sessionVariables = {
       EDITOR = "${lib.getExe pkgs.neovim}";
@@ -63,7 +63,7 @@
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
     
-    packages = osConfig.my.apps.home;
+    packages = config.my.apps.home;
   };
 
   fonts.fontconfig.enable = true;
@@ -98,6 +98,26 @@
     eza = {
       enable = true;
     };
+
+    # starship = {
+    #   enable = lib.mkForce false;
+    #   enableBashIntegration = true;
+    #   enableInteractive = true;
+    #   settings = {
+    #     aws.disabled = true;
+    #     gcloud.disabled = true;
+    #     kubernetes.disabled = false;
+    #     git_branch.style = "242";
+    #     directory.style = "blue";
+    #     directory.truncate_to_repo = false;
+    #     directory.truncation_length = 8;
+    #     python.disabled = true;
+    #     ruby.disabled = true;
+    #     hostname.ssh_only = false;
+    #     hostname.style = "bold green";
+    #   };
+    # };
+    # config.xdg.configFile."starship.toml".source = lib.mkForce ../config/starship.toml;
   };
 
   # Nicely reload system units when changing configs
