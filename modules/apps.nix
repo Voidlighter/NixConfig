@@ -58,6 +58,7 @@
         wget
         git
         curl
+        file
         fd
         ripgrep
         zellij
@@ -351,6 +352,7 @@
       default = with pkgs; [
         mattermost-desktop
         zoom-us
+        thunderbird
         sl
       ];
     };

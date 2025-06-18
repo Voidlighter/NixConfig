@@ -105,10 +105,14 @@
       # Enable CUPS to print documents.
       printing.enable = true;
 
-      udev.packages = with pkgs; [
-        vial
-        via
-      ];
+      udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+      '';
+
+      # udev.packages = with pkgs; [
+      #   vial
+      #   via
+      # ];
 
       # Enable the OpenSSH daemon.
       openssh = {
@@ -202,11 +206,18 @@
     };
 
     # Bootloader
-      boot.loader.grub.enable = true;
-      boot.loader.grub.efiSupport = true;
-      boot.loader.grub.device = "nodev";
-      boot.loader.grub.useOSProber = true;
-      boot.loader.efi.canTouchEfiVariables = true;
+    boot = {
+      loader = {
+        grub = {
+          enable = true;
+          efiSupport = true;
+          useOSProber = true;
+          device = "nodev";
+        };
+      efi.canTouchEfiVariables = true;
+      };
+      kernelParams = [ "mem_sleep_default=deep" ];
+    };
     # boot.loader.systemd-boot.enable = lib.mkDefault true;
     # boot.loader.efi.canTouchEfiVariables = true;
 
