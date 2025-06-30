@@ -46,7 +46,12 @@
     apps.system = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
+        # home-manager
+        gparted
+        ntfs3g
         flatpak
+        eza
+        bat
         # neovim
         # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
         vim
@@ -68,6 +73,7 @@
         alacritty
         xorg.xkill
         xorg.xauth
+        floorp
         firefox
         tor-browser
         vscodium
@@ -79,10 +85,8 @@
       default = with pkgs; [
         nemo-with-extensions
         fastfetch
-        eza
-        bat
         bat-extras.core
-        zoxide
+        # zoxide
         fzf
         qdirstat # Graphical disk usage analyzer
 
