@@ -65,9 +65,12 @@
     
     packages = osConfig.my.apps.home;
 
-    # file = {
- 
-    # };
+    file = {
+      ".config/nixpkgs" = {
+        source = ../home/nixpkgs;
+        recursive = true;
+      };
+    };
   };
 
   fonts.fontconfig.enable = true;
