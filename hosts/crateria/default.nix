@@ -9,7 +9,7 @@
     ./config.nix
     ../options.nix
     ../common.nix
-    ../../modules/custom-pkgs/falcon.nix
+    ../../nixos/falcon.nix
     inputs.nixos-hardware.nixosModules.dell-xps-13-9350
   ];
 

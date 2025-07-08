@@ -53,6 +53,14 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+    };
   in {
     inherit nixpkgs;
     inherit nixpkgs-stable;
@@ -62,35 +70,35 @@
     nixosConfigurations = {
       veridia = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
+        inherit system pkgs;
         modules = [
           ./hosts/veridia/default.nix
         ];
       };
       elysia = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
+        inherit system pkgs;
         modules = [
           ./hosts/elysia/default.nix
         ];
       };
       crateria = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
+        inherit system pkgs;
         modules = [
           ./hosts/crateria/default.nix
         ];
       };
       vapor = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
+        inherit system pkgs;
         modules = [
           ./hosts/vapor/default.nix
         ];
       };
       laserbeak = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
+        inherit system pkgs;
         modules = [
           ./hosts/laserbeak/default.nix
         ];
@@ -100,7 +108,7 @@
     # Available through 'home-manager switch --flake ~/directory#user@hostname'
     homeConfigurations = {
       "cade@veridia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
           config = self.nixosConfigurations.veridia.config;
@@ -108,7 +116,7 @@
         modules = [./hosts/veridia/home.nix];
       };
       "cade@elysia" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
           config = self.nixosConfigurations.elysia.config;
@@ -116,7 +124,7 @@
         modules = [./hosts/elysia/home.nix];
       };
       "cade@crateria" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
           osConfig = self.nixosConfigurations.crateria.config;
@@ -124,7 +132,7 @@
         modules = [./hosts/crateria/home.nix];
       };
       "cade@vapor" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
           config = self.nixosConfigurations.vapor.config;
@@ -132,7 +140,7 @@
         modules = [./hosts/vapor/home.nix];
       };
       "cade@laserbeak" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
           config = self.nixosConfigurations.laserbeak.config;

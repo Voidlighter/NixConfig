@@ -12,14 +12,13 @@
     # inputs.nix-colors.homeManagerModule
     # nix-index-database.hmModules.nix-index
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    # ../modules/home-manager/starship
-    ../modules/bash
-    ../modules/apps.nix
+    ../home/bash.nix
+    ./apps.nix
     # inputs.musnix.nixosModules.musnix
   ];
 
   # config = {
-  # users.${config.my.user.name} = {
+  # # users.${config.my.user.name} = {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -65,6 +64,10 @@
     };
     
     packages = osConfig.my.apps.home;
+
+    # file = {
+ 
+    # };
   };
 
   fonts.fontconfig.enable = true;
@@ -89,8 +92,8 @@
     };
 
     nix-index.enable = true;
-    nix-index.enableZshIntegration = true;
-    #     nix-index-database.comma.enable = true;
+    # nix-index.enableZshIntegration = true;
+    nix-index.enableBashIntegration = true;
 
     konsole = {
       enable = true;
@@ -118,11 +121,10 @@
       };
     };
   };
-  xdg.configFile."starship.toml".source = lib.mkForce ../config/starship.toml;
+  xdg.configFile."starship.toml".source = lib.mkForce ../home/starship.toml;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-  # };
-  #   };
+  # # };
   # };
 }

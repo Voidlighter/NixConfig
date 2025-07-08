@@ -7,8 +7,7 @@
   ...
 }: {
   imports = [
-    ../modules/apps.nix
-    # ../modules/custom-pkgs/floorp.nix
+    ./apps.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
@@ -20,20 +19,9 @@
       (final: prev: {
         stable = pkgs-stable;
       })
-      (final: prev: {
-        floorp = prev.floorp.overrideAttrs (old: {
-          src = prev.fetchFromGitHub {
-            owner = "Floorp-Projects";
-            repo = "Floorp";
-            fetchSubmodules = true;
-            rev = "v11.27.0";
-            hash = "sha256-2BSl7RHhqFAYSpshBYxuVWwLlVXdOT3xgH4tva5ShY4=";
-          };
-        });
-      })
     ];
 
-    nixpkgs.config.allowUnfree = true;
+    # nixpkgs.config.allowUnfree = true;
 
     nix.settings = {
       substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
