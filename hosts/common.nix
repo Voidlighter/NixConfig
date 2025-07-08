@@ -8,11 +8,39 @@
 }: {
   imports = [
     ../modules/apps.nix
+    # ../modules/custom-pkgs/floorp.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
 
+
+
   config = {
+    nixpkgs.overlays = [
+      (final: prev: {
+        stable = pkgs-stable;
+      })
+      (final: prev: {
+        floorp = prev.floorp.overrideAttrs (old: {
+          src = prev.fetchFromGitHub {
+            owner = "Floorp-Projects";
+            repo = "Floorp";
+            fetchSubmodules = true;
+            rev = "v11.27.0";
+            hash = "sha256-2BSl7RHhqFAYSpshBYxuVWwLlVXdOT3xgH4tva5ShY4=";
+          };
+        });
+      })
+    ];
+
+    nixpkgs.config.allowUnfree = true;
+
+    nix.settings = {
+      substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
+      trusted-public-keys = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+      experimental-features = ["nix-command" "flakes"];
+    };
+
     services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
     security.rtkit.enable = builtins.elem "rtkit" config.my.audio;
     services.pipewire = {
@@ -189,21 +217,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
     # };
-
-    nixpkgs.overlays = [
-      (final: prev: {
-        stable = pkgs-stable;
-      })
-    ];
-
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
-
-    nix.settings = {
-      substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
-      trusted-public-keys = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
-      experimental-features = ["nix-command" "flakes"];
-    };
 
     # Bootloader
     boot = {

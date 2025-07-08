@@ -53,7 +53,7 @@
         eza
         bat
         # neovim
-        # inputs.pkgsStable.legacyPackages.${pkgs.system}.vim
+        # inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.vim
         vim
         bash
         blesh
@@ -74,6 +74,7 @@
         xorg.xkill
         xorg.xauth
         floorp
+        # inputs.pinned-floorp.legacyPackages.${pkgs.system}.floorp
         firefox
         tor-browser
         vscodium
@@ -107,7 +108,7 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         # Web Browser
-        floorp
+        # floorp
         # ungoogled-chromium
         # Internet Utils
         # protonvpn-gui
@@ -357,7 +358,7 @@
         mattermost-desktop
         zoom-us
         thunderbird
-        sl
+        # sl
       ];
     };
   };
