@@ -73,8 +73,9 @@
         alacritty
         xorg.xkill
         xorg.xauth
-        floorp
+        # floorp
         # inputs.pinned-floorp.legacyPackages.${pkgs.system}.floorp
+        devbox
         firefox
         tor-browser
         vscodium

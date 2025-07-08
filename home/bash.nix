@@ -27,22 +27,11 @@
 
       hms = "home-manager switch --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
       hmb = "home-manager build --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
-
-      gapa = "git add --patch";
-      grpa = "git reset --patch";
-      gtruest = "git status";
-      gdh = "git diff HEAD";
-      gp = "git push";
-      gph = "git push -u origin HEAD";
-      gco = "git checkout";
-      gcob = "git checkout -b";
-      gcm = "git checkout master";
-      gcd = "git checkout develop";
     };
 
     bashrcExtra = ''
       # Vi mode
-      set -o vi
+      # set -o vi
 
       # Enable bash history substring search (not built-in like zsh)
       bind '"\e[A": history-search-backward'
@@ -50,6 +39,9 @@
 
       # starship
       eval -- "$(starship init bash)"
+      
+      # devbox
+      eval "$(devbox global shellenv)"
     '';
   };
   # config.xdg.configFile."starship.toml".source = lib.mkForce ./starship.toml;
