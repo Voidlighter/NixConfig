@@ -31,5 +31,11 @@
     "install-notes/install-instructions.md" = {
       source = ../../home/install-notes-work.md;
     };
+  };  
+  programs.bash.shellAliases = {
+    nrs = lib.mkForce "sudo nixos-rebuild switch --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+    nb = lib.mkForce "sudo nixos-rebuild build --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+    ndb = lib.mkForce "sudo nixos-rebuild dry-build --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+    nrb = lib.mkForce "sudo nixos-rebuild boot --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
   };
 }

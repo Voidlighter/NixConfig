@@ -75,7 +75,7 @@
         xorg.xauth
         # floorp
         # inputs.pinned-floorp.legacyPackages.${pkgs.system}.floorp
-        devbox
+        # devbox
         firefox
         tor-browser
         vscodium

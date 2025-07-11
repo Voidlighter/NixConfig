@@ -22,11 +22,14 @@
       ndot = "nix-collect-garbage --delete-older-than";
       show_path = "echo $PATH | tr ':' '\n'";
 
-      nrs = "sudo nixos-rebuild switch --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
-      nrb = "sudo nixos-rebuild build --verbose --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+      nrs = "sudo nixos-rebuild switch --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+      nb = "sudo nixos-rebuild build --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+      ndb = "sudo nixos-rebuild dry-build --impure --flake ~/NixConfig#${osConfig.my.hostname}";
+      nrb = "sudo nixos-rebuild boot --impure --flake ~/NixConfig#${osConfig.my.hostname}";
 
-      hms = "home-manager switch --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
-      hmb = "home-manager build --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
+      hms = "home-manager switch --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
+      hmb = "home-manager build --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
+      hmdb = "home-manager dry-build --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}";
     };
 
     bashrcExtra = ''

@@ -39,6 +39,10 @@
       jack.enable = true;
     };
 
+    services.desktopManager.cosmic.showExcludedPkgsWarning = true;
+    # services.geoclue2.enableDemoAgent = false;
+    # services.geoclue2.enable = true;
+
     hardware.bluetooth.enable = true;
 
     users.defaultUserShell = pkgs.bash;
@@ -58,17 +62,17 @@
       # nix-index-database.comma.enable = true;
 
       # This is where .bashrc stuff goes
-      bash = {
-        shellAliases = {
-          ls = "eza";
-        };
+      # bash = {
+      #   shellAliases = {
+      #     ls = "eza";
+      #   };
         # programs.bash.initExtra = ''
         #   # More bash init stuff
         # '';
 
         # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      };
-      zoxide.enable = true;
+      # };
+      # zoxide.enable = true;
       ssh = {
         extraConfig = ''
           Host orc
@@ -93,13 +97,11 @@
 
     services = {
       displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
-      # displayManager.sddm.enable = config.my.greeter == "sddm";
-      displayManager.sddm.enable = true;
+      displayManager.sddm.enable = config.my.greeter == "sddm";
       displayManager.cosmic-greeter.enable = config.my.greeter == "cosmic";
-
-      desktopManager.cosmic.enable = config.my.desktop == "cosmic";
-      # desktopManager.plasma6.enable = config.my.desktop == "plasma";
-      desktopManager.plasma6.enable = true;
+      desktopManager.cosmic.enable = config.my.greeter == "cosmic";
+      desktopManager.cosmic.xwayland.enable = config.my.desktop == "cosmic";
+      desktopManager.plasma6.enable = config.my.desktop == "plasma";
 
       xserver.enable = true;
       # set keymap in X11
@@ -110,7 +112,7 @@
 
       flatpak = {
         enable = true;
-        packages = [ "us.zoom.Zoom" ];
+        packages = [ "us.zoom.Zoom" "one.ablaze.floorp" ];
         update.auto.enable = false;
         uninstallUnmanaged = false;
       };
