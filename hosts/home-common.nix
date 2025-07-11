@@ -98,9 +98,9 @@
     # nix-index.enableZshIntegration = true;
     nix-index.enableBashIntegration = true;
 
-    konsole = {
-      enable = true;
-    };
+    # konsole = {
+    #   enable = true;
+    # };
     eza = {
       enable = true;
     };
