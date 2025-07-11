@@ -5,7 +5,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -47,7 +47,7 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
+    # nixpkgs-stable,
     nixos-hardware,
     home-manager,
     ...
@@ -63,7 +63,7 @@
     };
   in {
     inherit nixpkgs;
-    inherit nixpkgs-stable;
+    # inherit nixpkgs-stable;
 
     # NixOS configuration entrypoint
     # Available through 'sudo nixos-rebuild switch --flake ~/directory#hostname'

@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ../options.nix
     ../home-common.nix
   ];
 }

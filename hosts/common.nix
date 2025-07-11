@@ -15,11 +15,11 @@
 
 
   config = {
-    nixpkgs.overlays = [
-      (final: prev: {
-        stable = pkgs-stable;
-      })
-    ];
+    # nixpkgs.overlays = [
+    #   (final: prev: {
+    #     stable = pkgs-stable;
+    #   })
+    # ];
 
     # nixpkgs.config.allowUnfree = true;
 
