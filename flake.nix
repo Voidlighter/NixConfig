@@ -111,7 +111,7 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
-          config = self.nixosConfigurations.veridia.config;
+          osConfig = self.nixosConfigurations.veridia.config;
         };
         modules = [./hosts/veridia/home.nix];
       };
@@ -119,7 +119,7 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
-          config = self.nixosConfigurations.elysia.config;
+          osConfig = self.nixosConfigurations.elysia.config;
         };
         modules = [./hosts/elysia/home.nix];
       };
@@ -135,7 +135,7 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
-          config = self.nixosConfigurations.vapor.config;
+          osConfig = self.nixosConfigurations.vapor.config;
         };
         modules = [./hosts/vapor/home.nix];
       };
@@ -143,7 +143,7 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs outputs;
-          config = self.nixosConfigurations.laserbeak.config;
+          osConfig = self.nixosConfigurations.laserbeak.config;
         };
         modules = [./hosts/laserbeak/home.nix];
       };
