@@ -3,7 +3,7 @@
   inputs,
   config,
   ...
-}: {  
+}: {
   config = {
     my.hostname = "veridia";
     my.user.name = "cade";
@@ -21,11 +21,10 @@
     my.app.coding.enable = true;
     my.app.keyboard.enable = true;
     my.app.art.enable = true;
+    my.app.music.enable = true;
     my.app.modeling.enable = true;
-    my.app.plasma.enable = true;
-    my.app.theming.enable = true;
-    my.app.kde-theming.enable = true;
-    my.app.ai.enable = true;
+    my.app.game-dev.enable = true;
+    my.app.ai.enable = false;
     my.apps.extras = [];
 
     # musnix.soundcardPciId = "03:00.1";

@@ -1,10 +1,16 @@
-{inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}: {
   imports = [
-    inputs.musnix.nixosModules.musnix
-    ./home.nix
+    ./config.nix
     ./hardware.nix
+    ../options.nix
     ../common.nix
     ../../nixos/nvidia.nix
+    inputs.musnix.nixosModules.musnix
   ];
 
   config = {

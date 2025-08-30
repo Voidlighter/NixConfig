@@ -73,7 +73,7 @@
         alacritty
         xorg.xkill
         xorg.xauth
-        # floorp
+        floorp
         # inputs.pinned-floorp.legacyPackages.${pkgs.system}.floorp
         # devbox
         firefox
@@ -96,7 +96,7 @@
         ## Nix UI: Snowfallorg
         # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
         # inputs.nix-software-center.packages.${system}.nix-software-center
-        
+
         # Fonts
         nerd-fonts.jetbrains-mono
         inter
@@ -118,7 +118,7 @@
         # syncthing
         # syncthingtray
         # Messaging
-        # signal-desktop
+        signal-desktop
         # Media
         spotify
         vlc
@@ -258,7 +258,7 @@
     apps.game-dev = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        godot
+        godot_4
       ];
     };
     app.vmware.enable = lib.mkEnableOption "For virtual machines";

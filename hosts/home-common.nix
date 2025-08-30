@@ -62,7 +62,7 @@
       BROWSER = "${lib.getExe pkgs.floorp}";
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
-    
+
     packages = osConfig.my.apps.home;
 
     file = {
@@ -124,7 +124,7 @@
       };
     };
   };
-  xdg.configFile."starship.toml".source = lib.mkForce ../home/starship.toml;
+  # xdg.configFile."starship.toml".source = lib.mkForce ../home/starship.toml;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

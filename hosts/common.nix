@@ -12,8 +12,6 @@
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
 
-
-
   config = {
     # nixpkgs.overlays = [
     #   (final: prev: {
@@ -54,7 +52,6 @@
     };
 
     programs = {
-
       nix-ld.enable = true;
       nix-index.enable = true;
       nix-index.enableBashIntegration = true;
@@ -66,11 +63,11 @@
       #   shellAliases = {
       #     ls = "eza";
       #   };
-        # programs.bash.initExtra = ''
-        #   # More bash init stuff
-        # '';
+      # programs.bash.initExtra = ''
+      #   # More bash init stuff
+      # '';
 
-        # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       # };
       # zoxide.enable = true;
       ssh = {
@@ -112,7 +109,10 @@
 
       flatpak = {
         enable = true;
-        packages = [ "us.zoom.Zoom" "one.ablaze.floorp" ];
+        packages = [
+          "us.zoom.Zoom"
+          "one.ablaze.floorp"
+        ];
         update.auto.enable = false;
         uninstallUnmanaged = false;
       };
@@ -217,9 +217,9 @@
           useOSProber = true;
           device = "nodev";
         };
-      efi.canTouchEfiVariables = true;
+        efi.canTouchEfiVariables = true;
       };
-      kernelParams = [ "mem_sleep_default=deep" ];
+      kernelParams = ["mem_sleep_default=deep"];
     };
     # boot.loader.systemd-boot.enable = lib.mkDefault true;
     # boot.loader.efi.canTouchEfiVariables = true;
