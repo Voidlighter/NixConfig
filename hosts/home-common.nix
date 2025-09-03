@@ -19,35 +19,36 @@
 
   # config = {
   # # users.${config.my.user.name} = {
-  xdg.mimeApps = {
+  xdg.mimeApps = let browser = "one.ablaze.floorp.desktop"; in {
     enable = true;
+
+    # pick the Flatpak desktop ID once so you only type it in one place
     defaultApplications = {
-      "text/xml" = "floorp.desktop";
-      "text/html" = "floorp.desktop";
-      "x-scheme-handler/ftp" = "floorp.desktop";
-      "x-scheme-handler/http" = "floorp.desktop";
-      "x-scheme-handler/https" = "floorp.desktop";
-      "x-scheme-handler/chrome" = "floorp.desktop";
-      "application/xhtml+xml" = "floorp.desktop";
-      "application/x-extension-htm" = "floorp.desktop";
-      "application/x-extension-html" = "floorp.desktop";
-      "application/x-extension-shtml" = "floorp.desktop";
-      "application/x-extension-xhtml" = "floorp.desktop";
-      "application/x-extension-xht" = "floorp.desktop";
+      "x-scheme-handler/http"  = browser;
+      "x-scheme-handler/https" = browser;
+      "x-scheme-handler/chrome" = browser;
+      "text/html" = browser;
+      "text/xml" = browser;
+      "application/xhtml+xml" = browser;
+      "application/x-extension-htm" = browser;
+      "application/x-extension-html" = browser;
+      "application/x-extension-shtml" = browser;
+      "application/x-extension-xhtml" = browser;
+      "application/x-extension-xht" = browser;
     };
+
     associations.added = {
-      "text/xml" = "floorp.desktop";
-      "text/html" = "floorp.desktop";
-      "x-scheme-handler/ftp" = "floorp.desktop";
-      "x-scheme-handler/http" = "floorp.desktop";
-      "x-scheme-handler/https" = "floorp.desktop";
-      "x-scheme-handler/chrome" = "floorp.desktop";
-      "application/xhtml+xml" = "floorp.desktop";
-      "application/x-extension-htm" = "floorp.desktop";
-      "application/x-extension-html" = "floorp.desktop";
-      "application/x-extension-shtml" = "floorp.desktop";
-      "application/x-extension-xhtml" = "floorp.desktop";
-      "application/x-extension-xht" = "floorp.desktop";
+      "x-scheme-handler/http"  = browser;
+      "x-scheme-handler/https" = browser;
+      "x-scheme-handler/chrome" = browser;
+      "text/html" = browser;
+      "text/xml" = browser;
+      "application/xhtml+xml" = browser;
+      "application/x-extension-htm" = browser;
+      "application/x-extension-html" = browser;
+      "application/x-extension-shtml" = browser;
+      "application/x-extension-xhtml" = browser;
+      "application/x-extension-xht" = browser;
     };
   };
   home = {
@@ -58,8 +59,8 @@
     homeDirectory = "/home/${osConfig.my.user.name}";
 
     sessionVariables = {
-      EDITOR = "${lib.getExe pkgs.neovim}";
-      BROWSER = "${lib.getExe pkgs.floorp}";
+      EDITOR  = "${lib.getExe pkgs.neovim}";
+      BROWSER = "xdg-open";  # respects your xdg.mimeApps default (one.ablaze.floorp.desktop)
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
 
@@ -97,34 +98,7 @@
     nix-index.enable = true;
     # nix-index.enableZshIntegration = true;
     nix-index.enableBashIntegration = true;
-
-    # konsole = {
-    #   enable = true;
-    # };
-    eza = {
-      enable = true;
-    };
-
-    starship = {
-      enable = true;
-      enableBashIntegration = true;
-      enableInteractive = true;
-      settings = {
-        aws.disabled = true;
-        gcloud.disabled = true;
-        kubernetes.disabled = false;
-        git_branch.style = "242";
-        directory.style = "blue";
-        directory.truncate_to_repo = false;
-        directory.truncation_length = 8;
-        python.disabled = true;
-        ruby.disabled = true;
-        hostname.ssh_only = false;
-        hostname.style = "bold green";
-      };
-    };
   };
-  # xdg.configFile."starship.toml".source = lib.mkForce ../home/starship.toml;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

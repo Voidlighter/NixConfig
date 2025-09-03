@@ -69,13 +69,10 @@
         zellij
         bottom
         # zsh-powerlevel10k
-        starship
         alacritty
         xorg.xkill
         xorg.xauth
-        floorp
-        # inputs.pinned-floorp.legacyPackages.${pkgs.system}.floorp
-        # devbox
+        # floorp
         firefox
         tor-browser
         vscodium

@@ -113,7 +113,7 @@
           "us.zoom.Zoom"
           "one.ablaze.floorp"
         ];
-        update.auto.enable = false;
+        update.auto.enable = true;
         uninstallUnmanaged = false;
       };
 
