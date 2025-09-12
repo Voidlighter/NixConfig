@@ -50,26 +50,18 @@
         gparted
         ntfs3g
         flatpak
-        eza
-        bat
+        htop
         # neovim
-        # inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.vim
         vim
         bash
-        blesh
-        zsh
         tmux
-        # nushell
         wget
         git
         curl
         file
         fd
-        ripgrep
         zellij
-        bottom
-        # zsh-powerlevel10k
-        alacritty
+        wezterm
         xorg.xkill
         xorg.xauth
         # floorp
@@ -82,9 +74,14 @@
     apps.utils = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
+        ripgrep
         nemo-with-extensions
+        # neovim  # conflict with neovim.enable
+        starship
         fastfetch
+        bat
         bat-extras.core
+        bottom
         # zoxide
         fzf
         qdirstat # Graphical disk usage analyzer
@@ -109,7 +106,7 @@
         # floorp
         # ungoogled-chromium
         # Internet Utils
-        # protonvpn-gui
+        protonvpn-gui
         #proton-pass
         # wireguard-tools
         # syncthing

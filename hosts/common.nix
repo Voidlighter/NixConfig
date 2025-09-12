@@ -183,6 +183,11 @@
 
     # Set your time zone.
     time.timeZone = "America/Denver";
+    # use UTC specifically so Windows dual-boot doesn't break things
+    time.hardwareClockInLocalTime = false;
+    # keep RTC in UTC
+    services.timesyncd.enable = true;
+    # chrony would also work
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
