@@ -50,8 +50,7 @@
         elif [[ "$1" == "boot" || "$1" == "bt" ]]; then
           shift; nrbt "$@"
         else
-          echo "usage: nr {switch|s|build|b|dry-build|db|boot|bt} [args...]"
-          return 2
+          shift; nrdb "$@"
         fi
       }
 
