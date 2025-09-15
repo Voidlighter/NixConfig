@@ -135,6 +135,8 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         zoom-us
+        jetbrains.idea-community-bin
+        # jetbrains.idea-community
       ];
     };
     app.social.enable = lib.mkEnableOption "just element right now";

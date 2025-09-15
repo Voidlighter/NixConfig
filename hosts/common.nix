@@ -225,6 +225,7 @@
         efi.canTouchEfiVariables = true;
       };
       kernelParams = ["mem_sleep_default=deep"];
+      kernelPackages = lib.mkForce pkgs.linuxPackages;
     };
     # boot.loader.systemd-boot.enable = lib.mkDefault true;
     # boot.loader.efi.canTouchEfiVariables = true;

@@ -11,7 +11,6 @@
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
     # nix-index-database.hmModules.nix-index
-    inputs.plasma-manager.homeManagerModules.plasma-manager
     ../home/bash.nix
     ./apps.nix
     # inputs.musnix.nixosModules.musnix

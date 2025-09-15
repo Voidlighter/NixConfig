@@ -15,7 +15,6 @@
     my.app.base.enable = true;
     my.app.utils.enable = true;
     my.app.office.enable = true;
-    my.app.school.enable = true;
     my.app.social.enable = true;
     my.app.coding.enable = true;
     my.app.keyboard.enable = true;
