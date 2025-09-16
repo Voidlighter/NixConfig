@@ -1,41 +1,35 @@
+{ config, osConfig, pkgs, ... }:
+let
+  impureFlag = if osConfig.my.hostname == "crateria" then "--impure" else "";
+in
 {
-  config,
-  osConfig,
-  pkgs,
-  ...
-}: {
   programs.bash = {
     enable = true;
-    # History settings
     historySize = 10000;
-    # historyFileSize = 10000;
-    # historyControl = [ "ignoredups" "ignorespace" ];
-    # blesh.enable = true;
 
     bashrcExtra = ''
       # Vi mode
       # set -o vi
 
-      # Enable bash history substring search (not built-in like zsh)
       bind '"\e[A": history-search-backward'
       bind '"\e[B": history-search-forward'
 
-      # starship
       eval -- "$(starship init bash)"
 
       run() {
         echo "+ $*"
         "$@"
       }
-      
+
       alias ll="ls -lah"
       alias grep="grep --color=auto"
       alias showpath="echo $PATH | tr ':' '\n'"
 
-      alias nrs='run sudo nixos-rebuild switch --verbose --flake ~/NixConfig#${osConfig.my.hostname}'
-      alias nrb='run sudo nixos-rebuild build --verbose --flake ~/NixConfig#${osConfig.my.hostname}'
-      alias nrdb='run sudo nixos-rebuild dry-build --verbose --flake ~/NixConfig#${osConfig.my.hostname}'
-      alias nrbt='run sudo nixos-rebuild boot --verbose --flake ~/NixConfig#${osConfig.my.hostname}'
+      # nixos-rebuild helpers (add --impure only on host "crateria")
+      alias nrs='run sudo nixos-rebuild switch --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.hostname}'
+      alias nrb='run sudo nixos-rebuild build --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.hostname}'
+      alias nrdb='run sudo nixos-rebuild dry-build --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.hostname}'
+      alias nrbt='run sudo nixos-rebuild boot --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.hostname}'
       alias nb='nrb'
       alias ndb='nrdb'
       alias nbt='nrbt'
@@ -54,13 +48,13 @@
         fi
       }
 
-      alias hms='run home-manager switch --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
-      alias hmb='run home-manager build --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
-      alias hmdb='run home-manager dry-build --verbose --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
+      # home-manager helpers (same conditional flag)
+      alias hms='run home-manager switch --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
+      alias hmb='run home-manager build --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
+      alias hmdb='run home-manager dry-build --verbose ${impureFlag} --flake ~/NixConfig#${osConfig.my.user.name}@${osConfig.my.hostname}'
 
       alias ncg='run nix-collect-garbage --delete-old'
       alias ndot='run nix-collect-garbage --delete-older-than'
     '';
   };
-  # config.xdg.configFile."starship.toml".source = lib.mkForce ./starship.toml;
 }
