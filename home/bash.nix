@@ -1,8 +1,14 @@
-{ config, osConfig, pkgs, ... }:
-let
-  impureFlag = if osConfig.my.hostname == "crateria" then "--impure" else "";
-in
 {
+  config,
+  osConfig,
+  pkgs,
+  ...
+}: let
+  impureFlag =
+    if osConfig.my.hostname == "crateria"
+    then "--impure"
+    else "";
+in {
   programs.bash = {
     enable = true;
     historySize = 10000;
@@ -20,6 +26,7 @@ in
         echo "+ $*"
         "$@"
       }
+
 
       alias ll="ls -lah"
       alias grep="grep --color=auto"

@@ -18,12 +18,14 @@
 
   # config = {
   # # users.${config.my.user.name} = {
-  xdg.mimeApps = let browser = "one.ablaze.floorp.desktop"; in {
+  xdg.mimeApps = let
+    browser = "one.ablaze.floorp.desktop";
+  in {
     enable = true;
 
     # pick the Flatpak desktop ID once so you only type it in one place
     defaultApplications = {
-      "x-scheme-handler/http"  = browser;
+      "x-scheme-handler/http" = browser;
       "x-scheme-handler/https" = browser;
       "x-scheme-handler/chrome" = browser;
       "text/html" = browser;
@@ -37,7 +39,7 @@
     };
 
     associations.added = {
-      "x-scheme-handler/http"  = browser;
+      "x-scheme-handler/http" = browser;
       "x-scheme-handler/https" = browser;
       "x-scheme-handler/chrome" = browser;
       "text/html" = browser;
@@ -58,8 +60,8 @@
     homeDirectory = "/home/${osConfig.my.user.name}";
 
     sessionVariables = {
-      EDITOR  = "${lib.getExe pkgs.neovim}";
-      BROWSER = "xdg-open";  # respects your xdg.mimeApps default (one.ablaze.floorp.desktop)
+      EDITOR = "${lib.getExe pkgs.neovim}";
+      BROWSER = "xdg-open"; # respects your xdg.mimeApps default (one.ablaze.floorp.desktop)
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
 
@@ -97,7 +99,27 @@
     nix-index.enable = true;
     # nix-index.enableZshIntegration = true;
     nix-index.enableBashIntegration = true;
+
+    starship = {
+      enable = true;
+      # enableBashIntegration = true;
+      # enableInteractive = true;
+      # settings = {
+      #   aws.disabled = true;
+      #   gcloud.disabled = true;
+      #   kubernetes.disabled = false;
+      #   git_branch.style = "242";
+      #   directory.style = "blue";
+      #   directory.truncate_to_repo = false;
+      #   directory.truncation_length = 8;
+      #   python.disabled = true;
+      #   ruby.disabled = true;
+      #   hostname.ssh_only = false;
+      #   hostname.style = "bold green";
+      # };
+    };
   };
+  xdg.configFile."starship.toml".source = lib.mkForce ../home/starship.toml;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

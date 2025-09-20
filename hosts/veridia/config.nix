@@ -25,7 +25,12 @@
     my.app.modeling.enable = true;
     my.app.game-dev.enable = true;
     my.app.ai.enable = false;
-    my.apps.extras = [];
+    my.apps.extras = with pkgs; [
+      piper
+      wezterm
+    ];
+
+    services.ratbagd.enable = true;
 
     # musnix.soundcardPciId = "03:00.1";
   };
