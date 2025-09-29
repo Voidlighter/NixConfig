@@ -8,8 +8,8 @@
     my.hostname = "elysia";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.greeter = "sddm";
-    my.desktop = "plasma";
+    my.greeter = "cosmic";
+    my.desktop = "cosmic";
     my.audio = ["rtkit" "pipewire"];
 
     my.app.base.enable = true;
@@ -24,7 +24,7 @@
     my.app.modeling.enable = true;
     my.app.plasma.enable = true;
     my.app.theming.enable = true;
-    my.app.kde-theming.enable = true;
+    my.app.kde-theming.enable = false;
     my.apps.extras = [];
   };
 }

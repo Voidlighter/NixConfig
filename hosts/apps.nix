@@ -47,6 +47,7 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         # home-manager
+        busybox
         gparted
         ntfs3g
         busybox
@@ -67,8 +68,13 @@
         xorg.xauth
         # floorp
         firefox
+        # ungoogled-chromium
+        brave
         tor-browser
         vscodium
+        libcamera
+        libcamera-qcam
+        v4l-utils
       ];
     };
     app.utils.enable = lib.mkEnableOption "nifty utilities" // {default = true;};

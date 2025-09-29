@@ -35,6 +35,7 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
+      wireplumber.enable = builtins.elem "pipewire" config.my.audio;
     };
 
     services.desktopManager.cosmic.showExcludedPkgsWarning = true;
@@ -143,6 +144,8 @@
       graphics.enable = true;
 
       keyboard.zsa.enable = true;
+      
+      enableRedistributableFirmware = true;
     };
 
     # Configure network proxy if necessary
@@ -205,8 +208,10 @@
     };
 
     # # XDG Portal
-    xdg.portal.enable = true; # I think my zoom flatpak needs this
-    # xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    # I think my zoom flatpak needs this
+    # Needed to use my webcam
+    xdg.portal.enable = true; 
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -225,7 +230,7 @@
         efi.canTouchEfiVariables = true;
       };
       kernelParams = ["mem_sleep_default=deep"];
-      kernelPackages = lib.mkForce pkgs.linuxPackages;
+      # kernelPackages = lib.mkForce pkgs.linuxPackages;
     };
     # boot.loader.systemd-boot.enable = lib.mkDefault true;
     # boot.loader.efi.canTouchEfiVariables = true;
