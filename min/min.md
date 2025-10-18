@@ -1,0 +1,1 @@
+For minimum configurations outside of my main flake, for testing and verifying what is or isn't the problem. Can I make the system work without any of my fancy-ish setup with inheritance and whatnot? Sometimes I gotta remove those confounding variables.

@@ -1,7 +1,8 @@
 {inputs, ...}: {
   imports = [
-    ./home.nix
+    ./config.nix
     ./hardware.nix
+    ../options.nix
     ../common.nix
     ../../nixos/musnix.nix
     inputs.jovian.nixosModules.default
@@ -24,7 +25,7 @@
         enable = true;
       };
     };
-
+    services.logrotate.checkConfig = false;
     musnix.soundcardPciId = "04:00.1";
     # musnix.kernel.realtime = false;
   };

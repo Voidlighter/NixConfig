@@ -97,7 +97,7 @@
       displayManager.sddm.wayland.enable = config.my.greeter == "sddm";
       displayManager.sddm.enable = config.my.greeter == "sddm";
       displayManager.cosmic-greeter.enable = config.my.greeter == "cosmic";
-      desktopManager.cosmic.enable = config.my.greeter == "cosmic";
+      desktopManager.cosmic.enable = config.my.desktop == "cosmic";
       desktopManager.cosmic.xwayland.enable = config.my.desktop == "cosmic";
       desktopManager.plasma6.enable = config.my.desktop == "plasma";
 
