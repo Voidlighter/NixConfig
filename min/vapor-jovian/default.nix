@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -12,12 +12,31 @@
       "${inputs.jovian}/modules"
     ];
 
+  jovian = {
+    steam = {
+      enable = true;
+      autoStart = true;
+      user = "cade";
+      desktopSession = "plasma";
+    };
+    devices.steamdeck = {
+      enable = true;
+      autoUpdate = true;
+    };
+    decky-loader = {
+      enable = true;
+      # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
+      # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
+    };
+  };
+  
+  services.logrotate.checkConfig = false;
+  
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "vapor"; # Define your hostname.
-  services.logrotate.checkConfig = false;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -50,7 +69,7 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -104,6 +123,10 @@
     vim
     wget
     git
+    mullvad-browser
+    tor-browser
+    protonvpn-gui
+    vscodium
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

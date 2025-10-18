@@ -10,6 +10,7 @@
   outputs = inputs@{ self, nixpkgs, ... }: {
 
     nixosConfigurations.vapor = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
       system = "x86_64-linux";
       modules = [ ./default.nix ];
     };
