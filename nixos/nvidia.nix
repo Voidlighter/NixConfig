@@ -1,11 +1,12 @@
 {config, ...}: {
   config = {
     services.xserver.videoDrivers = ["nvidia"];
+
     environment.sessionVariables = {
       # If your cursor becomes invisible
-      WLR_NO_HARDWARE_CURSORS = "1";
+      # WLR_NO_HARDWARE_CURSORS = "1";
       # Hint electron apps to use wayland
-      NIXOS_OZONE_WL = "1";
+      # NIXOS_OZONE_WL = "1";
     };
 
     hardware.nvidia = {
@@ -20,6 +21,11 @@
 
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      # prime = {
+      #   nvidiaBusId = "PCI:0:1:0";
+      #   # nvidiaBusId = "PCI:0:2:0";
+      # };
+      # prime.offload.enable = true;
       powerManagement.finegrained = false;
 
       # Use the NVidia open source kernel module (not to be confused with the
@@ -36,7 +42,7 @@
       nvidiaSettings = true;
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
   };
 }

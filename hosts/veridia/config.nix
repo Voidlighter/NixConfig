@@ -8,8 +8,8 @@
     my.hostname = "veridia";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.desktop = "cosmic";
     my.greeter = "cosmic";
+    my.desktop = "cosmic";
     my.audio = ["rtkit" "pipewire"];
     my.gpu = "nvidia";
 
@@ -26,8 +26,12 @@
     my.app.game-dev.enable = true;
     my.app.ai.enable = false;
     my.apps.extras = with pkgs; [
-      piper
       wezterm
+      muse
+      musescore
+    ];
+    my.apps.sysExtras = with pkgs; [
+      piper
     ];
 
     services.ratbagd.enable = true;

@@ -144,7 +144,7 @@
       graphics.enable = true;
 
       keyboard.zsa.enable = true;
-      
+
       enableRedistributableFirmware = true;
     };
 
@@ -172,7 +172,7 @@
     };
 
     environment = {
-      systemPackages = config.my.apps.system;
+      systemPackages = config.my.apps.system ++ config.my.apps.sysExtras;
 
       sessionVariables = {
         # If your cursor becomes invisible
@@ -180,7 +180,7 @@
         # Hint electron apps to use wayland
         # NIXOS_OZONE_WL = "1";
         # Allows COSMIC to have a clipboard manager
-        COSMIC_DATA_CONTROL_ENABLED = "1";
+        # COSMIC_DATA_CONTROL_ENABLED = "1";
       };
     };
 
@@ -210,7 +210,7 @@
     # # XDG Portal
     # I think my zoom flatpak needs this
     # Needed to use my webcam
-    xdg.portal.enable = true; 
+    xdg.portal.enable = true;
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -226,6 +226,7 @@
           efiSupport = true;
           useOSProber = true;
           device = "nodev";
+          configurationLimit = 5;
         };
         efi.canTouchEfiVariables = true;
       };
@@ -235,7 +236,13 @@
     # boot.loader.systemd-boot.enable = lib.mkDefault true;
     # boot.loader.efi.canTouchEfiVariables = true;
 
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    system.stateVersion = "24.05"; # Did you read the comment
+    system.stateVersion = "24.05"; # Short answer: Don't touch this.
   };
 }

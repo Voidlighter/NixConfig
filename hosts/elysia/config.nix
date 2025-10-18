@@ -25,6 +25,10 @@
     my.app.plasma.enable = true;
     my.app.theming.enable = true;
     my.app.kde-theming.enable = false;
-    my.apps.extras = [];
+    my.apps.sysExtras = with pkgs; [
+      libcamera
+      libcamera-qcam
+      v4l-utils
+    ];
   };
 }

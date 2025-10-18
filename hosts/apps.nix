@@ -10,6 +10,10 @@
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [];
     };
+    apps.sysExtras = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = with pkgs; [];
+    };
     apps.home = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = lib.flatten [
@@ -72,9 +76,6 @@
         brave
         tor-browser
         vscodium
-        libcamera
-        libcamera-qcam
-        v4l-utils
       ];
     };
     app.utils.enable = lib.mkEnableOption "nifty utilities" // {default = true;};
@@ -109,6 +110,8 @@
     apps.base = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
+        rclone
+        rsync
         # Web Browser
         # floorp
         # ungoogled-chromium
