@@ -8,8 +8,8 @@
     my.hostname = "elysia";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.greeter = "cosmic";
-    my.desktop = "cosmic";
+    my.greeter = "sddm";
+    my.desktop = "plasma";
     my.audio = ["rtkit" "pipewire"];
 
     my.app.base.enable = true;
