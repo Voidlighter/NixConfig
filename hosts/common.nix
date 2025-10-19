@@ -113,6 +113,7 @@
         packages = [
           "us.zoom.Zoom"
           "one.ablaze.floorp"
+          "io.kapsa.drive"
         ];
         update.auto.enable = true;
         uninstallUnmanaged = false;
@@ -128,10 +129,10 @@
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
       '';
 
-      # udev.packages = with pkgs; [
-      #   vial
-      #   via
-      # ];
+      udev.packages = with pkgs; [
+        vial
+        via
+      ];
 
       # Enable the OpenSSH daemon.
       openssh = {
