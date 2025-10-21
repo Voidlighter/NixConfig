@@ -8,8 +8,8 @@
     my.hostname = "veridia";
     my.user.name = "cade";
     my.user.Name = "Cade";
-    my.greeter = "cosmic";
-    my.desktop = "cosmic";
+    my.greeter = "sddm";
+    my.desktop = "plasma";
     my.audio = ["rtkit" "pipewire"];
     my.gpu = "nvidia";
 
