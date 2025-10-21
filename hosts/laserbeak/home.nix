@@ -1,10 +1,1 @@
-{
-  config,
-  inputs,
-  outputs,
-  ...
-}: {
-  imports = [
-    ../home-common.nix
-  ];
-}
+{ config, inputs, outputs, ... }: { imports = [ ../home-common.nix ]; }

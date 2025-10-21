@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   imports = [
     inputs.musnix.nixosModules.musnix
     ./home.nix
@@ -6,7 +6,5 @@
     ../common.nix
   ];
 
-  config = {
-    system.nixos.tags = ["main-laserbeak"];
-  };
+  config = { system.nixos.tags = [ "main-laserbeak" ]; };
 }

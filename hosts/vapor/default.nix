@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   imports = [
     ./config.nix
     ./hardware.nix
@@ -9,7 +9,7 @@
     "${inputs.jovian}/modules"
   ];
   config = {
-    system.nixos.tags = ["main-jovian-vapor"];
+    system.nixos.tags = [ "main-jovian-vapor" ];
 
     jovian = {
       steam = {
@@ -22,9 +22,7 @@
         enable = true;
         autoUpdate = true;
       };
-      decky-loader = {
-        enable = true;
-      };
+      decky-loader = { enable = true; };
     };
     services.logrotate.checkConfig = false;
     musnix.soundcardPciId = "04:00.1";

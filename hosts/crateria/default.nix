@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: {
+{ pkgs, inputs, config, ... }: {
   imports = [
     ./hardware.nix
     ./config.nix
@@ -14,14 +9,14 @@
   ];
 
   config = {
-    system.nixos.tags = ["main-crateria"];
+    system.nixos.tags = [ "main-crateria" ];
 
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       initialPassword = ""; # Set the initial password
     };
     programs.virt-manager.enable = true;
-    users.groups.libvirtd.members = [config.my.user.name];
+    users.groups.libvirtd.members = [ config.my.user.name ];
     virtualisation.libvirtd.enable = true;
     virtualisation.spiceUSBRedirection.enable = true;
   };

@@ -1,13 +1,5 @@
-{
-  config,
-  osConfig,
-  pkgs,
-  ...
-}: let
-  impureFlag =
-    if osConfig.my.hostname == "crateria"
-    then "--impure"
-    else "";
+{ config, osConfig, pkgs, ... }:
+let impureFlag = if osConfig.my.hostname == "crateria" then "--impure" else "";
 in {
   programs.bash = {
     enable = true;

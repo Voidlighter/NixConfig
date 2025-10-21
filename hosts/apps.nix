@@ -1,18 +1,12 @@
-{
-  inputs,
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{ inputs, config, pkgs, lib, ... }: {
   options.my = {
     apps.extras = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [];
+      default = with pkgs; [ ];
     };
     apps.sysExtras = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [];
+      default = with pkgs; [ ];
     };
     apps.home = lib.mkOption {
       type = lib.types.listOf lib.types.package;
@@ -37,7 +31,8 @@
         (lib.optionals config.my.app.android.enable config.my.apps.android)
         (lib.optionals config.my.app.plasma.enable config.my.apps.plasma)
         (lib.optionals config.my.app.theming.enable config.my.apps.theming)
-        (lib.optionals config.my.app.kde-theming.enable config.my.apps.kde-theming)
+        (lib.optionals config.my.app.kde-theming.enable
+          config.my.apps.kde-theming)
         (lib.optionals config.my.app.ai.enable config.my.apps.ai)
         (lib.optionals config.my.app.tts.enable config.my.apps.tts)
         (lib.optionals config.my.app.stt.enable config.my.apps.stt)
@@ -46,7 +41,9 @@
         config.my.apps.extras
       ];
     };
-    app.system.enable = lib.mkEnableOption "system-wide apps" // {default = true;};
+    app.system.enable = lib.mkEnableOption "system-wide apps" // {
+      default = true;
+    };
     apps.system = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
@@ -78,7 +75,9 @@
         vscodium
       ];
     };
-    app.utils.enable = lib.mkEnableOption "nifty utilities" // {default = true;};
+    app.utils.enable = lib.mkEnableOption "nifty utilities" // {
+      default = true;
+    };
     apps.utils = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
@@ -106,7 +105,9 @@
         open-sans
       ];
     };
-    app.base.enable = lib.mkEnableOption "browser, music, video player" // {default = true;};
+    app.base.enable = lib.mkEnableOption "browser, music, video player" // {
+      default = true;
+    };
     apps.base = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
@@ -152,9 +153,7 @@
     app.social.enable = lib.mkEnableOption "just element right now";
     apps.social = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        element-desktop
-      ];
+      default = with pkgs; [ element-desktop ];
     };
     app.coding.enable = lib.mkEnableOption "editors and dependencies";
     apps.coding = lib.mkOption {
@@ -174,11 +173,7 @@
     app.keyboard.enable = lib.mkEnableOption "ZSA keyboard and Vial";
     apps.keyboard = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        wally-cli
-        keymapp
-        vial
-      ];
+      default = with pkgs; [ wally-cli keymapp vial ];
     };
     app.java.enable = lib.mkEnableOption "Java stuff";
     apps.java = lib.mkOption {
@@ -194,10 +189,11 @@
     app.video.enable = lib.mkEnableOption "video editors";
     apps.video = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        davinci-resolve
-        # davinci-resolve-studio
-      ];
+      default = with pkgs;
+        [
+          davinci-resolve
+          # davinci-resolve-studio
+        ];
     };
     app.music.enable = lib.mkEnableOption "DAWs, samplers, etc";
     apps.music = lib.mkOption {
@@ -234,63 +230,42 @@
     app.streaming.enable = lib.mkEnableOption "For livestreaming";
     apps.streaming = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        obs-studio
-      ];
+      default = with pkgs; [ obs-studio ];
     };
     app.art.enable = lib.mkEnableOption "For art";
     apps.art = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        krita
-        inkscape-with-extensions
-      ];
+      default = with pkgs; [ krita inkscape-with-extensions ];
     };
     app.modeling.enable = lib.mkEnableOption "For modeling";
     apps.modeling = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        blender
-      ];
+      default = with pkgs; [ blender ];
     };
     app.gaming.enable = lib.mkEnableOption "For gaming";
     apps.gaming = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        steam
-      ];
+      default = with pkgs; [ steam ];
     };
     app.game-dev.enable = lib.mkEnableOption "For game development";
     apps.game-dev = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        godot_4
-      ];
+      default = with pkgs; [ godot_4 ];
     };
     app.vmware.enable = lib.mkEnableOption "For virtual machines";
     apps.vmware = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        qemu_kvm
-        swtpm
-      ];
+      default = with pkgs; [ qemu_kvm swtpm ];
     };
     app.android.enable = lib.mkEnableOption "For android manipulation";
     apps.android = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        android-udev-rules
-        android-tools
-        fwupd
-      ];
+      default = with pkgs; [ android-udev-rules android-tools fwupd ];
     };
     app.plasma.enable = lib.mkEnableOption "For KDE Plasma's extra tools";
     apps.plasma = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        kdePackages.kate
-        kdePackages.kde-gtk-config
-      ];
+      default = with pkgs; [ kdePackages.kate kdePackages.kde-gtk-config ];
     };
     app.theming.enable = lib.mkEnableOption "For general theming";
     apps.theming = lib.mkOption {
@@ -330,10 +305,7 @@
     app.tts.enable = lib.mkEnableOption "For text to speech";
     apps.tts = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = with pkgs; [
-        piper-tts
-        wyoming-piper
-      ];
+      default = with pkgs; [ piper-tts wyoming-piper ];
     };
     app.stt.enable = lib.mkEnableOption "For speech to text";
     apps.stt = lib.mkOption {
@@ -347,13 +319,12 @@
     apps.llm = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        (
-          if (config.my.gpu == "nvidia")
-          then ollama-cuda
-          else if (config.my.gpu == "amd")
-          then ollama-rocm
-          else ollama
-        )
+        (if (config.my.gpu == "nvidia") then
+          ollama-cuda
+        else if (config.my.gpu == "amd") then
+          ollama-rocm
+        else
+          ollama)
         open-webui
         docker
       ];

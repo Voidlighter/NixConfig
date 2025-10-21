@@ -1,12 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{ config, pkgs, inputs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
@@ -14,7 +9,7 @@
     "${inputs.jovian}/modules"
   ];
 
-  system.nixos.tags = ["min-vapor-jovian"];
+  system.nixos.tags = [ "min-vapor-jovian" ];
 
   jovian = {
     steam = {
@@ -108,11 +103,12 @@
   users.users.cade = {
     isNormalUser = true;
     description = "Cade";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs;
+      [
+        kdePackages.kate
+        #  thunderbird
+      ];
   };
 
   # Install firefox.

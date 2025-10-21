@@ -1,16 +1,11 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: {
+{ pkgs, inputs, config, ... }: {
   config = {
     my.hostname = "veridia";
     my.user.name = "cade";
     my.user.Name = "Cade";
     my.greeter = "sddm";
     my.desktop = "plasma";
-    my.audio = ["rtkit" "pipewire"];
+    my.audio = [ "rtkit" "pipewire" ];
     my.gpu = "nvidia";
 
     my.app.base.enable = true;
@@ -25,14 +20,8 @@
     my.app.modeling.enable = true;
     my.app.game-dev.enable = true;
     my.app.ai.enable = false;
-    my.apps.extras = with pkgs; [
-      wezterm
-      muse
-      musescore
-    ];
-    my.apps.sysExtras = with pkgs; [
-      piper
-    ];
+    my.apps.extras = with pkgs; [ wezterm muse musescore ];
+    my.apps.sysExtras = with pkgs; [ piper ];
 
     services.ratbagd.enable = true;
 

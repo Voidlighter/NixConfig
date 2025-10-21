@@ -1,6 +1,6 @@
-{config, ...}: {
+{ config, ... }: {
   config = {
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     environment.sessionVariables = {
       # If your cursor becomes invisible

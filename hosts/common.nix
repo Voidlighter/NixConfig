@@ -1,11 +1,4 @@
-{
-  lib,
-  config,
-  inputs,
-  pkgs,
-  pkgs-stable,
-  ...
-}: {
+{ lib, config, inputs, pkgs, pkgs-stable, ... }: {
   imports = [
     ./apps.nix
     inputs.home-manager.nixosModules.home-manager
@@ -22,9 +15,13 @@
     # nixpkgs.config.allowUnfree = true;
 
     nix.settings = {
-      substituters = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["https://cosmic.cachix.org/"];
-      trusted-public-keys = [] ++ lib.optionals (config.my.desktop == "cosmic" || config.my.greeter == "cosmic") ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
-      experimental-features = ["nix-command" "flakes"];
+      substituters = [ ] ++ lib.optionals
+        (config.my.desktop == "cosmic" || config.my.greeter == "cosmic")
+        [ "https://cosmic.cachix.org/" ];
+      trusted-public-keys = [ ] ++ lib.optionals
+        (config.my.desktop == "cosmic" || config.my.greeter == "cosmic")
+        [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+      experimental-features = [ "nix-command" "flakes" ];
     };
 
     services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.audio;
@@ -48,7 +45,7 @@
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       description = config.my.user.Name;
-      extraGroups = ["networkmanager" "wheel" "audio" "libvirtd"];
+      extraGroups = [ "networkmanager" "wheel" "audio" "libvirtd" ];
       # packages = with pkgs; [];
     };
 
@@ -110,11 +107,7 @@
 
       flatpak = {
         enable = true;
-        packages = [
-          "us.zoom.Zoom"
-          "one.ablaze.floorp"
-          "io.kapsa.drive"
-        ];
+        packages = [ "us.zoom.Zoom" "one.ablaze.floorp" "io.kapsa.drive" ];
         update.auto.enable = true;
         uninstallUnmanaged = false;
       };
@@ -129,15 +122,10 @@
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
       '';
 
-      udev.packages = with pkgs; [
-        vial
-        via
-      ];
+      udev.packages = with pkgs; [ vial via ];
 
       # Enable the OpenSSH daemon.
-      openssh = {
-        enable = true;
-      };
+      openssh = { enable = true; };
     };
 
     hardware = {
@@ -159,17 +147,15 @@
     networking.networkmanager.enable = true;
     networking.hostName = config.my.hostname; # Define your hostname.
     networking.hosts = {
-      "192.168.0.155" = ["veridia"];
-      "192.168.0.195" = ["elysia"];
-      "192.168.0.218" = ["vapor"];
+      "192.168.0.155" = [ "veridia" ];
+      "192.168.0.195" = [ "elysia" ];
+      "192.168.0.218" = [ "vapor" ];
     };
     # Enable networking
 
     networking.firewall = {
       enable = true;
-      allowedTCPPorts = [
-        22
-      ];
+      allowedTCPPorts = [ 22 ];
     };
 
     environment = {
@@ -212,7 +198,7 @@
     # I think my zoom flatpak needs this
     # Needed to use my webcam
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -231,7 +217,7 @@
         };
         efi.canTouchEfiVariables = true;
       };
-      kernelParams = ["mem_sleep_default=deep"];
+      kernelParams = [ "mem_sleep_default=deep" ];
       # kernelPackages = lib.mkForce pkgs.linuxPackages;
     };
     # boot.loader.systemd-boot.enable = lib.mkDefault true;

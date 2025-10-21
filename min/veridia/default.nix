@@ -1,13 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ./hardware.nix
-  ];
+{ config, pkgs, ... }: {
+  imports = [ ./hardware.nix ];
 
-  system.nixos.tags = ["min-veridia"];
+  system.nixos.tags = [ "min-veridia" ];
 
   # Bootloader
   boot = {
@@ -96,11 +90,8 @@
   users.users.cade = {
     isNormalUser = true;
     description = "Cade";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [ nixfmt-classic ];
   };
 
   # Install firefox.
@@ -120,6 +111,7 @@
     tor-browser
     protonvpn-gui
     vscodium
+    nixfmt-classic
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: {
+{ pkgs, inputs, config, ... }: {
   imports = [
     ./config.nix
     ./hardware.nix
@@ -13,7 +8,5 @@
     inputs.musnix.nixosModules.musnix
   ];
 
-  config = {
-    system.nixos.tags = ["main-veridia"];
-  };
+  config = { system.nixos.tags = [ "main-veridia" ]; };
 }

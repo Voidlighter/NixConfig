@@ -1,11 +1,4 @@
-{
-  config,
-  osConfig,
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: {
+{ config, osConfig, inputs, lib, pkgs, ... }: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -18,8 +11,7 @@
 
   # config = {
   # # users.${config.my.user.name} = {
-  xdg.mimeApps = let
-    browser = "one.ablaze.floorp.desktop";
+  xdg.mimeApps = let browser = "one.ablaze.floorp.desktop";
   in {
     enable = true;
 
@@ -61,7 +53,8 @@
 
     sessionVariables = {
       EDITOR = "${lib.getExe pkgs.neovim}";
-      BROWSER = "xdg-open"; # respects your xdg.mimeApps default (one.ablaze.floorp.desktop)
+      BROWSER =
+        "xdg-open"; # respects your xdg.mimeApps default (one.ablaze.floorp.desktop)
       # TERMINAL = "${lib.getExe pkgs.kitty}";
     };
 
@@ -78,15 +71,13 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    home-manager = {
-      enable = true;
-    };
+    home-manager = { enable = true; };
 
     git = {
       enable = true;
       userName = "voidlighter";
       userEmail = "voidlighter@proton.me";
-      aliases = {};
+      aliases = { };
     };
 
     neovim = {

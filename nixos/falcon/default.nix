@@ -1,17 +1,6 @@
-{
-  stdenv,
-  lib,
-  pkgs,
-  dpkg,
-  openssl,
-  libnl,
-  zlib,
-  fetchurl,
-  autoPatchelfHook,
-  buildFHSEnv,
-  writeScript,
-  ...
-}: let
+{ stdenv, lib, pkgs, dpkg, openssl, libnl, zlib, fetchurl, autoPatchelfHook
+, buildFHSEnv, writeScript, ... }:
+let
   pname = "falcon-sensor";
   version = "7.20.0-17308";
   arch = "amd64";
@@ -20,7 +9,7 @@
     inherit version arch src;
     name = pname;
 
-    buildInputs = [dpkg zlib autoPatchelfHook];
+    buildInputs = [ dpkg zlib autoPatchelfHook ];
 
     sourceRoot = ".";
 
@@ -37,17 +26,16 @@
       homepage = "https://www.crowdstrike.com/";
       license = licenses.unfree;
       platforms = platforms.linux;
-      maintainers = with maintainers; [klden];
+      maintainers = with maintainers; [ klden ];
     };
   };
-in
-  buildFHSEnv {
-    name = "fs-bash";
-    targetPkgs = pkgs: [libnl openssl zlib];
+in buildFHSEnv {
+  name = "fs-bash";
+  targetPkgs = pkgs: [ libnl openssl zlib ];
 
-    extraInstallCommands = ''
-      ln -s ${falcon-sensor}/* $out/
-    '';
+  extraInstallCommands = ''
+    ln -s ${falcon-sensor}/* $out/
+  '';
 
-    runScript = "bash";
-  }
+  runScript = "bash";
+}

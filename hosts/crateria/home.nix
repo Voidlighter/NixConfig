@@ -1,20 +1,10 @@
-{
-  config,
-  osConfig,
-  inputs,
-  outputs,
-  pkgs,
-  lib,
-  ...
-}: {
-  imports = [
-    ../home-common.nix
-  ];
+{ config, osConfig, inputs, outputs, pkgs, lib, ... }: {
+  imports = [ ../home-common.nix ];
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
   };
 

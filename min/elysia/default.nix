@@ -1,11 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
@@ -13,7 +9,7 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
   ];
 
-  system.nixos.tags = ["min-elysia"];
+  system.nixos.tags = [ "min-elysia" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -88,11 +84,12 @@
   users.users.cade = {
     isNormalUser = true;
     description = "Cade";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs;
+      [
+        kdePackages.kate
+        #  thunderbird
+      ];
   };
 
   # Install firefox.

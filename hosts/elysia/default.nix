@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: {
+{ pkgs, inputs, config, ... }: {
   imports = [
     ./config.nix
     ./hardware.nix
@@ -13,7 +8,7 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
   ];
   config = {
-    system.nixos.tags = ["main-elysia"];
+    system.nixos.tags = [ "main-elysia" ];
 
     users.users.${config.my.user.name} = {
       isNormalUser = true;

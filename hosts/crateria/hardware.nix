@@ -7,40 +7,36 @@
 # /dev/nvme0n1p3: UUID="8c97656f-aedd-4294-9865-6795e9795109" TYPE="crypto_LUKS" PARTUUID="1d1870df-b52b-41f3-95bb-bda15963d328"
 # /dev/mapper/luks-0a8e9d87-249d-410f-a68d-e39af0b27766: UUID="a3405df1-e296-4b49-9ead-1163c2743bc3" BLOCK_SIZE="4096" TYPE="ext4"
 # /dev/mapper/nvme0n1p3_crypt: LABEL="swap" UUID="2b0f742c-2eaa-4a5a-ae9a-af5d4017abeb" TYPE="swap"
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}: {
+{ config, lib, pkgs, modulesPath, ... }: {
   imports = [
     (modulesPath + "/hardware/network/broadcom-43xx.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/a3405df1-e296-4b49-9ead-1163c2743bc3";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-0a8e9d87-249d-410f-a68d-e39af0b27766".device = "/dev/disk/by-uuid/0a8e9d87-249d-410f-a68d-e39af0b27766";
-  boot.initrd.luks.devices."luks-8c97656f-aedd-4294-9865-6795e9795109".device = "/dev/disk/by-uuid/8c97656f-aedd-4294-9865-6795e9795109";
+  boot.initrd.luks.devices."luks-0a8e9d87-249d-410f-a68d-e39af0b27766".device =
+    "/dev/disk/by-uuid/0a8e9d87-249d-410f-a68d-e39af0b27766";
+  boot.initrd.luks.devices."luks-8c97656f-aedd-4294-9865-6795e9795109".device =
+    "/dev/disk/by-uuid/8c97656f-aedd-4294-9865-6795e9795109";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/E2A2-1510";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/2b0f742c-2eaa-4a5a-ae9a-af5d4017abeb";}
-  ];
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/2b0f742c-2eaa-4a5a-ae9a-af5d4017abeb"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -50,5 +46,6 @@
   # networking.interfaces.wlp58s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

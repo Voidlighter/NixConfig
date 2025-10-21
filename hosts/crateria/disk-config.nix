@@ -8,7 +8,8 @@
   disko.devices = {
     disk = {
       root = {
-        device = "/dev/disk/by-id/nvme-PM951_NVMe_SAMSUNG_256GB_______S29NNXBG903106";
+        device =
+          "/dev/disk/by-id/nvme-PM951_NVMe_SAMSUNG_256GB_______S29NNXBG903106";
         type = "disk";
         content = {
           type = "gpt";
@@ -20,7 +21,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+                mountOptions = [ "umask=0077" ];
               };
             };
             root = {
@@ -29,9 +30,7 @@
                 # LUKS passphrase will be prompted interactively only
                 type = "luks";
                 name = "crypted";
-                settings = {
-                  allowDiscards = true;
-                };
+                settings = { allowDiscards = true; };
                 content = {
                   type = "filesystem";
                   format = "ext4";

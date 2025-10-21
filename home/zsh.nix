@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   config.programs.zsh = {
     # This is where .zshrc stuff goes
     enable = true;
@@ -46,7 +42,9 @@
       ls = "eza";
       gc = "nix-collect-garbage --delete-old";
       refresh = "source ${config.home.homeDirectory}/.zshrc";
-      show_path = "echo $PATH | tr ':' '\n'";
+      show_path = ''
+        echo $PATH | tr ':' '
+        ''';
 
       gapa = "git add --patch";
       grpa = "git reset --patch";

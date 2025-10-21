@@ -1,17 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
   ];
 
-  system.nixos.tags = ["min-vapor"];
+  system.nixos.tags = [ "min-vapor" ];
 
   # Bootloader
   boot = {
@@ -100,11 +96,12 @@
   users.users.cade = {
     isNormalUser = true;
     description = "Cade";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs;
+      [
+        kdePackages.kate
+        #  thunderbird
+      ];
   };
 
   # Install firefox.
@@ -115,11 +112,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-  ];
+  environment.systemPackages = with pkgs; [ vim wget git ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
