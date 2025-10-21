@@ -9,7 +9,6 @@
     "${inputs.jovian}/modules"
   ];
   config = {
-
     jovian = {
       steam = {
         enable = true;

@@ -3,7 +3,7 @@
   inputs,
   config,
   ...
-}: {  
+}: {
   config = {
     my.hostname = "vapor";
     my.user.name = "cade";

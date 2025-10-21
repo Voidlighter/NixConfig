@@ -3,7 +3,7 @@
   inputs,
   config,
   ...
-}: {  
+}: {
   config = {
     my.hostname = "crateria";
     my.user.name = "cade";
@@ -17,6 +17,11 @@
     my.app.office.enable = true;
     my.app.vmware.enable = true;
     my.app.work.enable = true;
-    my.apps.extras = with pkgs; [obsidian rclone signal-desktop godot_4];
+    my.apps.extras = with pkgs; [
+      obsidian
+      rclone
+      signal-desktop
+      godot_4
+    ];
   };
 }

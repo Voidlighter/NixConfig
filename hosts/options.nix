@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   options.my = {
     hostname = lib.mkOption {
       type = lib.types.str;
