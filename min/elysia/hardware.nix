@@ -9,12 +9,13 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.luks.devices."root-crypt".device =
+  boot.initrd.luks.devices."root".device =
     "/dev/disk/by-uuid/daf86e61-1fa2-4ae7-9aee-3e3e419a2cad";
 
-  boot.initrd.luks.devices."swap-crypt".device =
+  boot.initrd.luks.devices."swap".device =
     "/dev/disk/by-uuid/443c2bfd-16b6-41ca-b800-ae64d813cf6c";
 
+  # TODO: Why is this different from root?
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0e2d0f4b-688c-4a38-a222-6965b4b1d387";
     fsType = "ext4";

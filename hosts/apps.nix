@@ -47,32 +47,38 @@
     apps.system = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        # home-manager
-        busybox
-        gparted
-        ntfs3g
-        busybox
-        flatpak
-        htop
-        # neovim
-        vim
-        bash
-        tmux
-        wget
-        git
-        curl
-        file
-        fd
-        zellij
-        wezterm
-        xorg.xkill
-        xorg.xauth
-        # floorp
-        firefox
-        # ungoogled-chromium
-        brave
-        tor-browser
-        vscodium
+        ## ESSENTIALS
+        git # Can't use git without git!
+        vim # Text editor
+
+        ## Utilities
+
+        ## - CLI -
+        busybox # Brings in common CLI tools
+        file # Tells filetypes
+        bat # Tells file contents w/ highlighting (`cat` alternative)
+        wget # File downloader
+        curl # File downloader, but different
+        htop # Common process viewer
+        ## NOTE: May replace with bottom
+        tmux # Multi-tasker
+        ## NOTE: Conflict with `neovim.enable`.
+        # neovim # I'll use this when I'm ready.
+
+        fd # Simple/fast `find` alternative
+
+        ## - GUI -
+        ghostty # Terminal w/ sane defaults
+        gparted # Disk formatter
+        qdirstat # Graphical disk usage analyzer
+        ntfs3g # Needed by gparted for ntfs
+        vscodium # Text editor (FOSS VSCode)
+        protonvpn-gui # My VPN of choice
+
+        ## Browsers
+        brave # Privacy-focused Chromium fork
+        mullvad-browser # Privacy-focused Firefox fork
+        tor-browser # Most Private Browser (Firefox fork)
       ];
     };
     app.utils.enable = lib.mkEnableOption "nifty utilities" // {
@@ -83,20 +89,14 @@
       default = with pkgs; [
         ripgrep
         nemo-with-extensions
-        # neovim  # conflict with neovim.enable
         starship
         fastfetch
-        bat
         bat-extras.core
         bottom
         # zoxide
         fzf
-        qdirstat # Graphical disk usage analyzer
 
         # filezilla
-        ## Nix UI: Snowfallorg
-        # inputs.nixos-conf-editor.packages.${system}.nixos-conf-editor
-        # inputs.nix-software-center.packages.${system}.nix-software-center
 
         # Fonts
         nerd-fonts.jetbrains-mono
@@ -111,18 +111,6 @@
     apps.base = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        rclone
-        rsync
-        # Web Browser
-        # floorp
-        # ungoogled-chromium
-        # Internet Utils
-        protonvpn-gui
-        #proton-pass
-        # wireguard-tools
-        # syncthing
-        # syncthingtray
-        # Messaging
         signal-desktop
         # Media
         spotify
@@ -137,7 +125,7 @@
         libreoffice
         obsidian
         # remnote
-        thunderbird
+        # thunderbird
         # python312Packages.weasyprint
       ];
     };
