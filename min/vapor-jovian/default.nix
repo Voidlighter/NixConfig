@@ -10,6 +10,8 @@
   ];
 
   system.nixos.tags = [ "min-vapor-jovian" ];
+  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   jovian = {
     steam = {

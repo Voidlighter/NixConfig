@@ -2,6 +2,8 @@
   imports = [ ./hardware.nix ];
 
   system.nixos.tags = [ "min-veridia" ];
+  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader
   boot = {
