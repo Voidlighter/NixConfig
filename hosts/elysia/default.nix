@@ -13,6 +13,8 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
   ];
   config = {
+    system.nixos.tags = ["main-elysia"];
+
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       initialPassword = ""; # Set the initial password

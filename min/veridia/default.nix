@@ -1,46 +1,34 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware.nix
-    inputs.jovian.nixosModules.default
-    "${inputs.jovian}/modules"
   ];
 
-  system.nixos.tags = ["min-vapor-jovian"];
+  system.nixos.tags = ["min-veridia"];
 
-  jovian = {
-    steam = {
-      enable = true;
-      autoStart = true;
-      user = "cade";
-      desktopSession = "plasma";
+  # Bootloader
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        efiSupport = true;
+        useOSProber = true;
+        device = "nodev";
+        configurationLimit = 10;
+      };
+      efi.canTouchEfiVariables = true;
     };
-    devices.steamdeck = {
-      enable = true;
-      autoUpdate = true;
-    };
-    decky-loader = {
-      enable = true;
-      # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
-      # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
-    };
+    # kernelParams = ["mem_sleep_default=deep"];
+    # kernelPackages = lib.mkForce pkgs.linuxPackages;
   };
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
+  networking.hostName = "veridia"; # Define your hostname.
   services.logrotate.checkConfig = false;
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "vapor"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -73,7 +61,7 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -127,6 +115,7 @@
     vim
     wget
     git
+    busybox
     mullvad-browser
     tor-browser
     protonvpn-gui

@@ -9,6 +9,8 @@
     "${inputs.jovian}/modules"
   ];
   config = {
+    system.nixos.tags = ["main-jovian-vapor"];
+
     jovian = {
       steam = {
         enable = true;

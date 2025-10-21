@@ -14,5 +14,6 @@
   ];
 
   config = {
+    system.nixos.tags = ["main-veridia"];
   };
 }

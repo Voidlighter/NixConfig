@@ -14,6 +14,8 @@
   ];
 
   config = {
+    system.nixos.tags = ["main-crateria"];
+
     users.users.${config.my.user.name} = {
       isNormalUser = true;
       initialPassword = ""; # Set the initial password

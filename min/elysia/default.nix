@@ -13,6 +13,8 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
   ];
 
+  system.nixos.tags = ["min-elysia"];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

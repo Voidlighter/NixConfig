@@ -11,9 +11,25 @@
     ./hardware.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  system.nixos.tags = ["min-vapor"];
+
+  # Bootloader
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        efiSupport = true;
+        useOSProber = true;
+        device = "nodev";
+        configurationLimit = 10;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    # kernelParams = ["mem_sleep_default=deep"];
+    # kernelPackages = lib.mkForce pkgs.linuxPackages;
+  };
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "vapor"; # Define your hostname.
   services.logrotate.checkConfig = false;

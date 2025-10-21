@@ -7,5 +7,6 @@
   ];
 
   config = {
+    system.nixos.tags = ["main-laserbeak"];
   };
 }
