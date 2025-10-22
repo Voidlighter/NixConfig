@@ -56,6 +56,7 @@
         ## Utilities
 
         ## - CLI -
+        fastfetch # Quick way to view specs
         busybox # Brings in common CLI tools
         file # Tells filetypes
         bat # Tells file contents w/ highlighting (`cat` alternative)
@@ -86,8 +87,6 @@
           ## Still cool packages
           ripgrep
           nemo-with-extensions
-          starship
-          fastfetch
           bat-extras.core
           bottom
           fzf

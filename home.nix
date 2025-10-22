@@ -24,7 +24,7 @@
           python3
           nixfmt-classic
           alejandra
-        ] ++ (if config.my.minimal == false then
+        ] ++ config.my.apps ++ (if config.my.minimal == false then
           with pkgs; [
             deadnix
             statix
@@ -34,7 +34,7 @@
             ccls # c / c++
           ]
         else
-          [ ]) ++ config.my.apps;
+          [ ]);
     };
 
     programs = {
