@@ -1,5 +1,5 @@
 {
-  description = "Cade's Root Flake";
+  description = "Cade's System Configuration Flake";
   # Based on https://github.com/Misterio77/nix-starter-configs
   # and https://github.com/ttrei/dotfiles/
 
@@ -13,6 +13,7 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     #disko = {
@@ -24,9 +25,6 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixos-conf-editor.url = "github:snowfallorg/nixos-conf-editor";
-    nix-software-center.url = "github:snowfallorg/nix-software-center";
 
     musnix.url = "github:musnix/musnix";
 
