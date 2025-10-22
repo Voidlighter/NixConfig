@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ config, lib, pkgs, ... }: {
   options.my = {
     desktop = lib.mkOption {
       type =
@@ -6,23 +6,24 @@
       default = "plasma"; # gnome doesn't work?
     };
     greeter = lib.mkOption {
-      type =
-        lib.types.enum [ "sddm" "gdm" "lightdm" "cosmic" "" ];
+      type = lib.types.enum [ "sddm" "gdm" "lightdm" "cosmic" "" ];
       default = "sddm";
     };
-    audio = lib.mkOption {
-      type =
-        lib.types.listOf (lib.types.enum [ "rtkit" "pipewire" "pulseaudio" ]);
-      default = [ "rtkit" "pipewire" ];
-    };
-    gpu = lib.mkOption {
-      type =
-        lib.types.enum [ "amd" "nvidia" "" ];
-      default = "";
+    tags = lib.mkOption {
+      type = lib.types.listOf lib.types.string;
+      default = [ "rtkit" "pipewire" "jack"];
     };
     minimal = lib.mkOption {
       type = lib.types.bool;
       default = false;
+    };
+    apps = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = with pkgs; [ ];
+    };
+    sys-apps = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = with pkgs; [ ];
     };
   };
 }

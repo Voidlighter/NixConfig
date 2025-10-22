@@ -1,7 +1,5 @@
 { inputs, config, lib, pkgs, me, ... }: {
-  imports = [
-    ./options.nix
-  ];
+  imports = [ ./options.nix ];
 
   config = {
     home = {
@@ -15,9 +13,28 @@
         TERMINAL = "${lib.getExe pkgs.ghostty}";
       };
 
-      packages = with pkgs; [
-
-      ];
+      packages = with pkgs;
+        [
+          libreoffice
+          obsidian
+          signal-desktop
+          spotify
+          zoom-us
+          obs-studio
+          python3
+          nixfmt-classic
+          alejandra
+        ] ++ (if config.my.minimal == false then
+          with pkgs; [
+            deadnix
+            statix
+            nil
+            biome
+            clang
+            ccls # c / c++
+          ]
+        else
+          [ ]) ++ config.my.apps;
     };
 
     programs = {

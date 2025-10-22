@@ -9,7 +9,11 @@
 
   config = {
 
-    system.nixos.tags = [ "elysia-v2" ];
-
+    system.nixos.tags = [ "${me.hostname}-v2" ];
+    my.apps = with pkgs; [
+      godot_4
+      blender
+      # jetbrains.idea-community
+    ];
   };
 }

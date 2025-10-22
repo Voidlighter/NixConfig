@@ -1,8 +1,6 @@
 { inputs, config, lib, pkgs, me, ... }: {
 
-  imports = [
-    ./options.nix
-  ];
+  imports = [ ./options.nix ];
 
   config = {
 
@@ -34,69 +32,81 @@
 
     services.printing.enable = true;
 
-    services.pulseaudio.enable = false;
-    security.rtkit.enable = true;
+    services.pulseaudio.enable = builtins.elem "pulseaudio" config.my.tags;
+    security.rtkit.enable = builtins.elem "rtkit" config.my.tags;
     services.pipewire = {
-      enable = true;
+      enable = builtins.elem "pipewire" config.my.tags;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
+      jack.enable = builtins.elem "jack" config.my.tags;
+      wireplumber.enable = builtins.elem "pipewire" config.my.tags;
     };
 
-    programs.firefox.enable = true;
+    hardware.bluetooth.enable = true;
 
     # Allow unfree packages
 
-    environment.systemPackages = with pkgs; [
-      ## ESSENTIALS
-      git # Can't use git without git!
-      vim # Text editor
+    environment.systemPackages = with pkgs;
+      [
+        ## ESSENTIALS
+        git # Can't use git without git!
+        vim # Text editor
 
-      ## Utilities
+        ## Utilities
 
-      ## - CLI -
-      busybox # Brings in common CLI tools
-      file # Tells filetypes
-      bat # Tells file contents w/ highlighting (`cat` alternative)
-      wget # File downloader
-      curl # File downloader, but different
-      htop # Common process viewer
-      ## NOTE: May replace with bottom
-      tmux # Multi-tasker
-      ## NOTE: Conflict with `neovim.enable`.
-      # neovim # I'll use this when I'm ready.
+        ## - CLI -
+        busybox # Brings in common CLI tools
+        file # Tells filetypes
+        bat # Tells file contents w/ highlighting (`cat` alternative)
+        wget # File downloader
+        curl # File downloader, but different
+        htop # Common process viewer
+        ## NOTE: May replace with bottom
+        tmux # Multi-tasker
+        ## NOTE: Conflict with `neovim.enable`.
+        # neovim # I'll use this when I'm ready.
 
-      fd # Simple/fast `find` alternative
+        fd # Simple/fast `find` alternative
 
-      ## - GUI -
-      ghostty # Terminal w/ sane defaults
-      gparted # Disk formatter
-      qdirstat # Graphical disk usage analyzer
-      ntfs3g # Needed by gparted for ntfs
-      vscodium # Text editor (FOSS VSCode)
-      protonvpn-gui # My VPN of choice
+        ## - GUI -
+        ghostty # Terminal w/ sane defaults
+        gparted # Disk formatter
+        qdirstat # Graphical disk usage analyzer
+        ntfs3g # Needed by gparted for ntfs
+        vscodium # Text editor (FOSS VSCode)
+        protonvpn-gui # My VPN of choice
 
-      ## Browsers
-      brave # Privacy-focused Chromium fork
-      mullvad-browser # Privacy-focused Firefox fork
-      tor-browser # Most Private Browser (Firefox fork)
-    ] ++ (if config.my.minimal == false then with pkgs; [
-      ## Still cool packages
-      ripgrep
-      nemo-with-extensions
-      starship
-      fastfetch
-      bat-extras.core
-      bottom
-      fzf
+        ## Browsers
+        brave # Privacy-focused Chromium fork
+        mullvad-browser # Privacy-focused Firefox fork
+        tor-browser # Most Private Browser (Firefox fork)
+      ] ++ (if config.my.minimal == false then
+        with pkgs; [
+          ## Still cool packages
+          ripgrep
+          nemo-with-extensions
+          starship
+          fastfetch
+          bat-extras.core
+          bottom
+          fzf
 
-      # Fonts
-      nerd-fonts.jetbrains-mono
-      inter
-      rubik
-      open-sans
-    ] else []);
+          # Fonts
+          nerd-fonts.jetbrains-mono
+          inter
+          rubik
+          open-sans
+          texlivePackages.josefin
+          texlivePackages.jura
+          league-of-moveable-type
+
+          # Icons
+          papirus-folders
+          papirus-icon-theme
+        ]
+      else
+        [ ]) ++ config.my.sys-apps;
 
     fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
