@@ -42,8 +42,10 @@
 
       git = {
         enable = true;
-        userName = me.username;
-        userEmail = me.email;
+        settings.user = {
+          name = me.username;
+          email = me.email;
+        };
       };
 
       nix-index.enable = true;

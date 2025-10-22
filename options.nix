@@ -10,10 +10,14 @@
       default = "sddm";
     };
     tags = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [ "rtkit" "pipewire" "jack"];
     };
     minimal = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    impure = lib.mkOption {
       type = lib.types.bool;
       default = false;
     };
