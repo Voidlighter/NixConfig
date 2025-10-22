@@ -1,4 +1,23 @@
 ```nix
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+
+  # # Bootloader
+  # boot = {
+  #   loader = {
+  #     grub = {
+  #       enable = true;
+  #       efiSupport = true;
+  #       useOSProber = true;
+  #       device = "nodev";
+  #       configurationLimit = 10;
+  #     };
+  #     efi.canTouchEfiVariables = true;
+  #   };
+  #   # kernelParams = ["mem_sleep_default=deep"];
+  #   # kernelPackages = lib.mkForce pkgs.linuxPackages;
+  # };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -19,11 +38,18 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
+  # services.pulseaudio.enable = false;
+  # security.rtkit.enable = true;
   # services.pipewire = {
   #   enable = true;
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
   #   pulse.enable = true;
+  #   jack.enable = true;
+
+  #   # use the example session manager (no others are packaged yet so this is enabled by default,
+  #   # no need to redefine it in your config for now)
+  #   #media-session.enable = true;
   # };
 
   # Enable touchpad support (enabled default in most desktopManager).
