@@ -1,10 +1,13 @@
-{ config, pkgs, ... }: {
-  imports = [ ./hardware.nix ];
+{ config, pkgs, me, ... }: {
+
+  imports = [ 
+    ./hardware-${me.hostname}.nix
+  ];
 
   config = {
 
-    system.stateVersion = "25.05"; 
-    system.nixos.tags = [ "home-veridia" ];
+    system.stateVersion = "25.05";
+    system.nixos.tags = [ "veridia-v2" ];
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
 
@@ -26,8 +29,8 @@
     # boot.loader.systemd-boot.enable = true;
     # boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "veridia";
-    
+    networking.hostName = me.hostname;
+
     networking.networkmanager.enable = true;
     time.timeZone = "America/Denver";
 
@@ -40,13 +43,12 @@
     services.desktopManager.plasma6.enable = true;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.cade = {
+    users.users.${me.username} = {
       isNormalUser = true;
-      description = "Cade";
+      description = me.fullname;
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [ nixfmt-classic ];
     };
-
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -92,8 +94,6 @@
       nixfmt-classic
     ];
 
-    fonts.packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
-    ];
+    fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
   };
 }
