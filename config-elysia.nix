@@ -8,12 +8,17 @@
   ];
 
   config = {
-
-    system.nixos.tags = [ "${me.hostname}-v2" ];
+    sy'stem.nixos.tags = [ "${me.hostname}-v2" ];
     my.apps = with pkgs; [
       godot_4
       blender
       # jetbrains.idea-community
     ];
+
+    hardware.microsoft-surface.kernelVersion = "stable";
+
+    # services.getty.autologinUser = "cade";
+    # programs.hyprland = {
+      
   };
 }
