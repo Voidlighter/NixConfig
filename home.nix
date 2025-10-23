@@ -15,6 +15,14 @@
 
       packages = with pkgs;
         [
+	  # (pkgs.writeShellApplication {
+	  #   name = "ns";
+	  #   runtimeInputs = with pkgs; [
+	  #     fzf
+	  #     nix-search-tv
+	  #   ];
+	  #   text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+	  # })
           libreoffice
           obsidian
           signal-desktop
@@ -60,7 +68,12 @@
 
       starship = { enable = true; };
     };
+
     xdg.configFile."starship.toml".source = ./dot/starship.toml;
+
+    home.file.".config/hypr".source = ./dot/hypr;
+    home.file.".config/waybar".source = ./dot/waybar;
+    home.file.".config/foot".source = ./dot/foot;
 
     # Nicely reload system units when changing configs
     systemd.user.startServices = "sd-switch";
