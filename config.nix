@@ -17,17 +17,17 @@
     # You can disable this if you're only using the Wayland session.
     services.xserver.enable = true;
 
+    services.xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${me.username} = {
       isNormalUser = true;
       description = me.fullname;
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [ nixfmt-classic ];
-    };
-
-    services.xserver.xkb = {
-      layout = "us";
-      variant = "";
     };
 
     services.printing.enable = true;

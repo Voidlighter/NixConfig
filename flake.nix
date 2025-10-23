@@ -2,11 +2,12 @@
   description = "Cade's System Configuration Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs = { self, nixpkgs, ... }@inputs:
     let
@@ -41,7 +42,7 @@
         };
         elysia = let
           me = {
-            inherit username fullname email;
+            inherit username fullname email stateVersion;
             hostname = "elysia";
             system = "x86_64-linux";
           };
@@ -57,7 +58,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
                 extraSpecialArgs = { inherit inputs me; };
-                users.${me.username} = import ./home-${me.hostname}.nix;
+                users.${me.username} = import ./home.nix;
               };
             }
           ];
