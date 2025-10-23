@@ -8,17 +8,23 @@
   ];
 
   config = {
-    sy'stem.nixos.tags = [ "${me.hostname}-v2" ];
+    system.nixos.tags = [ "${me.hostname}-hyprland" ];
     my.apps = with pkgs; [
       godot_4
       blender
+      kitty # Terminal emulator
+      foot # Terminal emulator
+      waybar
+      hyprpaper
       # jetbrains.idea-community
     ];
 
     hardware.microsoft-surface.kernelVersion = "stable";
 
-    # services.getty.autologinUser = "cade";
-    # programs.hyprland = {
-      
+    services.getty.autologinUser = "cade";
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
   };
 }

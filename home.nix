@@ -38,8 +38,15 @@
     };
 
     programs = {
-      bash.enable = true;
-
+      bash = {
+        enable = true;
+        shellAliases = {
+          btw = "echo 'i use hyprland btw'";
+        };
+        profileExtra = ''
+          exec hyperland
+        '';
+      };
       git = {
         enable = true;
         settings.user = {
