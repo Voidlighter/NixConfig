@@ -47,6 +47,9 @@
         ## ESSENTIALS
         git # Can't use git without git!
         vim # Text editor
+        
+        wl-clipboard # Wayland clipboard
+        xclip # X11 clipboard
 
         ## Utilities
 
@@ -61,7 +64,7 @@
         ## NOTE: May replace with bottom
         tmux # Multi-tasker
         ## NOTE: Conflict with `neovim.enable`.
-        # neovim # I'll use this when I'm ready.
+        neovim # vim but easily extensible 
 
         fd # Simple/fast `find` alternative
 
