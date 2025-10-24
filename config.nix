@@ -36,6 +36,7 @@
         kitty # Terminal emulator
         foot # Terminal emulator
         alacritty # Terminal emulator
+        ghostty # Terminal w/ sane defaults
         waybar
         # hyprpaper # hyprland wallpaperer
         fuzzel
@@ -65,7 +66,6 @@
         fd # Simple/fast `find` alternative
 
         ## - GUI -
-        ghostty # Terminal w/ sane defaults
         gparted # Disk formatter
         qdirstat # Graphical disk usage analyzer
         ntfs3g # Needed by gparted for ntfs
@@ -76,7 +76,7 @@
         brave # Privacy-focused Chromium fork
         mullvad-browser # Privacy-focused Firefox fork
         tor-browser # Most Private Browser (Firefox fork)
-      ] ++ (if config.my.minimal == false then
+      ] ++ config.my.sys-apps ++ (if config.my.minimal == false then
         with pkgs; [
           ## Still cool packages
           ripgrep
@@ -99,7 +99,7 @@
           papirus-icon-theme
         ]
       else
-        [ ]) ++ config.my.sys-apps;
+        [ ]);
 
     fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
