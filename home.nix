@@ -15,6 +15,7 @@
 
       packages = with pkgs;
         [
+          swaybg
 	  # (pkgs.writeShellApplication {
 	  #   name = "ns";
 	  #   runtimeInputs = with pkgs; [
@@ -49,11 +50,8 @@
       bash = {
         enable = true;
         shellAliases = {
-          btw = "echo 'i use hyprland btw'";
+          btw = "echo 'i use nixos btw'";
         };
-        profileExtra = ''
-          exec hyperland
-        '';
       };
       git = {
         enable = true;
@@ -71,9 +69,17 @@
 
     xdg.configFile."starship.toml".source = ./dot/starship.toml;
 
-    home.file.".config/hypr".source = ./dot/hypr;
-    home.file.".config/waybar".source = ./dot/waybar;
-    home.file.".config/foot".source = ./dot/foot;
+    # home.file.".config/hypr".source = ./dot/hypr;
+    # home.file.".config/waybar".source = ./dot/waybar;
+    # home.file.".config/foot".source = ./dot/foot;
+
+    programs.alacritty.enable = true;
+    programs.fuzzel.enable = true;
+    programs.swaylock.enable = true;
+    programs.waybar.enable = true;
+    services.mako.enable = true;
+    services.swayidle.enable = true;
+    services.polkit-gnome.enable = true;
 
     # Nicely reload system units when changing configs
     systemd.user.startServices = "sd-switch";

@@ -9,13 +9,11 @@
     networking.networkmanager.enable = true;
     time.timeZone = "America/Denver";
 
-
-    # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${me.username} = {
       isNormalUser = true;
       description = me.fullname;
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [ nixfmt-classic ];
+      packages = with pkgs; [ nixfmt-classic tree ];
     };
 
     services.printing.enable = true;
@@ -33,10 +31,18 @@
 
     hardware.bluetooth.enable = true;
 
-    # Allow unfree packages
-
     environment.systemPackages = with pkgs;
       [
+        kitty # Terminal emulator
+        foot # Terminal emulator
+        alacritty # Terminal emulator
+        waybar
+        # hyprpaper # hyprland wallpaperer
+        fuzzel
+        swaylock
+        mako
+        swayidle
+
         ## ESSENTIALS
         git # Can't use git without git!
         vim # Text editor
