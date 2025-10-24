@@ -8,7 +8,7 @@
   ];
 
   config = {
-    system.nixos.tags = [ "${me.hostname}-niri" ];
+    system.nixos.tags = [ "${me.hostname}-dms" ];
     my.apps = with pkgs; [
       godot_4
       blender
