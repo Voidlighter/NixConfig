@@ -37,12 +37,12 @@
         foot # Terminal emulator
         alacritty # Terminal emulator
         ghostty # Terminal w/ sane defaults
-        waybar
-        # hyprpaper # hyprland wallpaperer
-        fuzzel
-        swaylock
-        mako
-        swayidle
+        # waybar
+        # # hyprpaper # hyprland wallpaperer
+        # fuzzel
+        # swaylock
+        # mako
+        # swayidle
 
         ## ESSENTIALS
         git # Can't use git without git!

@@ -5,6 +5,7 @@
     ./hardware-${me.hostname}.nix
     # inputs.nixos-hardware.nixosModules.microsoft-surface-common
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+    inputs.dankMaterialShell.nixosModules.greeter
   ];
 
   config = {
@@ -34,15 +35,20 @@
     #   variant = "";
     # };
 
-    services.getty.autologinUser = "cade";
-    # programs.hyprland = {
-    #   enable = true;
-    #   xwayland.enable = true;
-    # };
+    # services.getty.autologinUser = "cade";
+    # # programs.hyprland = {
+    # #   enable = true;
+    # #   xwayland.enable = true;
+    # # };
     programs.niri.enable = true;
     security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.swaylock = {};
-    programs.waybar.enable = true;
+    # programs.waybar.enable = true;
+    programs.dankMaterialShell.greeter = {
+      enable = true;
+      compositor.name = "niri";
+      configHome = "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+    };
   };
 }

@@ -68,7 +68,8 @@
       starship = { enable = true; };
     };
 
-    xdg.configFile."starship.toml".source = ./dot/starship.toml;
+    # xdg.configFile."starship.toml".source = ./dot/starship.toml;
+    home.file.".config/starship.toml".source = config.lib.file.mkOutOfStoreSymlink ./dot-config/starship.toml;
 
     # Nicely reload system units when changing configs
     systemd.user.startServices = "sd-switch";

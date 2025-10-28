@@ -2,9 +2,9 @@
 
   imports = [
     ./home.nix
+    inputs.niri.homeModules.niri
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
-    inputs.niri.homeModules.niri
   ];
 
   config = {
@@ -25,11 +25,16 @@
     my.apps = with pkgs; [
       godot_4
       blender
-      kitty # Terminal emulator
-      foot # Terminal emulator
-      waybar
-      hyprpaper
       # jetbrains.idea-community
     ];
+
+    xdg.configFile = let
+      dot-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dot-config";
+    in {
+      niri.source = "${dot-config}/niri";
+      DankMaterialShell.source = "${dot-config}/DankMaterialShell";
+      current-theme.source = "${dot-config}/current-theme";
+      themes.source = "${dot-config}/themes";
+    };
   };
 }
