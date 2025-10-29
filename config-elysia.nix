@@ -22,6 +22,9 @@
 
     hardware.microsoft-surface.kernelVersion = "stable";
 
+    services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
+
     # Enable the KDE Plasma Desktop Environment.
     # services.displayManager.sddm.enable = true;
     # services.desktopManager.plasma6.enable = true;

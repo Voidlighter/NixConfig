@@ -1,0 +1,18 @@
+{
+  "dankBatteryAlerts": {
+    "enabled": true
+  },
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "dankPomodoroTimer": {
+    "enabled": true
+  },
+  "powerUsagePlugin": {
+    "enabled": true
+  },
+  "webSearch": {
+    "enabled": true,
+    "defaultEngine": "duckduckgo"
+  }
+}

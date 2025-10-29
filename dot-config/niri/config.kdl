@@ -6,6 +6,9 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
+// environment {
+//     DMS_PREFERRED_BATTERY "bat1"
+// }
 
 input {
     keyboard {
@@ -270,6 +273,7 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 // spawn-at-startup "waybar"
+spawn-at-startup "protonvpn-app"
 
 // -< DankMaterialShell Section Start >-
 
