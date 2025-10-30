@@ -273,7 +273,15 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 // spawn-at-startup "waybar"
+// spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "xwayland-satellite"
+// spawn-at-startup "swww-daemon"
 spawn-at-startup "protonvpn-app"
+
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 30
+}
 
 // -< DankMaterialShell Section Start >-
 

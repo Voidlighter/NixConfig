@@ -1,6 +1,9 @@
 { inputs, config, lib, pkgs, me, ... }: {
 
-  imports = [ ./options.nix ];
+  imports = [
+    ./options.nix
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+  ];
 
   config = {
 
@@ -8,6 +11,11 @@
 
     networking.networkmanager.enable = true;
     time.timeZone = "America/Denver";
+    # use UTC specifically so Windows dual-boot doesn't break things
+    time.hardwareClockInLocalTime = false;
+    # keep RTC in UTC
+    services.timesyncd.enable = true;
+    # chrony would also work
 
     users.users.${me.username} = {
       isNormalUser = true;
@@ -48,6 +56,7 @@
         git # Can't use git without git!
         vim # Text editor
         
+        xwayland-satellite # Support for x apps in niri
         wl-clipboard # Wayland clipboard
         xclip # X11 clipboard
 
@@ -88,6 +97,8 @@
           bottom
           fzf
 
+          vial
+
           # Fonts
           nerd-fonts.jetbrains-mono
           inter
@@ -105,6 +116,40 @@
         [ ]);
 
     fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+
+    services.xserver.enable = true; # vial needs this
+
+    services.flatpak = {
+      enable = true;
+      packages = [ "us.zoom.Zoom" "one.ablaze.floorp" "io.kapsa.drive" ];
+      update.auto.enable = true;
+      uninstallUnmanaged = false;
+    };
+
+    programs.nix-ld.enable = true;
+    programs.nix-index.enable = true;
+    programs.nix-index.enableBashIntegration = true;
+    programs.command-not-found.enable = false;
+
+    # # XDG Portal
+    # I think my zoom flatpak needs this
+    # Needed to use my webcam
+    xdg.portal.enable = true;
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    programs.xwayland.enable = true;
+
+    hardware.keyboard.zsa.enable = true;
+    hardware.enableRedistributableFirmware = true;
+
+    services.udev.packages = with pkgs; [ vial via ];
+
+    services.openssh.enable = true;
+
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
 
     ## Bootloader Setup
 
