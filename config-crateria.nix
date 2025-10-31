@@ -1,6 +1,9 @@
 { inputs, config, pkgs, me, ... }: {
 
-  imports = [ ./config.nix ./hardware-${me.hostname}.nix ];
+  imports = [
+    ./config.nix
+    ./hardware-${me.hostname}.nix
+  ];
 
   config = {
 

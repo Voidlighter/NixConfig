@@ -1,11 +1,17 @@
 { inputs, config, pkgs, me, ... }: {
 
-  imports = [ ./config.nix ./hardware-${me.hostname}.nix ];
+  imports = [
+    ./config.nix
+    ./hardware-${me.hostname}.nix
+    ./nixos/nvidia.nix
+    inputs.dankMaterialShell.nixosModules.greeter
+    inputs.musnix.nixosModules.musnix {musnix.enable = true;}
+  ];
 
   config = {
 
     system.nixos.tags = [ "${me.hostname}-v2" ];
-    
+
     # TODO: Replace some of these with services.
     my.apps = with pkgs; [
       godot_4
@@ -42,17 +48,18 @@
       # helm
     ];
 
-    # Enable the KDE Plasma Desktop Environment.
-    services.displayManager.sddm.enable = true;
-    services.desktopManager.plasma6.enable = true;
+    services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
 
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-    services.xserver.enable = true;
-
-    services.xserver.xkb = {
-      layout = "us";
-      variant = "";
+    programs.niri.enable = true;
+    security.polkit.enable = true;
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services.swaylock = { };
+    programs.dankMaterialShell.greeter = {
+      enable = true;
+      compositor.name = "niri";
+      configHome =
+        "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
     };
   };
 }

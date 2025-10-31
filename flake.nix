@@ -27,6 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    musnix.url = "github:musnix/musnix";
   };
   outputs = { self, nixpkgs, ... }@inputs:
     let
@@ -54,7 +55,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
                 extraSpecialArgs = { inherit inputs me; };
-                users.${me.username} = import ./home.nix;
+                users.${me.username} = import ./home-${me.hostname}.nix;
               };
             }
           ];

@@ -86,7 +86,8 @@
 
         ## Browsers
         brave # Privacy-focused Chromium fork
-        mullvad-browser # Privacy-focused Firefox fork
+        floorp-bin # Privacy-focused Firefox fork
+        mullvad-browser # More privacy-focused Firefox fork
         tor-browser # Most Private Browser (Firefox fork)
       ] ++ config.my.sys-apps ++ (if config.my.minimal == false then
         with pkgs; [

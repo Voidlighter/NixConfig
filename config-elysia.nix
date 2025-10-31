@@ -13,10 +13,6 @@
     my.apps = with pkgs; [
       godot_4
       blender
-      kitty # Terminal emulator
-      foot # Terminal emulator
-      waybar
-      hyprpaper
       # jetbrains.idea-community
     ];
 
@@ -25,33 +21,15 @@
     services.upower.enable = true;
     services.power-profiles-daemon.enable = true;
 
-    # Enable the KDE Plasma Desktop Environment.
-    # services.displayManager.sddm.enable = true;
-    # services.desktopManager.plasma6.enable = true;
-
-    # # Enable the X11 windowing system.
-    # # You can disable this if you're only using the Wayland session.
-    # services.xserver.enable = true;
-
-    # services.xserver.xkb = {
-    #   layout = "us";
-    #   variant = "";
-    # };
-
-    # services.getty.autologinUser = "cade";
-    # # programs.hyprland = {
-    # #   enable = true;
-    # #   xwayland.enable = true;
-    # # };
     programs.niri.enable = true;
     security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
-    security.pam.services.swaylock = {};
-    # programs.waybar.enable = true;
+    security.pam.services.swaylock = { };
     programs.dankMaterialShell.greeter = {
       enable = true;
       compositor.name = "niri";
-      configHome = "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+      # optionally copies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+      configHome = "/home/${me.username}";
     };
   };
 }

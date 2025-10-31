@@ -11,7 +11,7 @@
     };
     tags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "rtkit" "pipewire" "jack"];
+      default = [ "rtkit" "pipewire" "jack" ];
     };
     minimal = lib.mkOption {
       type = lib.types.bool;
