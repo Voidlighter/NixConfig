@@ -67,9 +67,12 @@ This document provides a simple and organized overview of all the custom keybind
 |------|-----------------|---------------------------------------------------------------------------------------------|
 | `n`  | `<leader>a`     | Add current file to Harpoon list                                                            |
 | `n`  | `<C-e>`         | Toggle Harpoon quick menu                                                                   |
+| `n`  | `<leader>hh`    | Toggle Harpoon quick menu                                                                   |
 | `n`  | `<leader>fl`    | Open Harpoon window with Telescope                                                          |
 | `n`  | `<C-p>`         | Go to previous Harpoon mark                                                                 |
+| `n`  | `<leader>hp`    | Go to previous Harpoon mark                                                                 |
 | `n`  | `<C-n>`         | Go to next Harpoon mark                                                                     |
+| `n`  | `<leader>hn`    | Go to next Harpoon mark                                                                     |
 
 ---
 

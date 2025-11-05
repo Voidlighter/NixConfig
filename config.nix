@@ -122,7 +122,12 @@
 
     services.flatpak = {
       enable = true;
-      packages = [ "us.zoom.Zoom" "one.ablaze.floorp" "io.kapsa.drive" ];
+      packages = [
+        "us.zoom.Zoom"
+        "one.ablaze.floorp"
+        "io.kapsa.drive"
+        "net.pixieditor.PixiEditor"
+      ];
       update.auto.enable = true;
       uninstallUnmanaged = false;
     };

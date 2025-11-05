@@ -1,9 +1,9 @@
 { inputs, config, pkgs, me, ... }: {
 
   imports = [
-    ./config.nix
-    ./hardware-${me.hostname}.nix
-    ./nixos/nvidia.nix
+    ./hardware.nix
+    ../config.nix
+    ../system-modules/nvidia.nix
     inputs.dankMaterialShell.nixosModules.greeter
     inputs.musnix.nixosModules.musnix {musnix.enable = true;}
   ];

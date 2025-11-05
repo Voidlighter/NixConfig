@@ -1,8 +1,8 @@
 { inputs, config, pkgs, me, ... }: {
 
   imports = [
-    ./config.nix
-    ./hardware-${me.hostname}.nix
+    ./hardware.nix
+    ../config.nix
     # inputs.nixos-hardware.nixosModules.microsoft-surface-common
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     inputs.dankMaterialShell.nixosModules.greeter

@@ -47,7 +47,7 @@
           specialArgs = { inherit inputs me; };
           system = me.system;
           modules = [
-            ./config-${me.hostname}.nix
+            ./host-${me.hostname}/config.nix
             inputs.home-manager.nixosModules.default
             {
               home-manager = {
@@ -55,7 +55,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
                 extraSpecialArgs = { inherit inputs me; };
-                users.${me.username} = import ./home-${me.hostname}.nix;
+                users.${me.username} = import ./host-${me.hostname}/home.nix;
               };
             }
           ];
@@ -70,7 +70,7 @@
           specialArgs = { inherit inputs me; };
           system = me.system;
           modules = [
-            ./config-${me.hostname}.nix
+            ./host-${me.hostname}/config.nix
             inputs.home-manager.nixosModules.default
             {
               home-manager = {
@@ -78,7 +78,7 @@
                 useUserPackages = true;
                 backupFileExtension = "backup";
                 extraSpecialArgs = { inherit inputs me; };
-                users.${me.username} = import ./home-${me.hostname}.nix;
+                users.${me.username} = import ./host-${me.hostname}/home.nix;
               };
             }
           ];
