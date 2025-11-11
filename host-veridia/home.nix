@@ -1,4 +1,11 @@
-{ inputs, config, pkgs, me, ... }: {
+{ inputs, config, pkgs, ... }: 
+# let
+#   verticalCanvas = pkgs.callPackage ../pkgs/obs-vertical-canvas.nix {
+#     qt6Packages = pkgs.qt6Packages;
+#     obs-studio = pkgs.obs-studio; # ensure Qt6 OBS
+#   };
+# in
+{
 
   imports = [
     ../home.nix
@@ -8,14 +15,81 @@
   ];
 
   config = {
-    programs.dankMaterialShell.enable = true;
-    programs.dankMaterialShell.enableSystemd = true;
-
+    programs.dankMaterialShell = {
+      enable = true;
+      enableSystemd = true;              # Systemd service for auto-start
+      # enableSystemMonitoring = true;     # System monitoring widgets (dgop)
+      # enableClipboard = true;            # Clipboard history manager
+      # enableVPN = true;                  # VPN management widget
+      # enableBrightnessControl = true;    # Backlight/brightness controls
+      # enableColorPicker = true;          # Color picker tool
+      # enableDynamicTheming = true;       # Wallpaper-based theming (matugen)
+      # enableAudioWavelength = true;      # Audio visualizer (cava)
+      # enableCalendarEvents = true;       # Calendar integration (khal)
+      # enableSystemSound = true;          # System sound effects
+      # niri = {
+      #   enableKeybinds = true;   # Automatic keybinding configuration
+      #   enableSpawn = true;      # Auto-start DMS with niri
+      # };
+      # default.settings = {
+      #   theme = "dark";
+      #   dynamicTheming = true;
+      #   # Add any other settings here
+      # };
+    };
     my.apps = with pkgs; [
       godot_4
       blender
       # jetbrains.idea-community
     ];
+    programs.obs-studio.enable = true;
+    programs.obs-studio.package = pkgs.obs-studio.override {cudaSupport = true;}; 
+    programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
+      #  Obs-studio plugin that allows you to screen capture on wlroots based 
+      # wayland compositors
+      wlrobs
+      # droidcam-obs
+      obs-shaderfilter
+      obs-source-clone
+      # # obs-color-monitor
+      # # obs-source-record
+      obs-advanced-masks
+      obs-scale-to-sound # scales source to sound levels
+      obs-command-source # executes commands when scene is switched
+      obs-source-switcher # one source that chooses between other sources
+      obs-move-transition # move sources for transitions and more
+      # # obs-vertical-canvas
+      obs-aitum-multistream
+      # verticalCanvas
+      # pkgs.obs-studio-plugins.callPackage ../pkgs/obs-vertical-canvas.nix {}
+      # (obs-vertical-canvas.overrideAttrs {
+      #   version = "1.6.1";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "Aitum";
+      #     repo = "obs-vertical-canvas";
+      #     rev = version;
+      #     sha256 = "";
+      #   };
+      #   patches = [];
+      #   prePatch = ''
+      #     substituteInPlace CMakeLists.txt \
+      #     --replace-fail 'find_qt(COMPONENTS Widgets Core)' 'find_package(Qt6 REQUIRED COMPONENTS Core Widgets)'
+      #     '';
+      # })
+      obs-backgroundremoval
+      obs-stroke-glow-shadow
+      obs-composite-blur
+      obs-livesplit-one
+      obs-mute-filter
+      advanced-scene-switcher
+      obs-markdown # markdown text source plugin
+      obs-text-pthread # rich text source plugin
+      obs-transition-table # adds transition table to tools menu?
+    ];
+
+    programs.lutris = {
+      enable = true;
+    };
 
     # file = let
     xdg.configFile = let

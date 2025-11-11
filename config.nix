@@ -59,12 +59,14 @@
         xwayland-satellite # Support for x apps in niri
         wl-clipboard # Wayland clipboard
         xclip # X11 clipboard
+        ffmpeg # video utility
 
         ## Utilities
 
         ## - CLI -
         fastfetch # Quick way to view specs
         busybox # Brings in common CLI tools
+        zip # unzip .zip files
         file # Tells filetypes
         bat # Tells file contents w/ highlighting (`cat` alternative)
         wget # File downloader
@@ -76,11 +78,15 @@
         neovim # vim but easily extensible 
 
         fd # Simple/fast `find` alternative
+        rclone # mount remote drives and cloud storage
 
         ## - GUI -
         gparted # Disk formatter
         qdirstat # Graphical disk usage analyzer
-        ntfs3g # Needed by gparted for ntfs
+        ntfs3g # Needed by gparted for ntfs filesystems
+        exfat # Needed by gparted for exfat filesystems
+        btrfs-progs # Needed by gparted for btrfs filesystems
+        cryptsetup # Needed by gparted for encrypted filesystems
         vscodium # Text editor (FOSS VSCode)
         protonvpn-gui # My VPN of choice
 
@@ -161,12 +167,10 @@
 
     boot = {
       loader = {
-        grub = {
+        limine = {
           enable = true;
           efiSupport = true;
-          useOSProber = true;
-          device = "nodev";
-          configurationLimit = 10;
+          maxGenerations = 8;
         };
         efi.canTouchEfiVariables = true;
       };

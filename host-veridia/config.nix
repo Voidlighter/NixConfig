@@ -22,14 +22,14 @@
       steam
       # # lmms
       # # ardour
-      # reaper
+      reaper
       # # cardinal
       # # bespokesynth-with-vst2
       # ## VSTS
-      # decent-sampler
-      # lsp-plugins
+      decent-sampler
+      lsp-plugins
       # samplv1
-      # vital
+      vital
       # #idk
       # # zam-plugins
       # # x42-plugins
@@ -41,7 +41,7 @@
       # winetricks
       # yabridge
       # yabridgectl
-      # qjackctl
+      qjackctl
       # calf
       # tap-plugins
       # x42-plugins

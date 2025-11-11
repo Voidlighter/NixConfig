@@ -30,7 +30,6 @@
           signal-desktop
           spotify
           zoom-us
-          obs-studio
           python3
           nixfmt-classic
           alejandra
