@@ -5,11 +5,9 @@
   cmake,
   curl,
   obs-studio,
-  qt6Packages,
+  qtbase,
 }:
-let
-  inherit (qt6Packages) qtbase wrapQtAppsHook;
-in
+
 stdenv.mkDerivation rec {
   pname = "obs-vertical-canvas";
   version = "1.6.1";
@@ -18,10 +16,13 @@ stdenv.mkDerivation rec {
     owner = "Aitum";
     repo = "obs-vertical-canvas";
     rev = version;
-    sha256 = "sha256-0XfJ8q8n2ANO0oDtLZhZjRunZ5S1EouQ6Ak/pxEQYOQ=";
+    sha256 = "sha256-tvoNdv0HkGch8FZCiK7S4BR7iWOqLvTj0blFxyyUjQE=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  # Remove after https://github.com/Aitum/obs-vertical-canvas/pull/26 is released :)
+  patches = [ ./obs-vertical-canvas.diff ];
+
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     curl
@@ -44,11 +45,11 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Plugin for OBS Studio to add vertical canvas";
     homepage = "https://github.com/Aitum/obs-vertical-canvas";
-    maintainers = with lib.maintainers; [ flexiondotorg ];
-    license = lib.licenses.gpl2Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
+    maintainers = with lib.maintainers; [
+      flexiondotorg
+      jonhermansen
     ];
+    license = lib.licenses.gpl2Plus;
+    inherit (obs-studio.meta) platforms;
   };
 }

@@ -61,7 +61,9 @@
       # # obs-vertical-canvas
       obs-aitum-multistream
       # verticalCanvas
-      # pkgs.obs-studio-plugins.callPackage ../pkgs/obs-vertical-canvas.nix {}
+      (pkgs.callPackage ../pkgs/obs-vertical-canvas.nix {
+        qtbase = pkgs.qt6Packages.qtbase;
+      })
       # (obs-vertical-canvas.overrideAttrs {
       #   version = "1.6.1";
       #   src = pkgs.fetchFromGitHub {
