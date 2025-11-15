@@ -6,6 +6,8 @@
     # inputs.nixos-hardware.nixosModules.microsoft-surface-common
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     inputs.dankMaterialShell.nixosModules.greeter
+    inputs.jovian.nixosModules.default
+    "${inputs.jovian}/modules"
   ];
 
   config = {
@@ -15,6 +17,20 @@
       blender
       # jetbrains.idea-community
     ];
+
+    jovian = {
+      steam = {
+        enable = true;
+        autoStart = false;
+        user = "cade";
+        desktopSession = "niri";
+      };
+      decky-loader = {
+        enable = true;
+        # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
+        # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
+      };
+    };
 
     hardware.microsoft-surface.kernelVersion = "stable";
 

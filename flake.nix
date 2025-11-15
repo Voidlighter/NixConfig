@@ -28,6 +28,10 @@
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     musnix.url = "github:musnix/musnix";
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, nixpkgs, ... }@inputs:
     let
