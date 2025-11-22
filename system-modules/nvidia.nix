@@ -1,9 +1,9 @@
 { config, ... }: {
   config = {
     services.xserver.videoDrivers = [ "nvidia" ];
-    # boot.initrd.availableKernelModules = [
-    #   "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm"
-    # ];
+    boot.initrd.availableKernelModules = [
+      "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm"
+    ];
 
     environment.sessionVariables = {
       # If your cursor becomes invisible

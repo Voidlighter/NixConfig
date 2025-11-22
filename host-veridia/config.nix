@@ -6,6 +6,8 @@
     ../system-modules/nvidia.nix
     inputs.dankMaterialShell.nixosModules.greeter
     inputs.musnix.nixosModules.musnix {musnix.enable = true;}
+    inputs.jovian.nixosModules.default
+    "${inputs.jovian}/modules"
   ];
 
   config = {
@@ -48,6 +50,22 @@
       # helm
     ];
 
+  jovian = {
+    steam = {
+      enable = true;
+      autoStart = false;
+      user = "cade";
+      desktopSession = "niri";
+    };
+    devices.steamdeck = {
+      enable = false;
+    };
+    decky-loader = {
+      enable = true;
+      # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
+      # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
+    };
+  };
     services.upower.enable = true;
     services.power-profiles-daemon.enable = true;
 

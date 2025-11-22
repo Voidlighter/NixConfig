@@ -41,6 +41,9 @@
       godot_4
       blender
       # jetbrains.idea-community
+      wineWow64Packages.full
+      mangohud winetricks gamescope gamemode umu-launcher
+      proton-ge-bin
     ];
     programs.obs-studio.enable = true;
     programs.obs-studio.package = pkgs.obs-studio.override {cudaSupport = true;}; 
@@ -58,26 +61,11 @@
       obs-command-source # executes commands when scene is switched
       obs-source-switcher # one source that chooses between other sources
       obs-move-transition # move sources for transitions and more
-      # # obs-vertical-canvas
       obs-aitum-multistream
-      # verticalCanvas
+      # # obs-vertical-canvas
       (pkgs.callPackage ../pkgs/obs-vertical-canvas.nix {
         qtbase = pkgs.qt6Packages.qtbase;
       })
-      # (obs-vertical-canvas.overrideAttrs {
-      #   version = "1.6.1";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "Aitum";
-      #     repo = "obs-vertical-canvas";
-      #     rev = version;
-      #     sha256 = "";
-      #   };
-      #   patches = [];
-      #   prePatch = ''
-      #     substituteInPlace CMakeLists.txt \
-      #     --replace-fail 'find_qt(COMPONENTS Widgets Core)' 'find_package(Qt6 REQUIRED COMPONENTS Core Widgets)'
-      #     '';
-      # })
       obs-backgroundremoval
       obs-stroke-glow-shadow
       obs-composite-blur
@@ -86,11 +74,14 @@
       advanced-scene-switcher
       obs-markdown # markdown text source plugin
       obs-text-pthread # rich text source plugin
-      obs-transition-table # adds transition table to tools menu?
+      # obs-transition-table # adds transition table to tools menu?
     ];
 
     programs.lutris = {
       enable = true;
+      winePackages = [ pkgs.wineWow64Packages.full ];
+      extraPackages = with pkgs; [mangohud winetricks gamescope gamemode umu-launcher];
+      protonPackages = [ pkgs.proton-ge-bin ];
     };
 
     # file = let
