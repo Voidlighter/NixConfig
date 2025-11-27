@@ -32,6 +32,7 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
   };
   outputs = { self, nixpkgs, ... }@inputs:
     let
@@ -45,6 +46,29 @@
           me = {
             inherit username fullname email stateVersion;
             hostname = "veridia";
+            system = "x86_64-linux";
+          };
+        in nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs me; };
+          system = me.system;
+          modules = [
+            ./host-${me.hostname}/config.nix
+            inputs.home-manager.nixosModules.default
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+                extraSpecialArgs = { inherit inputs me; };
+                users.${me.username} = import ./host-${me.hostname}/home.nix;
+              };
+            }
+          ];
+        };
+        vapor = let
+          me = {
+            inherit username fullname email stateVersion;
+            hostname = "vapor";
             system = "x86_64-linux";
           };
         in nixpkgs.lib.nixosSystem {
