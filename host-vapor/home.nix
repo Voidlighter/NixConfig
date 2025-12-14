@@ -12,12 +12,13 @@
     inputs.niri.homeModules.niri
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
     inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+    inputs.eden.homeModules.default
   ];
 
   config = {
     programs.dankMaterialShell = {
       enable = true;
-      enableSystemd = true;              # Systemd service for auto-start
+      systemd.enable = true;              # Systemd service for auto-start
       # enableSystemMonitoring = true;     # System monitoring widgets (dgop)
       # enableClipboard = true;            # Clipboard history manager
       # enableVPN = true;                  # VPN management widget
@@ -38,13 +39,20 @@
       # };
     };
     my.apps = with pkgs; [
-      # godot_4
-      # blender
+      retroarch-full
+      steam-rom-manager
+      cemu
+      # joycond-cemuhook
+      godot_4
+      blender
       # jetbrains.idea-community
       # wineWow64Packages.full
       # mangohud winetricks gamescope gamemode umu-launcher
       # proton-ge-bin
     ];
+    programs.eden = {
+      enable = true;
+    };
     # programs.obs-studio.enable = true;
     # programs.obs-studio.package = pkgs.obs-studio.override {cudaSupport = true;}; 
     # programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [

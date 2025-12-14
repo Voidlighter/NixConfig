@@ -92,7 +92,7 @@
 
         ## Browsers
         brave # Privacy-focused Chromium fork
-        floorp-bin # Privacy-focused Firefox fork
+        # floorp-bin # Privacy-focused Firefox fork
         mullvad-browser # More privacy-focused Firefox fork
         tor-browser # Most Private Browser (Firefox fork)
       ] ++ config.my.sys-apps ++ (if config.my.minimal == false then
@@ -130,7 +130,7 @@
       enable = true;
       packages = [
         "us.zoom.Zoom"
-        "one.ablaze.floorp"
+        # "one.ablaze.floorp"
         "io.kapsa.drive"
         "net.pixieditor.PixiEditor"
       ];

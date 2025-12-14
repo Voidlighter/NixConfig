@@ -79,6 +79,11 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+output "Valve Corporation ANX7530 U 0x00000001" {
+    mode "800x1280"
+    scale 1.25
+    transform "270"
+}
 output "LG Electronics 27GL850 003NTGY07991" {
     // Uncomment this line to disable this output.
     // off

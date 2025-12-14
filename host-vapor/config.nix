@@ -80,5 +80,7 @@
       configHome =
         "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
     };
+    services.joycond.enable = true;
+    programs.joycond-cemuhook.enable = true;
   };
 }
