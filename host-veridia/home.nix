@@ -43,7 +43,6 @@
       # jetbrains.idea-community
       wineWow64Packages.full
       mangohud winetricks gamescope gamemode umu-launcher
-      proton-ge-bin
     ];
     programs.obs-studio.enable = true;
     programs.obs-studio.package = pkgs.obs-studio.override {cudaSupport = true;}; 
