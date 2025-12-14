@@ -15,6 +15,7 @@
     my.apps = with pkgs; [
       godot_4
       blender
+      inputs.affinity-nix.packages.x86-linux.v3
       # jetbrains.idea-community
     ];
 
