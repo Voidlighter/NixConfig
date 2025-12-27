@@ -40,7 +40,7 @@
       # joycond-cemuhook
       godot_4
       blender
-      ndstools
+      ndstool
       ranger
       # jetbrains.idea-community
       # wineWow64Packages.full
@@ -105,3 +105,4 @@
       themes.force = true;
     };
   };
+}
