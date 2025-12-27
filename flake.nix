@@ -74,7 +74,7 @@
           specialArgs = { inherit inputs me; };
           system = me.system;
           modules = [
-            ./host-${me.hostname}/config.nix
+            ./host-${me.hostname}/conf.nix
             inputs.home-manager.nixosModules.default
             {
               home-manager = {

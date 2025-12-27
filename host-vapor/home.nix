@@ -1,10 +1,4 @@
 { inputs, config, pkgs, ... }: 
-# let
-#   verticalCanvas = pkgs.callPackage ../pkgs/obs-vertical-canvas.nix {
-#     qt6Packages = pkgs.qt6Packages;
-#     obs-studio = pkgs.obs-studio; # ensure Qt6 OBS
-#   };
-# in
 {
 
   imports = [
@@ -16,6 +10,7 @@
   ];
 
   config = {
+
     programs.dankMaterialShell = {
       enable = true;
       systemd.enable = true;              # Systemd service for auto-start
@@ -45,6 +40,8 @@
       # joycond-cemuhook
       godot_4
       blender
+      ndstools
+      ranger
       # jetbrains.idea-community
       # wineWow64Packages.full
       # mangohud winetricks gamescope gamemode umu-launcher
@@ -85,27 +82,26 @@
     #   # obs-transition-table # adds transition table to tools menu?
     # ];
 
-    # programs.lutris = {
-    #   enable = true;
-    #   winePackages = [ pkgs.wineWow64Packages.full ];
-    #   extraPackages = with pkgs; [mangohud winetricks gamescope gamemode umu-launcher];
-    #   protonPackages = [ pkgs.proton-ge-bin ];
-    # };
+    programs.lutris = {
+      enable = true;
+      winePackages = [ pkgs.wineWow64Packages.full ];
+      extraPackages = with pkgs; [mangohud winetricks gamescope gamemode umu-launcher];
+      protonPackages = [ pkgs.proton-ge-bin ];
+    };
 
-    # file = let
     xdg.configFile = let
-      dot-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dot-config";
+      global-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/config";
+      local-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/host-vapor/config";
     in {
-      niri.source = "${dot-config}/niri";
+      niri.source = "${global-config}/niri";
       niri.force = true;
-      DankMaterialShell.source = "${dot-config}/DankMaterialShell";
-      DankMaterialShell.force = true;
-      nvim.source = "${dot-config}/nvim";
+      dms.source = "${global-config}/DankMaterialShell";
+      dms.force = true;
+      nvim.source = "${global-config}/nvim";
       nvim.force = true;
-      current-theme.source = "${dot-config}/current-theme";
+      current-theme.source = "${local-config}/current-theme";
       current-theme.force = true;
-      themes.source = "${dot-config}/themes";
+      themes.source = "${local-config}/themes";
       themes.force = true;
     };
   };
-}

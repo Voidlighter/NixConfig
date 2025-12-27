@@ -1,0 +1,42 @@
+{
+  "dark": {
+    "name": "Osaka Jade Dark",
+    "primary": "#81B8A8",
+    "primaryText": "#111C18",
+    "primaryContainer": "#215866",
+    "secondary": "#E67D64",
+    "surface": "#111C18",
+    "surfaceText": "#F7E8B2",
+    "surfaceVariant": "#364538",
+    "surfaceVariantText": "#E6D8BA",
+    "surfaceTint": "#81B8A8",
+    "background": "#111C18",
+    "backgroundText": "#F7E8B2",
+    "outline": "#81B8A8",
+    "surfaceContainer": "#32473B",
+    "surfaceContainerHigh": "#364538",
+    "error": "#DB9F9C",
+    "warning": "#E1B55E",
+    "info": "#72CFA3"
+  },
+  "light": {
+    "name": "Osaka Jade Light",
+    "primary": "#549E6A",
+    "primaryText": "#FFFFFF",
+    "primaryContainer": "#BFD99A",
+    "secondary": "#E67D64",
+    "surface": "#FFF8EE",
+    "surfaceText": "#2B3A33",
+    "surfaceVariant": "#F2E9D5",
+    "surfaceVariantText": "#3A4A41",
+    "surfaceTint": "#549E6A",
+    "background": "#FFFFFF",
+    "backgroundText": "#1B2722",
+    "outline": "#81B8A8",
+    "surfaceContainer": "#F7F0E1",
+    "surfaceContainerHigh": "#EDE3CC",
+    "error": "#B86C74",
+    "warning": "#C9973E",
+    "info": "#76AD98"
+  }
+}
