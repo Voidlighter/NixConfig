@@ -41,13 +41,11 @@
 
     environment.systemPackages = with pkgs;
       [
-        kitty # Terminal emulator
-        foot # Terminal emulator
         alacritty # Terminal emulator
         ghostty # Terminal w/ sane defaults
         # waybar
         # # hyprpaper # hyprland wallpaperer
-        # fuzzel
+        fuzzel
         # swaylock
         # mako
         # swayidle
@@ -67,6 +65,7 @@
         fastfetch # Quick way to view specs
         busybox # Brings in common CLI tools
         zip # unzip .zip files
+        p7zip # unzip .7z files
         file # Tells filetypes
         bat # Tells file contents w/ highlighting (`cat` alternative)
         wget # File downloader
@@ -116,15 +115,24 @@
           league-of-moveable-type
 
           # Icons
+          bibata-cursors
           papirus-folders
           papirus-icon-theme
         ]
       else
         [ ]);
 
-    fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+    fonts.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      inter
+      rubik
+      open-sans
+      texlivePackages.josefin
+      texlivePackages.jura
+      league-of-moveable-type
+    ];
 
-    services.xserver.enable = true; # vial needs this
+    services.xserver.enable = true;
 
     services.flatpak = {
       enable = true;
@@ -139,9 +147,10 @@
     };
 
     programs.nix-ld.enable = true;
+    programs.bash.enable = true;
     programs.nix-index.enable = true;
     programs.nix-index.enableBashIntegration = true;
-    programs.command-not-found.enable = false;
+    programs.command-not-found.enable = false; # mutually exclusive with above
 
     # # XDG Portal
     # I think my zoom flatpak needs this

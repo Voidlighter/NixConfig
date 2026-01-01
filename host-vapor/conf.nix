@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, me, ... }: {
+{ inputs, pkgs, me, ... }: {
 
   imports = [
     ./hardware.nix
@@ -14,8 +14,7 @@
     system.nixos.tags = [ "${me.hostname}-dms-niri" ];
 
     # TODO: Replace some of these with services.
-    my.apps = with pkgs; [
-      # godot_4
+    my.sys-apps = with pkgs; [
       # davinci-resolve
       # krita
       # inkscape-with-extensions
@@ -43,33 +42,37 @@
       # yabridge
       # yabridgectl
       qjackctl
-      inputs.affinity-nix.packages.x86-linux.v3
+      inputs.affinity-nix.packages.${pkgs.system}.v3
       # calf
       # tap-plugins
       # x42-plugins
       # helm
+      wvkbd
+      clickclack
     ];
 
-  jovian = {
-    steam = {
-      enable = true;
-      autoStart = true;
-      user = "cade";
-      desktopSession = "niri";
+    jovian = {
+      steam = {
+        enable = true;
+        autoStart = true;
+        user = "cade";
+        desktopSession = "niri";
+      };
+      devices.steamdeck = {
+        enable = true;
+      };
+      decky-loader = {
+        enable = true;
+        # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
+        # Or change it in the steam deck settings page
+        # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
+      };
     };
-    devices.steamdeck = {
-      enable = true;
-    };
-    decky-loader = {
-      enable = true;
-      # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
-      # Or change it in the steam deck settings page
-      # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
-    };
-  };
     programs.java.enable = true;
     services.upower.enable = true;
     services.power-profiles-daemon.enable = true;
+    services.dbus.enable = true; # For... input I think?
+    programs.dconf.enable = true; # For Wayland input methods
 
     programs.niri.enable = true;
     security.polkit.enable = true;

@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, me, ... }: {
+{ inputs, config, pkgs, my, ... }: {
 
   imports = [
     ./hardware.nix
@@ -12,7 +12,7 @@
 
   config = {
 
-    system.nixos.tags = [ "${me.hostname}-v2" ];
+    system.nixos.tags = [ "${my.hostname}-v2" ];
 
     # TODO: Replace some of these with services.
     my.apps = with pkgs; [
@@ -50,22 +50,22 @@
       # helm
     ];
 
-  jovian = {
-    steam = {
-      enable = true;
-      autoStart = false;
-      user = "cade";
-      desktopSession = "niri";
+    jovian = {
+      steam = {
+        enable = true;
+        autoStart = false;
+        user = "cade";
+        desktopSession = "niri";
+      };
+      devices.steamdeck = {
+        enable = false;
+      };
+      decky-loader = {
+        enable = true;
+        # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
+        # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
+      };
     };
-    devices.steamdeck = {
-      enable = false;
-    };
-    decky-loader = {
-      enable = true;
-      # Also run `touch ~/.steam/steam/.cef-enable-remote-debugging`
-      # see https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/docs/in-depth/decky-loader.md
-    };
-  };
     services.upower.enable = true;
     services.power-profiles-daemon.enable = true;
 
@@ -77,7 +77,7 @@
       enable = true;
       compositor.name = "niri";
       configHome =
-        "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+        "/home/${my.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
     };
   };
 }

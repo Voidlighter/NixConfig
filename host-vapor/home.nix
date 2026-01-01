@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }: 
+{ inputs, config, pkgs, me, ... }: 
 {
 
   imports = [
@@ -10,7 +10,6 @@
   ];
 
   config = {
-
     programs.dankMaterialShell = {
       enable = true;
       systemd.enable = true;              # Systemd service for auto-start
