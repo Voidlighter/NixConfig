@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, my, ... }: {
+{ inputs, config, pkgs, me, ... }: {
 
   imports = [
     ./hardware.nix
@@ -12,7 +12,7 @@
 
   config = {
 
-    system.nixos.tags = [ "${my.hostname}-v2" ];
+    system.nixos.tags = [ "${me.hostname}-v2" ];
 
     # TODO: Replace some of these with services.
     my.apps = with pkgs; [
@@ -77,7 +77,7 @@
       enable = true;
       compositor.name = "niri";
       configHome =
-        "/home/${my.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+        "/home/${me.username}"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
     };
   };
 }
