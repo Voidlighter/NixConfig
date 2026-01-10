@@ -65,9 +65,13 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-output "Valve Corporation ANX7530 U 0x00000001" {
+output "eDP-1" {
     mode "800x1280"
     scale 1.25
+}
+output "DP-1" {
+    mode "3840x2160@60"
+    scale 2.25
 }
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
