@@ -1,10 +1,4 @@
 { inputs, config, pkgs, ... }: 
-# let
-#   verticalCanvas = pkgs.callPackage ../pkgs/obs-vertical-canvas.nix {
-#     qt6Packages = pkgs.qt6Packages;
-#     obs-studio = pkgs.obs-studio; # ensure Qt6 OBS
-#   };
-# in
 {
 
   imports = [
@@ -37,9 +31,37 @@
       #   # Add any other settings here
       # };
     };
+    # TODO: Replace some of these with services.
     my.apps = with pkgs; [
       godot_4
       blender
+      davinci-resolve
+      # inkscape-with-extensions
+      # # # lmms
+      # # # ardour
+      # reaper
+      # # # cardinal
+      # # # bespokesynth-with-vst2
+      # # ## VSTS
+      # decent-sampler
+      # lsp-plugins
+      # # samplv1
+      # vital
+      # #idk
+      # # zam-plugins
+      # # x42-plugins
+      # ## Compatibility
+      # # bottles
+      # # wine
+      # # wine-staging
+      # wineWowPackages.staging
+      # winetricks
+      # yabridge
+      # yabridgectl
+      # calf
+      # tap-plugins
+      # x42-plugins
+      # helm
       # jetbrains.idea-community
       wineWow64Packages.full
       mangohud winetricks gamescope gamemode umu-launcher
@@ -76,6 +98,7 @@
       # obs-transition-table # adds transition table to tools menu?
     ];
 
+    programs.freetube.enable = true;
     programs.lutris = {
       enable = true;
       winePackages = [ pkgs.wineWow64Packages.full ];
@@ -83,19 +106,15 @@
       protonPackages = [ pkgs.proton-ge-bin ];
     };
 
-    # file = let
     xdg.configFile = let
-      dot-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dot-config";
+      global-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/config";
+      local-config = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/host-vapor/config";
     in {
-      niri.source = "${dot-config}/niri";
-      niri.force = true;
-      DankMaterialShell.source = "${dot-config}/DankMaterialShell";
-      DankMaterialShell.force = true;
-      nvim.source = "${dot-config}/nvim";
+      nvim.source = "${global-config}/nvim";
       nvim.force = true;
-      current-theme.source = "${dot-config}/current-theme";
+      current-theme.source = "${local-config}/current-theme";
       current-theme.force = true;
-      themes.source = "${dot-config}/themes";
+      themes.source = "${global-config}/themes";
       themes.force = true;
     };
   };

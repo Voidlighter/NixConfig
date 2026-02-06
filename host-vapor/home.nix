@@ -76,7 +76,7 @@
       nvim.force = true;
       current-theme.source = "${local-config}/current-theme";
       current-theme.force = true;
-      themes.source = "${local-config}/themes";
+      themes.source = "${global-config}/themes";
       themes.force = true;
     };
   };

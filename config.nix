@@ -138,9 +138,13 @@
       enable = true;
       packages = [
         "us.zoom.Zoom"
-        # "one.ablaze.floorp"
-        "io.kapsa.drive"
-        "net.pixieditor.PixiEditor"
+        "one.ablaze.floorp"
+        "org.videolan.VLC"
+        "net.davidotek.pupgui2"
+        "com.usebottles.bottles"
+        "com.github.Matoking.protontricks"
+        # "io.kapsa.drive"
+        # "net.pixieditor.PixiEditor"
       ];
       update.auto.enable = true;
       uninstallUnmanaged = false;

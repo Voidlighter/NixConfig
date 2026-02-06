@@ -65,6 +65,7 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+<<<<<<< HEAD:config/niri/config.kdl
 output "eDP-1" {
     mode "800x1280"
     scale 1.25
@@ -72,6 +73,19 @@ output "eDP-1" {
 output "DP-1" {
     mode "3840x2160@60"
     scale 2.25
+=======
+/- output "Valve Corporation ANX7530 U 0x00000001" {
+    mode "800x1280"
+    scale 1.25
+}
+output "DP-6" {
+    scale 1.25
+    position x=0 y=0
+}
+output "DP-5" {
+    scale 1.25
+    position x=2048 y=0
+>>>>>>> 0a285da (obs settings):dot-config/niri/config.kdl
 }
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
