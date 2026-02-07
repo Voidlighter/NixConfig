@@ -4,6 +4,11 @@
     inputs.noctalia.homeModules.default
   ];
 
+  # programs.bash.profileExtra = ''
+  #   if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+  #     exec uwsm start -S hyprland-uwsm.desktop
+  #   fi
+  # '';
   programs.noctalia-shell = {
     enable = true;
     settings = {

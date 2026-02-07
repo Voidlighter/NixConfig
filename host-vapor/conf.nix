@@ -4,7 +4,8 @@
     ./hardware.nix
     ../config.nix
     # ./niri.nix
-    ./hypr.nix
+    # ./hypr.nix
+    ./kde-p.nix
     inputs.musnix.nixosModules.musnix {musnix.enable = true;}
     inputs.jovian.nixosModules.default
     "${inputs.jovian}/modules"
@@ -17,9 +18,9 @@
     my.sys-apps = with pkgs; [
       qjackctl
       inputs.affinity-nix.packages.${pkgs.system}.v3
-      wvkbd
-      clickclack
-      hyprpaper
+      # wvkbd
+      # clickclack
+      # hyprpaper
     ];
 
     jovian = {
@@ -27,7 +28,8 @@
         enable = true;
         autoStart = true;
         user = "cade";
-        desktopSession = "hyprland";
+        # desktopSession = "hyprland-uwsm";
+        desktopSession = "plasma";
       };
       devices.steamdeck = {
         enable = true;
@@ -45,10 +47,27 @@
     services.dbus.enable = true; # For... input I think?
     programs.dconf.enable = true; # For Wayland input methods
 
-    security.polkit.enable = true;
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.swaylock = { };
+    # security.polkit.enable = true;
+    # services.gnome.gnome-keyring.enable = true;
+    # security.pam.services.swaylock = { };
     services.joycond.enable = true;
     programs.joycond-cemuhook.enable = true;
+
+    boot.initrd.systemd.enable = true;
+    boot.initrd.unl0kr.enable = true;
+    boot.initrd.unl0kr.settings = {
+      general.animations = true;
+      # general.backend = "drm";
+      keyboard.layout = "us";
+      keyboard.popovers = true;
+      keyboard.autohide = false;
+      keyboard.haptic_feedback = true;
+      theme = {
+        default = "pmos-dark";
+        alternate = "pmos-light";
+        # default = "breezy-dark";
+        # alternate = "breezy-light";
+      };
+    };
   };
 }

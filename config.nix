@@ -88,6 +88,7 @@
         cryptsetup # Needed by gparted for encrypted filesystems
         vscodium # Text editor (FOSS VSCode)
         protonvpn-gui # My VPN of choice
+        qbittorrent # My torrent of choice
 
         ## Browsers
         brave # Privacy-focused Chromium fork
